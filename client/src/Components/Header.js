@@ -5,7 +5,7 @@ import userprofile from "../assets/userprofile.png";
 
 function Header() {
   return (
-    <div className="p-6 px-12 flex items-center justify-between">
+    <div className="py-6 max-w-screen-2xl m-auto flex items-center justify-between">
       <a href="/">
         <div className="font-bold text-2xl">SHOP.CO</div>
       </a>
@@ -27,7 +27,7 @@ function Header() {
           type="search"
         />
       </div>
-      <div className="flex items-center gap-6">
+      <div className="flex items-center gap-4">
         <img className="cursor-pointer" src={cart} alt="cart" />
         <img className="cursor-pointer" src={userprofile} alt="userprofile" />
       </div>
