@@ -5,7 +5,7 @@ import userprofile from "../assets/userprofile.png";
 
 function Header() {
   return (
-    <div className="py-6 max-w-screen-2xl m-auto flex items-center justify-between">
+    <div className="py-6 max-w-screen-xl m-auto flex items-center justify-between">
       <a href="/">
         <div className="font-bold text-2xl">SHOP.CO</div>
       </a>
