@@ -24,7 +24,7 @@ export default function ProductDetails() {
   // const handleRatingChange = (newRating) => {
   //   setRating(newRating);
   // };
-  const changeImg = (ele,index)=> {
+  const changeImg = (ele, index) => {
     setIsSelected(index + 1)
     setBigImgToShow(ele);
   }
@@ -41,10 +41,10 @@ export default function ProductDetails() {
 
           <div className="flex gap-6">
             <div className="smImgsContainer flex flex-col gap-8">
-              {imgToShow.map((ele,index) => {
+              {imgToShow.map((ele, index) => {
                 return (
                   <img
-                    onClick={()=>changeImg(ele, index)}
+                    onClick={() => changeImg(ele, index)}
 
                     className={`productLeftImgs rounded-2xl w-36`}
                     src={ele}

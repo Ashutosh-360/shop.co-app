@@ -1,21 +1,21 @@
 import express from "express";
-import { configDotenv } from "dotenv";
-configDotenv();
-import { MongoClient, ObjectId } from "mongodb";
+import Product from "../models/productModel.js";
+import { ObjectId } from "mongodb";
+import mongoose from "mongoose";
+
 const router = express.Router();
 
-const client = new MongoClient(process.env.MONGODB);
 
 router.get("/get_product_details", async (req, res) => {
-    // res.json({ "error": "Document not found" });
     try {
+        const id = new ObjectId(req.query.product_id);
 
-        const database = client.db("Shopping");
-        const collection = database.collection("Products");
+        console.log(id);
+        const db=mongoose.db    
 
-        const productId = new ObjectId(req.query.product_id);
-        const result = await collection.findOne({ _id: productId });
+        const result = await Product.findById(id);
 
+        console.log(result)
         if (result) {
             res.json(result);
         } else {
