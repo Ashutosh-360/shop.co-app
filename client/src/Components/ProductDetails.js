@@ -56,7 +56,7 @@ export default function ProductDetails() {
   const [originalPrice, setOriginalPrice] = useState(productData.price);
   const [discountedPrice, setDiscountedPrice] = useState(productData.discounted_price);
   const [discountPercentage, setDiscountPercentage] = useState(0);
-  const changeImg = (ele, index) => {
+  const changeImg = (ele,  index)  => {
     setIsSelected(index + 1);
     setBigImgToShow(ele);
   };
@@ -90,7 +90,7 @@ export default function ProductDetails() {
 
           <div className="flex gap-6">
             <div className="smImgsContainer flex flex-col gap-8">
-              {imgToShow.map((ele, index) => {
+              {imgToShow.map((ele,  index) => {
                 console.log(ele,"ele")
             
                 
