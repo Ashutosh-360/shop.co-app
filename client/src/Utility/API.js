@@ -17,7 +17,7 @@ export function GetData(apiRoute, payload, callback) {
 }
 export function PostData(apiRoute, payload, callback) {
   try {
-    axios   
+    axios
       .post(baseUrl + apiRoute, payload, {
         headers: {
           Accept: "application/json",
