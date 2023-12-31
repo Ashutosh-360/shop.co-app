@@ -2,4 +2,8 @@
 .productRightImgs{
     width: 500px;
 }
+.discountPercentage{
+    padding: 6px 14px 6px 14px;
+    border-radius: 62px;
+}
 
