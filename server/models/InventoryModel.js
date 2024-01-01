@@ -6,7 +6,7 @@ const availableQuanitySchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
-    enum: sizesValues,
+    // enum: sizesValues,
   },
   quantity: {
     type: Number,
@@ -20,7 +20,7 @@ const inventorySchema = new mongoose.Schema(
       ref: "Product",
       required: true,
     },
-    available_quanity: {
+    available_quantity: {
       type: [availableQuanitySchema],
       required: true,
     },
@@ -28,6 +28,6 @@ const inventorySchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Inventory = mongoose.model("Inventory", reviewSchema);
+const Inventory = mongoose.model("Inventory", inventorySchema);
 
 export default Inventory;
