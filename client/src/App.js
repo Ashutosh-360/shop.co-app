@@ -3,14 +3,15 @@ import "./index.css";
 import AddProduct from "./Pages/AddProduct/AddProduct";
 import AddReview from "./Pages/AddReview/AddReview";
 import UpdateInventory from "./Pages/UpdateInventory/UpdateInventory";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./Pages/Login/Login";
 function App() {
   return (
-    <>
-      {/* <Homepage /> */}
-      {/* <AddProduct /> */}
-      {/* <AddReview /> */}
-      <UpdateInventory/>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
