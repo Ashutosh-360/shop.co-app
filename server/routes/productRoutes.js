@@ -5,12 +5,28 @@ import mongoose from "mongoose";
 import ProductTest from "../models/TestSchema.js";
 import Review from "../models/ReviewModel.js";
 import successHandler from "../utility/successHandler.js";
+import Inventory from "../models/InventoryModel.js";
 
 const router = express.Router();
 
 router.post("/add_review", async (req, res) => {
   try {
     let result = new Review(req.body);
+    await result.save();
+
+    if (result) {
+      res.json(result);
+    } else {
+      res.status(404).json({ error: "Document not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+router.post("/update_inventory", async (req, res) => {
+  try {
+    let result = new Inventory(req.body);
     await result.save();
 
     if (result) {
@@ -55,9 +71,12 @@ router.get("/get_product_details", async (req, res) => {
     });
 
     const reviews = await Review.find({ product_id: id });
+    const inventories = await Inventory.find({ product_id: id });
+
     let apiData = {
       ...resultObject,
       reviews: [...reviews],
+      available_quantity:inventories[0].available_quantity,
     };
     // apiData.insert(result);
     if (result) {
