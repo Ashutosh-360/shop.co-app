@@ -6,10 +6,12 @@ import UpdateInventory from "./Pages/UpdateInventory/UpdateInventory";
 function App() {
   return (
     <>
-      {/* <Homepage /> */}
+      <Homepage />
       {/* <AddProduct /> */}
       {/* <AddReview /> */}
+
       <UpdateInventory/>
+
     </>
   );
 }
