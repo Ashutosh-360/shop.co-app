@@ -5,9 +5,9 @@ import AddReview from "./Pages/AddReview/AddReview";
 function App() {
   return (
     <>
-      {/* <Homepage /> */}
+      <Homepage />
       {/* <AddProduct /> */}
-      <AddReview />
+      {/* <AddReview /> */}
     </>
   );
 }
