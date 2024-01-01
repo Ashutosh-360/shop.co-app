@@ -2,6 +2,7 @@ import { configDotenv } from "dotenv";
 import express from "express";
 import { connectDB } from "./config/connectDB.js";
 import productRoutes from "./routes/productRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 import cors from "cors";
 
 configDotenv();
@@ -16,3 +17,4 @@ app.listen(8000, () => {
 });
 
 app.use("/", productRoutes);
+app.use("/", userRoutes);
