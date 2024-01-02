@@ -11,7 +11,7 @@ import substract from "../assets/substract.png"
 import Counter from "./Counter/Counter";
 
 export default function ProductDetails() {
-  const [selectedImg, setSelectedImg] = useState();
+  // const [selectedImg, setSelectedImg] = useState();
   const [bigImgToShow, setBigImgToShow] = useState();
   const [isSelected, setIsSelected] = useState(1);
   const [productDetails, setProductDetails] = useState({});
@@ -33,14 +33,14 @@ export default function ProductDetails() {
   };
   useEffect(() => {
     
-    GetData("get_product_details?product_id=6590520bcb1a75b5882b3a89",{},handle)
+    GetData("get_product_details",{product_id:"6590520bcb1a75b5882b3a89"},handleOtherStates)
   }, []);
 
-  const handle = (res) => {
+  const handleOtherStates = (res) => {
     setProductDetails(res.data.results);
     setImgToShow([...res.data.results.images])
     setBigImgToShow(res.data.results.front_image)
-    setSelectedImg(res.data.results.front_image)
+    // setSelectedImg(res.data.results.front_image)
     setOriginalPrice(res.data.results.price)
     setDiscountedPrice(res.data.results.discounted_price)
     setColor(res.data.results.variant.color)

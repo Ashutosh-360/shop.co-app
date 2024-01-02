@@ -16,11 +16,7 @@ function Header() {
         <div>Brands</div>
       </div>
       <div className="w-full max-w-screen-sm flex relative">
-        <img
-          className="absolute left-3 top-2/4 -translate-y-1/2"
-          src={search}
-          alt="search"
-        />
+        <img className="absolute left-3 top-2/4 -translate-y-1/2" src={search} alt="search" />
         <input
           className="w-full text-sm outline-none bg-gray-100 p-4 py-3 rounded-full px-10"
           placeholder="Search for products..."

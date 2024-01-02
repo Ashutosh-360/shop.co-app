@@ -3,7 +3,8 @@ let baseUrl = "http://localhost:8000/";
 
 export function GetData(apiRoute, payload, callback) {
   axios
-    .get(baseUrl + apiRoute, payload, {
+    .get(baseUrl + apiRoute, {
+      params: payload,
       headers: {
         "Content-Type": "application/json",
       },
