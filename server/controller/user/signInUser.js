@@ -3,9 +3,9 @@ import errorHandler from "../../utility/errorHandler.js";
 import successHandler from "../../utility/successHandler.js";
 import bcrypt from "bcrypt";
 import { isEmail, isEmpty } from "../../utility/Validation.js";
-const registerUser = async (req, res) => {
+const signInUser = async (req, res) => {
   try {
-    let { email, password } = req.body;
+    let { email, password } = req.query;
 
     //check for validation
     if (isEmpty(email) || !isEmail(email)) {
@@ -14,22 +14,24 @@ const registerUser = async (req, res) => {
     if (isEmpty(password)) {
       errorHandler(res, "Password is Required");
     }
-    let salt = await bcrypt.genSalt(10);
-    let hashedPassword = await bcrypt.hash(password, salt);
+    const user = await User.findOne({ email });
 
-    let userDetails = { email, password: hashedPassword };
-    const user = new User(userDetails);
+    if (isEmpty(user)) {
+      errorHandler(res, "User not found");
+    }
 
-    await user.save();
+    let isPasswordValid = bcrypt.compare(password, user?.password);
 
-    if (user) {
-      successHandler(res, "User registered successfully", user);
-    } else {
-      errorHandler(res, "Please try again later");
+    if (!isPasswordValid) {
+      errorHandler(res, "Incorrect Password");
+    }
+
+    if (isPasswordValid) {
+      successHandler(res, "User logged in", user);
     }
   } catch (error) {
     errorHandler(res, error || "Something went wrong");
   }
 };
 
-export default registerUser;
+export default signInUser;
