@@ -1,8 +1,4 @@
 import React, { useEffect, useState } from "react";
-import tshirt from "../assets/tshirts.png";
-import tshirtback from "../assets/tshirtback.png";
-import tshirtfront from "../assets/tshirtfront.png";
-import tshirtmen from "../assets/tshirtmen.png";
 import arrow from "../assets/arrow.png";
 import Star from "../assets/Star.png";
 import halfstar from "../assets/halfstar.png";
@@ -15,13 +11,15 @@ import substract from "../assets/substract.png"
 import Counter from "./Counter/Counter";
 
 export default function ProductDetails() {
-  const [selectedImg, setSelectedImg] = useState({ tshirtfront });
-  const [bigImgToShow, setBigImgToShow] = useState(tshirtfront);
+  // const [selectedImg, setSelectedImg] = useState();
+  const [bigImgToShow, setBigImgToShow] = useState();
   const [isSelected, setIsSelected] = useState(1);
   const [productDetails, setProductDetails] = useState({});
   const [imgToShow, setImgToShow] = useState([]);
   const [rating, setRating] = useState(0);
   const [color,setColor] = useState()
+  const [size,setSize] =useState([]);
+  const [isSelectedSize,setIsSelectedSize] = useState()
   const handleRatingChange = (newRating) => {
     setRating(newRating);
   };
@@ -35,15 +33,18 @@ export default function ProductDetails() {
   };
   useEffect(() => {
     
-    GetData("get_product_details?product_id=6590520bcb1a75b5882b3a89",{},handle)
+    GetData("get_product_details",{product_id:"6590520bcb1a75b5882b3a89"},handleOtherStates)
   }, []);
 
-  const handle = (res) => {
+  const handleOtherStates = (res) => {
     setProductDetails(res.data.results);
-    setImgToShow([res.data.results.images])
+    setImgToShow([...res.data.results.images])
+    setBigImgToShow(res.data.results.front_image)
+    // setSelectedImg(res.data.results.front_image)
     setOriginalPrice(res.data.results.price)
     setDiscountedPrice(res.data.results.discounted_price)
     setColor(res.data.results.variant.color)
+    setSize([...res.data.results.available_quantity])
   };
   useEffect(() => {
     calculateDiscountPercentage();
@@ -53,6 +54,13 @@ export default function ProductDetails() {
     const percentage = ((originalPrice - discountedPrice) / originalPrice) * 100;
     setDiscountPercentage(percentage);
   };
+
+  const selectedSize =(ele)=>{
+    setIsSelectedSize(ele.size)
+    
+  }
+  
+ 
   return (
     <>
       <div className="productDetailsWrapper flex gap-4 w-full max-w-screen-xl m-auto ">
@@ -63,30 +71,27 @@ export default function ProductDetails() {
             <img className="w-2 h-fit" src={arrow} /> T-shirts{" "}
           </div>
 
-          <div className="flex gap-6">
-            <div className="smImgsContainer flex flex-col gap-8">
-              {imgToShow.map((ele,  index) => {
-                console.log(ele,"ele")
-            
-                
+          <div className="flex gap-4">
+            <div className="smImgsContainer flex flex-col gap-2 w-40">
+              {imgToShow.slice(0,3).map((ele,  index) => {
                 return (
                   <img
                     onClick={() => changeImg(ele, index)}
-                    className={`productLeftImgs rounded-2xl w-36`}
+                    className={`productLeftImgs rounded-2xl `}
                     src={ele}
                   />
-                );
-          
+               
+                  )
               })}
             </div>
-            <div>
-              <img className="productRightImgs rounded-xl" src={productDetails.front_image} />
+            <div className="productRightImgs">
+              <img className=" rounded-xl" src={bigImgToShow} />
             </div>
           </div>
         </div>
-        <div className="detailsRIghtContainer ml-4 flex flex-col gap-4">
+        <div className="detailsRIghtContainer w-1/2 ml-4 flex flex-col gap-6">
           <div className="productNameContainer text-4xl font-extrabold  pt-20 ">
-            {productDetails.name}
+            {(productDetails.name)?.toUpperCase()}
           </div>
           <div className="product-card flex gap-4">
             <StarRating rating={productDetails.rating} />
@@ -107,12 +112,20 @@ export default function ProductDetails() {
           <hr></hr>
           <div className="sizeContainer flex flex-col gap-4">
             <div className="text-gray-500">Choose Size</div>
-            <span className="bg-gray-200 px-5 py-2 w-fit rounded-3xl text-gray-500 text-sm">Small</span>
+            <div className="flex gap-4">
+            {size?.map((ele)=>{
+             
+           return <span onClick={()=>selectedSize(ele)} className={`${ele.quantity>0?"":"disableSize"} ${isSelectedSize == ele.size?"newSize":""} selectedSize px-5 cursor-pointer  py-2 w-fit rounded-3xl text-s`}>{ele.size}</span>
+
+            })
+
+            }
+            </div>
           </div>
           <hr />
           <div className="quantityCounterAddToCartBtn flex gap-2 items-center">
             <div className="quantityCounter bg-gray-200 rounded-3xl px-5 py-2 w-fit">
-            <Counter plus={plus} substract={substract}/></div>
+            <Counter plus={plus} substract={substract} quantity={size} isSelectedSize={isSelectedSize}/></div>
             <div className="addToCartBtn"><button className="bg-gray-900 px-24 py-2 rounded-3xl text-white">Add To Cart</button></div>
           </div>
         </div>
