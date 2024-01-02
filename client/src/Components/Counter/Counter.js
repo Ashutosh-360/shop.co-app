@@ -21,7 +21,8 @@ const Counter = ({ plus, substract, quantity, isSelectedSize }) => {
   };
 
   return (
-    <div className="flex gap-6">
+
+      <div className="flex gap-6">
       <button onClick={decrement}>
         <img src={substract} />
       </button>
@@ -30,6 +31,9 @@ const Counter = ({ plus, substract, quantity, isSelectedSize }) => {
         <img src={plus} />
       </button>
     </div>
+    
+    
+  
   );
 };
 
