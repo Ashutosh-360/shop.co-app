@@ -5,6 +5,7 @@ import signInUser from "../controller/user/signInUser.js";
 const router = express.Router();
 
 router.post("/register", registerUser);
+
 router.get("/sign_in", signInUser);
 
 export default router;
