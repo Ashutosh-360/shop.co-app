@@ -7,22 +7,39 @@ const addToWishlistController = async (req, res) => {
   try {
     const { user_id, product_id, wish_status } = req?.body;
 
-    const wishlistedProducts = await Wishlist.find({ user_id: user_id });
+    const existingWishlist = await Wishlist.findOne({ user_id: user_id });
 
-    const wishlistProduct = new Wishlist({
-      user_id: user_id,
-      products: [...wishlistedProducts, product_id],
-    });
-
-    // console.log(wishlistProduct, "wishlistProduct");
-
-    await wishlistProduct.save();
-
-    if (!isEmpty(wishlistProduct)) {
-      successHandler(res, "Product wishlisted successfully", wishlistProduct);
+    if (!isEmpty(existingWishlist)) {
+      const updatedWishlist = await Wishlist.findOneAndUpdate(
+        { user_id },
+        { $addToSet: { products: product_id } }, // Using $addToSet to avoid duplicate products
+        { new: true }
+      );
+      successHandler(res, "Product wishlisted successfully", updatedWishlist);
     } else {
-      errorHandler(res, "Not able to process right now");
+      const wishlistProduct = new Wishlist({
+        user_id: user_id,
+        products: [product_id],
+      });
+
+      await wishlistProduct.save();
+      successHandler(res, "Product wishlisted successfully", wishlistProduct);
     }
+
+    // if (wishlistedProducts.products.includes(product_id)) {
+    //   errorHandler(res, "Product already exist");
+    // }
+    // const wishlistProduct = new Wishlist({
+    //   user_id: user_id,
+    //   products: [...wishlistedProducts?.products, product_id],
+    // });
+
+    // await wishlistProduct.updateOne();
+
+    // if (!isEmpty(wishlistProduct)) {
+    // } else {
+    //   errorHandler(res, "Not able to process right now");
+    // }
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
   }
