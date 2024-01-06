@@ -2,6 +2,7 @@ import User from "../../models/User.js";
 import errorHandler from "../../utility/errorHandler.js";
 import successHandler from "../../utility/successHandler.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import { isEmail, isEmpty } from "../../utility/Validation.js";
 const signInUser = async (req, res) => {
   try {
@@ -26,9 +27,15 @@ const signInUser = async (req, res) => {
       errorHandler(res, "Incorrect Password");
     }
 
-    if (isPasswordValid) {
-      successHandler(res, "User logged in", user);
-    }
+    const { password: pass, ...rest } = user?._doc;
+
+    const authentication_token = jwt.sign(
+      { userId: user._id, username: user?.email },
+      process?.env?.JWT_KEY
+    );
+    user.authentication_token = authentication_token;
+    user.save();
+    successHandler(res, "User logged in", { ...rest, authentication_token });
   } catch (error) {
     errorHandler(res, error || "Something went wrong");
   }
