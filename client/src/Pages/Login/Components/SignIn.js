@@ -1,21 +1,27 @@
 import React, { useState } from "react";
+import { Navigate, useNavigate } from "react-router";
 import { GetData } from "../../../Utility/API";
 
-function SignIn() {
+function SignIn({ setIsSignUp }) {
   const [userCredentials, setUserCredentials] = useState({
     email: "",
     password: "",
   });
-
+  const navigate = useNavigate();
   const signInHandler = () => {
     GetData("sign_in", userCredentials, updateSignInHandler);
   };
 
   const updateSignInHandler = (res) => {
-    console.log(res);
+    if (res?.data?.success) {
+      navigate("/");
+    }
   };
   const inputChangeHandler = (e) => {
     setUserCredentials({ ...userCredentials, [e.target.name]: e.target.value });
+  };
+  const showSignUp = () => {
+    setIsSignUp(true);
   };
   return (
     <div className="flex flex-col justify-center min-h-screen gap-4 w-full p-12">
@@ -64,7 +70,10 @@ function SignIn() {
         </button>
       </div>
       <div className="text-faint_text">
-        Don’t have an account? <span className="text-primary">Sign up for free!</span>
+        Don’t have an account?{" "}
+        <span className="text-primary cursor-pointer" onClick={showSignUp}>
+          Sign up for free!
+        </span>
       </div>
     </div>
   );
