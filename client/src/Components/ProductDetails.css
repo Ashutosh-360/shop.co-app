@@ -19,4 +19,7 @@
     background-color: black;
     color: white;
 }
-
+.detailsTabsSelected,.detailsTabsSelected:hover,.detailsTabsName{
+    color: teal;
+    cursor: pointer;
+}
