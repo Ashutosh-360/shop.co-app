@@ -1,5 +1,6 @@
 import axios from "axios";
-let baseUrl = "http://localhost:8000/";
+// let baseUrl = "http://localhost:8000/";
+let baseUrl = "https://shopping-website-12o1.onrender.com/";
 
 export function GetData(apiRoute, payload, callback) {
   axios
