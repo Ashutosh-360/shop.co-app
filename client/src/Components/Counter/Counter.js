@@ -1,19 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Counter = ({ plus, substract, quantity, isSelectedSize }) => {
   const [count, setCount] = useState(0);
 
+  useEffect(() => {
+    setCount(0);
+  }, [isSelectedSize]);
+
   const increment = () => {
-    quantity?.map((ele) => {
-      if (isSelectedSize == ele.size) {
-        console.log(ele.quantity);
-        if (count > ele.quantity) {
-          return alert("exceeded");
+    if (!!isSelectedSize) {
+      quantity?.map((ele) => {
+        if (isSelectedSize == ele.size) {
+          console.log(ele.quantity);
+          if (count < ele.quantity) setCount(count + 1);
+          else {
+            alert("exceeded");
+          }
         }
-      }
-    });
-    
-    setCount(count + 1);
+      });
+    } else {
+      alert("Please select your size.");
+    }
   };
 
   const decrement = () => {
@@ -21,8 +28,7 @@ const Counter = ({ plus, substract, quantity, isSelectedSize }) => {
   };
 
   return (
-
-      <div className="flex gap-6">
+    <div className="flex gap-6">
       <button onClick={decrement}>
         <img src={substract} />
       </button>
@@ -31,9 +37,6 @@ const Counter = ({ plus, substract, quantity, isSelectedSize }) => {
         <img src={plus} />
       </button>
     </div>
-    
-    
-  
   );
 };
 
