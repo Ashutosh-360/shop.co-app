@@ -100,30 +100,28 @@ function AddProduct() {
   ]);
 
   let data = {
-    name: "Striped Polo Shirt",
+    name: "HERE&NOW",
     gender: "Men",
     currency: "₹",
     currency_code: "INR",
-    price: 1899.25,
-    discounted_price: 1499.25,
-    rating: 4.4,
-    product_description: "A classic striped polo shirt for a casual and sporty look.",
+    price: 1899,
+    discounted_price: 699,
+    rating: 4.5,
+    product_description: "Men Slim Fit Printed Casual Shirt",
     front_image:
-      "https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/11447174/2020/10/6/3fe0f61b-4aa3-4cbd-8575-677a1219d2571601958151537TrackPantsUSPoloAssnDenimCoMenJeansUSPoloAssnDenimCoMenShirt6.jpg",
-    category: "Shirt",
+      "https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/23370048/2023/5/24/b6dddc4d-e79c-41aa-a140-c542534b74c51684909962289BewakoofMenBlackTypographyPrintedHoodedAppliqueT-shirt5.jpg",
+    category: "Casu",
     images: [
-      "https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/11447174/2020/10/6/04dc9529-ec0a-4fec-b91a-56729eb569f01601958151397TrackPantsUSPoloAssnDenimCoMenJeansUSPoloAssnDenimCoMenShirt4.jpg",
-      "https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/11447174/2020/10/6/239ec464-6133-4c81-8e5e-bc617f1f484e1601958151315TrackPantsUSPoloAssnDenimCoMenJeansUSPoloAssnDenimCoMenShirt3.jpg",
-      "https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/11447174/2020/10/6/319a7ae5-967b-4fbf-aba4-94313be053711601958151236TrackPantsUSPoloAssnDenimCoMenJeansUSPoloAssnDenimCoMenShirt2.jpg",
-      "https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/11447174/2020/10/6/09143263-d17c-453d-8eeb-6b54619a30261601958151153TrackPantsUSPoloAssnDenimCoMenJeansUSPoloAssnDenimCoMenShirt1.jpg",
+      "https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/23370048/2023/5/24/d9ca52e1-17cc-409f-9029-b767f81d762d1684909962279BewakoofMenBlackTypographyPrintedHoodedAppliqueT-shirt3.jpg",
+      "https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/23370048/2023/5/24/88f34f9e-562e-4d72-92c9-64237d8c032c1684909962329BewakoofMenBlackTypographyPrintedHoodedAppliqueT-shirt1.jpg",
     ],
     product_details: {
-      material: "Cotton",
-      brand: "FashionCo",
+      material: "Knitted cotton fabric",
+      brand: "Bewakoof",
       care_instructions:
         "Machine wash cold, gentle cycle. Do not bleach. Tumble dry low. Iron on low heat.",
     },
-    variant: { color: "Blue", hex: "#0000FF" },
+    variant: { color: "Black", hex: "##000000" },
   };
 
   const [payload, setPayload] = useState({});
@@ -138,7 +136,7 @@ function AddProduct() {
       <div className="flex flex-col gap-2 w-full m-auto max-w-screen-xl">
         <div className="font-semibold text-xl">Add Product</div>
         <div className="grid grid-cols-2 gap-4">
-          <FormParser data={productSchema} parserPayload={payload} setParserPayload={setPayload} />
+          {/* <FormParser data={productSchema} parserPayload={payload} setParserPayload={setPayload} /> */}
         </div>
         <div className="w-full flex justify-center">
           <button

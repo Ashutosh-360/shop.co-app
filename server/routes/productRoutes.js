@@ -1,9 +1,11 @@
 import express from "express";
-import Product from "../models/productModel.js";
 import Review from "../models/ReviewModel.js";
-import successHandler from "../utility/successHandler.js";
 import Inventory from "../models/InventoryModel.js";
 import getProductController from "../controller/product/getProductController.js";
+import getProductRecommendation from "../controller/product/getProductRecommendation.js";
+import addProductController from "../controller/product/addProductController.js";
+import addToWishlistController from "../controller/product/addToWishlistController.js";
+import newArrivalsController from "../controller/product/newArrivalsController.js";
 
 const router = express.Router();
 
@@ -37,21 +39,11 @@ router.post("/update_inventory", async (req, res) => {
   }
 });
 
-router.post("/add_product", async (req, res) => {
-  try {
-    let result = new Product(req.body);
-    await result.save();
-
-    if (result) {
-      res.json(result);
-    } else {
-      res.status(404).json({ error: "Document not found" });
-    }
-  } catch (error) {
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-});
-
+router.post("/add_product", addProductController);
 router.get("/get_product_details", getProductController);
+router.get("/product_recommendation", getProductRecommendation);
+router.post("/update_wishlist", addToWishlistController);
+router.get("/new_arrivals", newArrivalsController);
+
 
 export default router;
