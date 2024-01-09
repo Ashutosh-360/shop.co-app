@@ -5,6 +5,7 @@ import getProductController from "../controller/product/getProductController.js"
 import getProductRecommendation from "../controller/product/getProductRecommendation.js";
 import addProductController from "../controller/product/addProductController.js";
 import addToWishlistController from "../controller/product/addToWishlistController.js";
+import newArrivalsController from "../controller/product/newArrivalsController.js";
 
 const router = express.Router();
 
@@ -42,5 +43,7 @@ router.post("/add_product", addProductController);
 router.get("/get_product_details", getProductController);
 router.get("/product_recommendation", getProductRecommendation);
 router.post("/update_wishlist", addToWishlistController);
+router.get("/new_arrivals", newArrivalsController);
+
 
 export default router;
