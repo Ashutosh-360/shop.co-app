@@ -48,7 +48,17 @@ export default function ProductDetails() {
       { product_id: "6590520bcb1a75b5882b3a89" },
       handleOtherStates
     );
+
+    GetData(
+      "product_recommendation",
+      { product_id: "6590520bcb1a75b5882b3a89" },
+      handle
+    );
+
   }, []);
+  const handle=()=>{
+    
+  }
 
   const handleOtherStates = (res) => {
     setProductDetails(res.data.results);
