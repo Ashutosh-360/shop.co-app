@@ -11,6 +11,7 @@ const getProductRecommendation = async (req, res) => {
 
     if (isEmpty(id)) {
       errorHandler(res, "Please provide Product Id");
+     
     }
     const product = await Product.findById(id);
     const category = product?.category;
@@ -20,6 +21,7 @@ const getProductRecommendation = async (req, res) => {
     // result = result.sort(() => Math.random() - 0.5);
     if (!isEmpty(result)) {
       successHandler(res, "Product fetched successfully", result);
+   
     } else {
       errorHandler(res, "No data found");
     }
