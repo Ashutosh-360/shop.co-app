@@ -1,7 +1,7 @@
 import React from 'react';
 
 const StarRating = ({ rating }) => {
-  const maxStars = 5;
+  const maxStars = rating;
 
   const roundedRating = Math.round(rating * 2) / 2;
 

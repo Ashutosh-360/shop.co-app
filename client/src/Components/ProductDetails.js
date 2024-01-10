@@ -9,6 +9,8 @@ import { GetData } from "../Utility/API";
 import plus from "../assets/plus.png";
 import substract from "../assets/substract.png";
 import Counter from "./Counter/Counter";
+import verified from "../assets/verified.png"
+import Recommendations from "./Recommendation/Recommendation";
 
 export default function ProductDetails() {
   const [selectedTab, setSelectedTab] = useState(1);
@@ -22,6 +24,8 @@ export default function ProductDetails() {
   const [color, setColor] = useState();
   const [size, setSize] = useState([]);
   const [isSelectedSize, setIsSelectedSize] = useState();
+  const [formattedDate, setFormattedDate] = useState("");
+
   const [detailsAndReviewsTabs, setDetailsAndReviewsTabs] = useState([
     "Product Details",
     "Reviews",
@@ -54,6 +58,7 @@ export default function ProductDetails() {
     setDiscountedPrice(res.data.results.discounted_price);
     setColor(res.data.results.variant.color);
     setSize([...res.data.results.available_quantity]);
+    console.log(productDetails._id,"iddddddddddddddddddddd")
   };
   useEffect(() => {
     calculateDiscountPercentage();
@@ -68,9 +73,41 @@ export default function ProductDetails() {
   const selectedSize = (ele) => {
     setIsSelectedSize(ele.size);
   };
+  var timestamp;
   const toggleDetailsAndReviewsTabs = (element) => {
     setDefaultSelectedTab(element);
+ 
   };
+
+  useEffect(() => {
+    productDetails?.reviews?.map((elem) => {
+      timestamp = elem.updatedAt;
+    });
+    const date = new Date(timestamp);
+
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+
+    const month = months[date.getUTCMonth()];
+    const day = date.getUTCDate();
+    const year = date.getUTCFullYear();
+
+    const formattedDateResult = `${month} ${day}, ${year}`;
+
+    setFormattedDate(formattedDateResult);
+  }, [timestamp]);
 
   return (
     <>
@@ -174,8 +211,8 @@ export default function ProductDetails() {
             </div>
           </div>
         </div>
-        <div className="detailsAndReviewsContainer">
-          <div className="flex justify-around gap-4">
+        <div className="detailsAndReviewsContainer pb-2">
+          <div className="flex justify-between max-w-screen-xl m-auto">
             {detailsAndReviewsTabs.map((ele, index) => {
               return (
                 <div
@@ -192,23 +229,53 @@ export default function ProductDetails() {
               );
             })}
           </div>
-          <div className="flex flex-col">
+          <div className="detailsWrapper pt-3 max-w-screen-xl m-auto flex flex-col gap-4">
             {defaultselectedTab == "Product Details" && (
               <>
-                <span>Brand: {productDetails.product_details?.brand}</span>
-                <span>
-                  Care Instructions:{" "}
-                  {productDetails?.product_details?.care_instructions}
-                </span>
-                <span>
-                  Material: {productDetails?.product_details?.material}
-                </span>
+                <div className="flex flex-col gap-2">
+                  <span className="font-semibold ">Brand: </span>
+                  <span>{productDetails.product_details?.brand}</span>
+                </div>
+                <div className="flex flex-col gap-2">
+                  <span className="font-semibold">Care Instructions: </span>
+                  <span className="w-96">
+                    {productDetails?.product_details?.care_instructions}
+                  </span>
+                </div>
+                <div className="flex flex-col gap-2">
+                  <span className="font-semibold">Material: </span>
+                  <span>{productDetails?.product_details?.material}</span>
+                </div>
+              </>
+            )}
+
+       
+            {defaultselectedTab == "Reviews" && (
+              <>
+                <span>All Reviews</span>
+                <div className="reviewsWrapper grid grid-cols-2 gap-6">
+                {productDetails?.reviews?.map((elem) => {
+                  return (
+                    <div className="reviewCard border rounded-lg flex flex-col gap-2 p-4">
+                      <span className="reviewRating">
+                        <StarRating rating={elem.rating} />
+                      </span>
+                      
+                      <span className="font-semibold flex gap-2 items-center">{elem.reviewerName}<img src={verified}/></span>
+                      <span className="">{elem.comment}</span>
+                      <span>Posted on {formattedDate}</span>
+                    </div>
+                  );
+                })}
+                </div>
               </>
             )}
           </div>
         </div>
         <hr />
       </div>
+      <div className="font-extrabold text-xl">YOU MIGHT ALSO LIKE</div>
+      <div>{productDetails && <Recommendations productId={productDetails._id}/>}</div>
     </>
   );
 }
