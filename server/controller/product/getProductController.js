@@ -1,14 +1,18 @@
 import Inventory from "../../models/InventoryModel.js";
 import Product from "../../models/productModel.js";
 import Review from "../../models/ReviewModel.js";
+import errorHandler from "../../utility/errorHandler.js";
 import successHandler from "../../utility/successHandler.js";
+import { isEmpty } from "../../utility/Validation.js";
 
 const getProductController = async (req, res) => {
   try {
     const id = req.query.product_id;
-
+    if (isEmpty(id)) {
+      errorHandler(res, "Product Id not found");
+    }
     const result = await Product.findById(id);
-    // result = JSON.parse(JSON.stringify(result));
+
     const resultObject = result.toObject({
       getters: true,
       virtuals: true,
