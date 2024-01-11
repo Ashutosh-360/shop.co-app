@@ -14,9 +14,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
 
-app.listen(8000, () => {
-  console.log("first");
-});
+app.listen(8000, () => {});
 
 app.use("/", productRoutes);
 app.use("/", userRoutes);
