@@ -1,4 +1,4 @@
-import "./index.css";
+  import "./index.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./Pages/Login/Login";
 import AddWishlist from "./Pages/AddWishlist/AddWishlist";

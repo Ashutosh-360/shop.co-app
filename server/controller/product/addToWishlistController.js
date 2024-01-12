@@ -1,14 +1,20 @@
+import User from "../../models/User.js";
 import Wishlist from "../../models/Wishlist.js";
 import errorHandler from "../../utility/errorHandler.js";
+import getUser from "../../utility/getUser.js";
 import successHandler from "../../utility/successHandler.js";
 import { isEmpty } from "../../utility/Validation.js";
 
 const addToWishlistController = async (req, res) => {
   try {
-    const { user_id, product_id, wishlist_status } = req?.body;
+    const { product_id, wishlist_status } = req?.body;
 
-    if (isEmpty(user_id)) {
+    const user = await getUser(req);
+    const user_id = user._id;
+
+    if (!user_id) {
       errorHandler(res, "Please share user id");
+      return;
     }
 
     const existingWishlist = await Wishlist.findOne({ user_id: user_id });
