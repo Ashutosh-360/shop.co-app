@@ -100,28 +100,31 @@ function AddProduct() {
   ]);
 
   let data = {
-    name: "HERE&NOW",
+    name: "Moda Rapido",
     gender: "Men",
     currency: "₹",
     currency_code: "INR",
-    price: 1899,
-    discounted_price: 699,
-    rating: 4.5,
-    product_description: "Men Slim Fit Printed Casual Shirt",
+    price: 2499,
+    discounted_price: 999,
+    rating: 4.9,
+    product_description: "Men Pure Cotton Spread Collar Elasticated Hem Casual Shirtt",
     front_image:
-      "https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/23370048/2023/5/24/b6dddc4d-e79c-41aa-a140-c542534b74c51684909962289BewakoofMenBlackTypographyPrintedHoodedAppliqueT-shirt5.jpg",
-    category: "Casu",
+      "https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/21249956/2023/4/3/23ef434b-ff3d-4daa-a712-91f3af504dbe1680506279577-Moda-Rapido-Men-Shirts-4271680506278960-1.jpg",
+    category: "Shirt",
     images: [
-      "https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/23370048/2023/5/24/d9ca52e1-17cc-409f-9029-b767f81d762d1684909962279BewakoofMenBlackTypographyPrintedHoodedAppliqueT-shirt3.jpg",
-      "https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/23370048/2023/5/24/88f34f9e-562e-4d72-92c9-64237d8c032c1684909962329BewakoofMenBlackTypographyPrintedHoodedAppliqueT-shirt1.jpg",
+      "https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/21249956/2023/4/3/7fa2d983-80d1-4fdb-ab86-0d1c14381f611680506279566-Moda-Rapido-Men-Shirts-4271680506278960-2.jpg",
+      "https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/21249956/2023/4/3/5dd79960-f482-4694-8c53-6e4bbf55e9d81680506279529-Moda-Rapido-Men-Shirts-4271680506278960-5.jpg",
+      "https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/21249956/2023/4/3/9704765e-e807-4b88-80dc-f3e89a1f06471680506279501-Moda-Rapido-Men-Shirts-4271680506278960-6.jpg",
     ],
     product_details: {
-      material: "Knitted cotton fabric",
-      brand: "Bewakoof",
+      details:
+        "Green solid opaque casual shirt, has a spread collar, button placket, 2 flap pocket, long regular sleeves with elasticated cuff, straight elasticated hem",
+      material: "100% Cotton",
+      brand: "Moda Rapido",
       care_instructions:
         "Machine wash cold, gentle cycle. Do not bleach. Tumble dry low. Iron on low heat.",
     },
-    variant: { color: "Black", hex: "##000000" },
+    variant: { color: "Green", hex: "#1f4647" },
   };
 
   const [payload, setPayload] = useState({});

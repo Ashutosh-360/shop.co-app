@@ -9,12 +9,14 @@ const addProductController = async (req, res) => {
 
     if (result) {
       successHandler(res, "Product added successfully", result);
-      res.json(result);
+      return;
     } else {
       errorHandler(res, "Not able to add product right now");
+      return;
     }
   } catch (error) {
-    res.status(500).json({ error: "Internal Server Error" });
+    errorHandler(res, "Please try again later");
+    return;
   }
 };
 

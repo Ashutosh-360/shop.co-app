@@ -7,8 +7,8 @@ function Add() {
   return (
     <div>
       <AddProduct />
-      <AddReview />
-      <UpdateInventory />
+      {/* <AddReview />
+      <UpdateInventory /> */}
     </div>
   );
 }
