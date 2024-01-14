@@ -7,6 +7,7 @@ import newArrivalsController from "../controller/product/newArrivalsController.j
 import updateInventoryController from "../controller/product/updateInventoryController.js";
 import addReviewController from "../controller/product/addReviewController.js";
 import getReviewsController from "../controller/product/getReviewsController.js";
+import addToCartController from "../controller/product/addToCartController.js";
 
 const router = express.Router();
 
@@ -21,5 +22,6 @@ router.post("/add_review", addReviewController);
 router.post("/update_inventory", updateInventoryController);
 router.post("/add_product", addProductController);
 router.post("/update_wishlist", addToWishlistController);
+router.post("/add_to_cart", addToCartController);
 
 export default router;

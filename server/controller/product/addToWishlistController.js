@@ -5,7 +5,7 @@ import getUser from "../../utility/getUser.js";
 import successHandler from "../../utility/successHandler.js";
 import { isEmpty } from "../../utility/Validation.js";
 
-const addToWishlistController = async (req, res) => {
+const addToWishlistController = async (req, res, quantity) => {
   try {
     const { product_id, wishlist_status } = req?.body;
 
@@ -34,6 +34,7 @@ const addToWishlistController = async (req, res) => {
         `Product ${wishlist_status ? "wishlisted" : "unwishlisted"} successfully`,
         updatedWishlist
       );
+      return;
     } else {
       const wishlistProduct = new Wishlist({
         user_id: user_id,
@@ -42,9 +43,11 @@ const addToWishlistController = async (req, res) => {
 
       await wishlistProduct.save();
       successHandler(res, "Product wishlisted successfully", wishlistProduct);
+      return;
     }
   } catch (error) {
-    res.status(500).json({ error: "Internal Server Error" });
+    errorHandler(res, "Something went wrong");
+    return;
   }
 };
 

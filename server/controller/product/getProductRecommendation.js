@@ -11,22 +11,31 @@ const getProductRecommendation = async (req, res) => {
 
     if (isEmpty(id)) {
       errorHandler(res, "Please provide Product Id");
-     
+      return;
     }
-    const product = await Product.findById(id);
+
+    const product = (await Product.findOne({ _id: id })) || {};
+
+    if (isEmpty(product)) {
+      errorHandler(res, "Please provide correct Product Id");
+      return;
+    }
+
     const category = product?.category;
 
     const result = await Product.find({ category: category });
 
-    // result = result.sort(() => Math.random() - 0.5);
     if (!isEmpty(result)) {
       successHandler(res, "Product fetched successfully", result);
-   
+      return;
     } else {
       errorHandler(res, "No data found");
+      return;
     }
   } catch (error) {
-    res.status(500).json({ error: "Internal Server Error" });
+    console.log(error);
+    errorHandler(res, "No Product found");
+    return;
   }
 };
 
