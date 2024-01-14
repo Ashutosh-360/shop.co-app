@@ -14,3 +14,9 @@ export function isEmail(value) {
     .match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
   return !!result;
 }
+
+export function isSizeAccepted(size) {
+  const sizesValues = ["XS", "S", "M", "L", "XL", "XXL"];
+
+  return !!sizesValues.includes(size?.toUpperCase());
+}

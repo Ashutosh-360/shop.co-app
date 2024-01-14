@@ -3,23 +3,23 @@ import { PostData } from "../../Utility/API";
 
 function UpdateInventory() {
   const inventoryData = {
-    product_id: "6590520bcb1a75b5882b3a89", // Replace with the actual product ID
+    product_id: "65944e9710c2a53fa96ee526", // Replace with the actual product ID
     available_quantity: [
       {
         size: "S",
-        quantity: 10,
+        quantity: 5,
       },
       {
         size: "M",
-        quantity: 20,
+        quantity: 8,
       },
       {
         size: "L",
-        quantity: 15,
+        quantity: 3,
       },
       {
         size: "XL",
-        quantity: 12,
+        quantity: 2,
       },
     ],
   };
