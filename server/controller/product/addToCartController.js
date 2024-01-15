@@ -7,7 +7,7 @@ import { isEmpty, isSizeAccepted } from "../../utility/Validation.js";
 
 const addToCartController = async (req, res) => {
   try {
-    const { product_id, size, quantity = 2 } = req?.body;
+    const { product_id, size, quantity = 1 } = req?.body;
 
     //search here if user is present
     const user = await getUser(req);
@@ -34,21 +34,32 @@ const addToCartController = async (req, res) => {
       errorHandler(res, "Please provide size");
       return;
     }
-    const existingCart = Cart.findOne(user_id);
-
     const productObj = {
       product_id,
       size,
       quantity,
     };
 
-    if (!!existingCart) {
-      const updatedCart = await Cart.findOneAndUpdate(
-        { user_id, $addToSet: { products: [productObj] } },
-        { new: true },
-        { upsert: true }
+    const existingCart = await Cart.findOne({ user_id });
+
+    if (existingCart) {
+      // If the cart exists, check if the product with the same id and size is already in the cart
+
+      const existingProductIndex = existingCart.products.findIndex(
+        (p) =>
+          p.product_id.toString() === productObj.product_id.toString() && p.size === productObj.size
       );
-      successHandler(res, "Product added to Cart Successfully", updatedCart);
+
+      if (existingProductIndex !== -1) {
+        // If the product with the same id and size is found, update its quantity
+        existingCart.products[existingProductIndex].quantity = quantity;
+      } else {
+        // If the product with the same id is present but with a different size, add the new product
+        existingCart.products.push(productObj);
+      }
+      // Save the updated cart
+      await existingCart.save();
+      successHandler(res, "Product added to Cart Successfully", existingCart);
       return;
     }
 
@@ -60,11 +71,9 @@ const addToCartController = async (req, res) => {
     await cart.save();
 
     successHandler(res, "Product added to Cart Successfully", cart);
-
     return;
-    // ------------------------
   } catch (error) {
-    res.status(500).json({ error: "Internal Server Error" });
+    errorHandler(res, "Please try again later");
   }
 };
 
