@@ -1,6 +1,6 @@
 import axios from "axios";
-let baseUrl = "http://localhost:8000/";
-// let baseUrl = "https://shopping-website-12o1.onrender.com/";
+// let baseUrl = "http://localhost:8000/";
+let baseUrl = "https://shopping-website-12o1.onrender.com/";
 let authentication_token =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTk5NGRhZTMyM2MzOGM4NWFmZTI4OTYiLCJ1c2VybmFtZSI6ImFzaHV0b3NoQGdtYWlsLmNvbSIsImlhdCI6MTcwNDgyMjQ3MX0.JLbUsb763xbHIM5gfHihO353hcwUbdHP035fqfITg5g";
 // let authentication_token = "";

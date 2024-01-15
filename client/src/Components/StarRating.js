@@ -11,7 +11,7 @@ const StarRating = ({ rating }) => {
     return (
       <span
         key={index}
-        className={`star ${starValue <= roundedRating ? 'filled' : ''}`}
+        className={`star ${starValue <= roundedRating ? 'filled' : ''} text-yellow-400 text-lg`}
       >
         &#9733; 
       </span>

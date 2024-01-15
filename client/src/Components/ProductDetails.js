@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from "react";
 import arrow from "../assets/arrow.png";
-import Star from "../assets/Star.png";
-import halfstar from "../assets/halfstar.png";
 import Header from "./Header";
-import style from "./ProductDetails.css";
 import StarRating from "./StarRating";
 import { GetData } from "../Utility/API";
 import plus from "../assets/plus.png";
 import substract from "../assets/substract.png";
 import Counter from "./Counter/Counter";
-import verified from "../assets/verified.png"
 import Recommendations from "./Recommendation/Recommendation";
-
+import Footer from "./Footer";
+import Reviews from "./Reviews/Reviews";
+import style from "./ProductDetails.css";
+import AddToCart from "./AddToCart/AddToCart";
 export default function ProductDetails() {
-  const [selectedTab, setSelectedTab] = useState(1);
   const [bigImgToShow, setBigImgToShow] = useState();
   const [defaultselectedTab, setDefaultSelectedTab] =
     useState("Product Details");
@@ -45,20 +43,10 @@ export default function ProductDetails() {
   useEffect(() => {
     GetData(
       "get_product_details",
-      { product_id: "6590520bcb1a75b5882b3a89" },
+      { product_id: "65944e9710c2a53fa96ee526" },
       handleOtherStates
     );
-
-    GetData(
-      "product_recommendation",
-      { product_id: "6590520bcb1a75b5882b3a89" },
-      handle
-    );
-
   }, []);
-  const handle=()=>{
-    
-  }
 
   const handleOtherStates = (res) => {
     setProductDetails(res.data.results);
@@ -68,7 +56,6 @@ export default function ProductDetails() {
     setDiscountedPrice(res.data.results.discounted_price);
     setColor(res.data.results.variant.color);
     setSize([...res.data.results.available_quantity]);
-    console.log(productDetails._id,"iddddddddddddddddddddd")
   };
   useEffect(() => {
     calculateDiscountPercentage();
@@ -83,41 +70,12 @@ export default function ProductDetails() {
   const selectedSize = (ele) => {
     setIsSelectedSize(ele.size);
   };
-  var timestamp;
+ 
   const toggleDetailsAndReviewsTabs = (element) => {
     setDefaultSelectedTab(element);
- 
   };
 
-  useEffect(() => {
-    productDetails?.reviews?.map((elem) => {
-      timestamp = elem.updatedAt;
-    });
-    const date = new Date(timestamp);
-
-    const months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-
-    const month = months[date.getUTCMonth()];
-    const day = date.getUTCDate();
-    const year = date.getUTCFullYear();
-
-    const formattedDateResult = `${month} ${day}, ${year}`;
-
-    setFormattedDate(formattedDateResult);
-  }, [timestamp]);
+  
 
   return (
     <>
@@ -186,7 +144,7 @@ export default function ProductDetails() {
                     <span
                       onClick={() => selectedSize(ele)}
                       className={`${ele.quantity > 0 ? "" : "disableSize"} ${
-                        isSelectedSize == ele.size ? "newSize" : ""
+                        isSelectedSize == ele.size ? "bg-gray-400" : ""
                       } selectedSize px-5 cursor-pointer  py-2 w-fit rounded-3xl text-s`}
                     >
                       {ele.size}
@@ -206,9 +164,7 @@ export default function ProductDetails() {
                 />
               </div>
               <div className="addToCartBtn">
-                <button className="bg-gray-900 px-24 py-2 rounded-3xl text-white">
-                  Add To Cart
-                </button>
+              <AddToCart/>
               </div>
             </div>
             <div className="wishListBtns flex gap-2">
@@ -259,33 +215,28 @@ export default function ProductDetails() {
               </>
             )}
 
-       
-            {defaultselectedTab == "Reviews" && (
-              <>
-                <span>All Reviews</span>
-                <div className="reviewsWrapper grid grid-cols-2 gap-6">
-                {productDetails?.reviews?.map((elem) => {
-                  return (
-                    <div className="reviewCard border rounded-lg flex flex-col gap-2 p-4">
-                      <span className="reviewRating">
-                        <StarRating rating={elem.rating} />
-                      </span>
-                      
-                      <span className="font-semibold flex gap-2 items-center">{elem.reviewerName}<img src={verified}/></span>
-                      <span className="">{elem.comment}</span>
-                      <span>Posted on {formattedDate}</span>
-                    </div>
-                  );
-                })}
-                </div>
-              </>
+            {defaultselectedTab == "Reviews" && !!productDetails._id && (
+              <Reviews
+                productId={productDetails}
+              />
             )}
           </div>
         </div>
         <hr />
       </div>
-      <div className="font-extrabold text-xl">YOU MIGHT ALSO LIKE</div>
-      <div>{productDetails && <Recommendations productId={productDetails._id}/>}</div>
+      <div className="flex flex-col gap-16">
+        <div className="flex flex-col gap-10 justify-center items-center">
+          <div className="font-extrabold text-5xl ">YOU MIGHT ALSO LIKE</div>
+          <div className="flex gap-16">
+            {!!productDetails._id && (
+              <Recommendations productId={productDetails._id} />
+            )}
+          </div>
+        </div>
+        <div>
+          <Footer />
+        </div>
+      </div>
     </>
   );
 }
