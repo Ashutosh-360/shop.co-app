@@ -7,6 +7,7 @@ module.exports = {
         primary: "#000000", // Example background color
         secondary: "#F8F8F8",
         red:"#FF3333",
+        
          // Another example background color
       },
       textColor: {
