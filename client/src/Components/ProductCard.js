@@ -4,6 +4,7 @@ import starRating from "../assets/starRating.png";
 import halfStar from "../assets/halfstar.png";
 
 function ProductCard({ data }) {
+  console.log(data,"data")
   return (
     <div className="flex flex-col gap-2">
       <a
