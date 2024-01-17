@@ -16,6 +16,7 @@ function Cart() {
   };
   return (
     <>
+    
       <Header />
       <div className="w-full max-w-screen-xl p-2 py-10 m-auto gap-4 flex flex-col mb-12">
         <div className="uppercase text-4xl font-bold">Your cart</div>
