@@ -19,7 +19,6 @@ router.get("/new_arrivals", newArrivalsController);
 router.get("/get_reviews", getReviewsController);
 router.get("/get_cart", getCartController);
 
-
 // ------------------------------post routes---------------
 router.post("/add_review", addReviewController);
 router.post("/update_inventory", updateInventoryController);

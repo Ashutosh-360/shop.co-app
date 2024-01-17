@@ -9,15 +9,12 @@ function SignIn({ setIsSignUp }) {
     email: "",
     password: "",
   });
-  const [showPassword, setShowPassword] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
   const [isErrorState, setIsErrorState] = useState(false);
   const navigate = useNavigate();
   const signInHandler = () => {
     setIsErrorState(true);
-    if (
-      !isEmail(userCredentials?.email) ||
-      userCredentials?.password?.length < 8
-    ) {
+    if (!isEmail(userCredentials?.email) || userCredentials?.password?.length < 8) {
       return;
     }
     GetData("sign_in", userCredentials, updateSignInHandler);
@@ -38,9 +35,7 @@ function SignIn({ setIsSignUp }) {
     <div className="flex flex-col justify-center min-h-screen gap-8 w-full p-12">
       <div className="flex gap-1 flex-col">
         <div className="text-3xl font-semibold">Welcome back</div>
-        <div className="text-faint_text text-sm">
-          Welcome back! Please enter your details.
-        </div>
+        <div className="text-faint_text text-sm">Welcome back! Please enter your details.</div>
       </div>
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-2">
@@ -49,12 +44,11 @@ function SignIn({ setIsSignUp }) {
           </label>
 
           <input
+            autoComplete="off"
             onChange={inputChangeHandler}
             value={userCredentials.email}
             className={`border text-base outline-none rounded-lg p-3 ${
-              isErrorState &&
-              !isEmail(userCredentials.email) &&
-              style.errorState
+              isErrorState && !isEmail(userCredentials.email) && style.errorState
             }`}
             type="text"
             placeholder="Enter your email"
@@ -68,14 +62,13 @@ function SignIn({ setIsSignUp }) {
 
           <div className="relative">
             <input
+              autoComplete="off"
               onChange={inputChangeHandler}
               value={userCredentials.password}
               className={`w-full border text-base outline-none rounded-lg p-3 ${
-                isErrorState &&
-                userCredentials.password.length < 8 &&
-                style.errorState
+                isErrorState && userCredentials.password.length < 8 && style.errorState
               }`}
-              type={showPassword ? "password" : "text"}
+              type={!showPassword ? "password" : "text"}
               placeholder="Enter your password"
               name="password"
             />
@@ -85,7 +78,7 @@ function SignIn({ setIsSignUp }) {
                 setShowPassword(!showPassword);
               }}
               class={`fa-regular ${
-                !showPassword ? "fa-eye" : "fa-eye-slash"
+                showPassword ? "fa-eye" : "fa-eye-slash"
               } absolute cursor-pointer top-1/2 right-3 -translate-y-1/2 text-primary`}
             ></i>
           </div>
@@ -104,10 +97,7 @@ function SignIn({ setIsSignUp }) {
       </div>
       <div className="text-faint_text text-sm">
         Don’t have an account?{" "}
-        <span
-          className="text-primary cursor-pointer underline"
-          onClick={showSignUp}
-        >
+        <span className="text-primary cursor-pointer underline" onClick={showSignUp}>
           Sign up for free!
         </span>
       </div>
