@@ -11,20 +11,24 @@ const signInUser = async (req, res) => {
     //check for validation
     if (isEmpty(email) || !isEmail(email)) {
       errorHandler(res, "Email is Required");
+      return;
     }
     if (isEmpty(password)) {
       errorHandler(res, "Password is Required");
+      return;
     }
     const user = await User.findOne({ email });
 
     if (isEmpty(user)) {
       errorHandler(res, "User not found");
+      return;
     }
 
-    let isPasswordValid = bcrypt.compare(password, user?.password);
+    let isPasswordValid = await bcrypt.compare(password, user?.password);
 
     if (!isPasswordValid) {
       errorHandler(res, "Incorrect Password");
+      return;
     }
 
     const { password: pass, ...rest } = user?._doc;
@@ -36,8 +40,10 @@ const signInUser = async (req, res) => {
     user.authentication_token = authentication_token;
     user.save();
     successHandler(res, "User logged in", { ...rest, authentication_token });
+    return;
   } catch (error) {
     errorHandler(res, error || "Something went wrong");
+    return;
   }
 };
 
