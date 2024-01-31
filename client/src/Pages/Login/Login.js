@@ -14,11 +14,7 @@ function Login() {
         </div>
 
         <div className="w-1/2 min-h-screen">
-          {isSignUp ? (
-            <SignUp setIsSignUp={setIsSignUp} />
-          ) : (
-            <SignIn setIsSignUp={setIsSignUp} />
-          )}
+          {isSignUp ? <SignUp setIsSignUp={setIsSignUp} /> : <SignIn setIsSignUp={setIsSignUp} />}
         </div>
       </div>
     </div>

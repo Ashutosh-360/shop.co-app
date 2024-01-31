@@ -14,7 +14,12 @@ function Footer() {
   return (
     <>
       <div className="flex flex-col m-auto ">
-        <div style={{ background: "linear-gradient(to bottom , white 0%, white 50%, #F0F0F0 50%, #F0F0F0 100%)" }}>
+        <div
+          style={{
+            background:
+              "linear-gradient(to bottom , white 0%, white 50%, #F0F0F0 50%, #F0F0F0 100%)",
+          }}
+        >
           <div className="latestUpdates max-w-screen-xl m-auto  flex bg-black p-16 justify-between rounded-3xl">
             <div className="text-white font-extrabold text-5xl">
               STAY UPTO DATE ABOUT <br />
@@ -27,9 +32,7 @@ function Footer() {
                 placeholder="Enter your email address"
                 type="email"
               />
-              <button className="rounded-3xl px-6 py-3 bg-white">
-                Subscribe to Newsletter
-              </button>
+              <button className="rounded-3xl px-6 py-3 bg-white">Subscribe to Newsletter</button>
             </div>
           </div>
         </div>
@@ -45,14 +48,8 @@ function Footer() {
               <div className="socialMediaIcons flex gap-4">
                 <img className="w-7 h-7" src={twitter} />
                 <img className="w-7 h-7 rounded-full bg-black p-2" src={fb} />
-                <img
-                  className="w-8 h-8 rounded-full p-2 bg-white border"
-                  src={insta}
-                />
-                <img
-                  className="w-8 h-8 rounded-full p-2 bg-white border"
-                  src={git}
-                />
+                <img className="w-8 h-8 rounded-full p-2 bg-white border" src={insta} />
+                <img className="w-8 h-8 rounded-full p-2 bg-white border" src={git} />
               </div>
             </div>
             <div className="footerSecondColumn flex flex-col gap-2">
@@ -86,7 +83,7 @@ function Footer() {
           </div>
           <hr />
           <div className="flex justify-between  max-w-screen-xl m-auto py-3 items-center">
-            <div>Shop.co © 2000-2023, All Rights Reserved</div>
+            <div>Shop.co © 2000-2024, All Rights Reserved</div>
             <div className="flex">
               <img src={visa} />
               <img src={mastercard} />

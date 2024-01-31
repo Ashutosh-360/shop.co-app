@@ -1,17 +1,35 @@
 import React, { useState } from "react";
-import Counter from "../../../Components/Counter/Counter";
+import { PostData } from "../../../Utility/API";
 
-function CartProduct({ item }) {
-  const [quantity, setQuantity] = useState(item?.quantity);
+function CartProduct({ item, callCartApiHandler, setIsLoading }) {
+  const incrementdecrementHandler = (action, item) => {
+    if (action == "substract" && item.quantity < 1) {
+      return;
+    }
+    setIsLoading(true);
+    let payload = {
+      product_id: item.product_id,
+      size: item.size,
+      quantity: action === "add" ? item.quantity + 1 : item.quantity - 1,
+    };
 
-  const incrementHandler = () => {
-    setQuantity(quantity + 1);
+    PostData("add_to_cart", payload, updateCartHandler);
   };
 
-  const decrementHandler = () => {
-    if (quantity > 0) {
-      setQuantity(quantity - 1);
-    }
+  const updateCartHandler = () => {
+    callCartApiHandler();
+  };
+
+  const deleteFromCartHandler = (item) => {
+    setIsLoading(true);
+
+    let payload = {
+      product_id: item.product_id,
+      size: item.size,
+      quantity: 0,
+    };
+
+    PostData("add_to_cart", payload, updateCartHandler);
   };
   return (
     <div className="flex gap-2 w-full h-28">
@@ -26,8 +44,7 @@ function CartProduct({ item }) {
               Size: <span className="text-faint_text">{item?.size}</span>
             </div>
             <div className="text-sm">
-              Color:{" "}
-              <span className="text-faint_text">{item?.variant?.color} </span>
+              Color: <span className="text-faint_text">{item?.variant?.color} </span>
             </div>
           </div>
           <div className="font-semibold">
@@ -36,14 +53,20 @@ function CartProduct({ item }) {
         </div>
         <div className="flex flex-col justify-between gap-2 items-end">
           <div className="text-red">
-            <i class="fa-regular fa-trash-can"></i>
+            <i class="fa-regular fa-trash-can cursor-pointer" onClick={() => deleteFromCartHandler(item)}></i>
           </div>
           <div className="bg-grey p-2 px-3 rounded-full flex gap-3 items-center">
-            <div className="text-sm cursor-pointer" onClick={decrementHandler}>
+            <div
+              className="text-sm cursor-pointer"
+              onClick={() => incrementdecrementHandler("substract", item)}
+            >
               <i class="fa-solid fa-minus"></i>
             </div>
-            <div className="w-4 text-center">{quantity}</div>
-            <div className="text-sm cursor-pointer" onClick={incrementHandler}>
+            <div className="w-4 text-center">{item?.quantity}</div>
+            <div
+              className="text-sm cursor-pointer"
+              onClick={() => incrementdecrementHandler("add", item)}
+            >
               <i class="fa-solid fa-plus"></i>
             </div>
           </div>
