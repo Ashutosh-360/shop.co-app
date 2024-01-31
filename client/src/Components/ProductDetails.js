@@ -13,8 +13,7 @@ import style from "./ProductDetails.css";
 import AddToCart from "./AddToCart/AddToCart";
 export default function ProductDetails() {
   const [bigImgToShow, setBigImgToShow] = useState();
-  const [defaultselectedTab, setDefaultSelectedTab] =
-    useState("Product Details");
+  const [defaultselectedTab, setDefaultSelectedTab] = useState("Product Details");
   const [isSelected, setIsSelected] = useState(1);
   const [productDetails, setProductDetails] = useState({});
   const [imgToShow, setImgToShow] = useState([]);
@@ -41,11 +40,7 @@ export default function ProductDetails() {
     setBigImgToShow(ele);
   };
   useEffect(() => {
-    GetData(
-      "get_product_details",
-      { product_id: "65944e9710c2a53fa96ee526" },
-      handleOtherStates
-    );
+    GetData("get_product_details", { product_id: "65944e9710c2a53fa96ee526" }, handleOtherStates);
   }, []);
 
   const handleOtherStates = (res) => {
@@ -62,20 +57,17 @@ export default function ProductDetails() {
   }, [originalPrice, discountedPrice]);
 
   const calculateDiscountPercentage = () => {
-    const percentage =
-      ((originalPrice - discountedPrice) / originalPrice) * 100;
+    const percentage = ((originalPrice - discountedPrice) / originalPrice) * 100;
     setDiscountPercentage(percentage);
   };
 
   const selectedSize = (ele) => {
     setIsSelectedSize(ele.size);
   };
- 
+
   const toggleDetailsAndReviewsTabs = (element) => {
     setDefaultSelectedTab(element);
   };
-
-  
 
   return (
     <>
@@ -124,16 +116,11 @@ export default function ProductDetails() {
                 </span>
               </span>
             </div>
-            <div className=" text-gray-400">
-              {productDetails.product_description}
-            </div>
+            <div className=" text-gray-400">{productDetails.product_description}</div>
             <hr></hr>
             <div className="colorContainer flex flex-col gap-4">
               <div className=" text-gray-500">Select Colors</div>
-              <div
-                className="w-6 rounded-full h-6"
-                style={{ backgroundColor: color }}
-              ></div>
+              <div className="w-6 rounded-full h-6" style={{ backgroundColor: color }}></div>
             </div>
             <hr></hr>
             <div className="sizeContainer flex flex-col gap-4">
@@ -164,16 +151,12 @@ export default function ProductDetails() {
                 />
               </div>
               <div className="addToCartBtn">
-              <AddToCart/>
+                <AddToCart />
               </div>
             </div>
             <div className="wishListBtns flex gap-2">
-              <button className="bg-gray-900 px-12 py-2 rounded-3xl text-white">
-                My Wishlist
-              </button>
-              <button className="bg-gray-200 px-20 py-2 rounded-3xl">
-                Add To Wishlist
-              </button>
+              <button className="bg-gray-900 px-12 py-2 rounded-3xl text-white">My Wishlist</button>
+              <button className="bg-gray-200 px-20 py-2 rounded-3xl">Add To Wishlist</button>
             </div>
           </div>
         </div>
@@ -204,9 +187,7 @@ export default function ProductDetails() {
                 </div>
                 <div className="flex flex-col gap-2">
                   <span className="font-semibold">Care Instructions: </span>
-                  <span className="w-96">
-                    {productDetails?.product_details?.care_instructions}
-                  </span>
+                  <span className="w-96">{productDetails?.product_details?.care_instructions}</span>
                 </div>
                 <div className="flex flex-col gap-2">
                   <span className="font-semibold">Material: </span>
@@ -216,9 +197,7 @@ export default function ProductDetails() {
             )}
 
             {defaultselectedTab == "Reviews" && !!productDetails._id && (
-              <Reviews
-                productId={productDetails}
-              />
+              <Reviews productId={productDetails} />
             )}
           </div>
         </div>
@@ -228,9 +207,7 @@ export default function ProductDetails() {
         <div className="flex flex-col gap-10 justify-center items-center">
           <div className="font-extrabold text-5xl ">YOU MIGHT ALSO LIKE</div>
           <div className="flex gap-16">
-            {!!productDetails._id && (
-              <Recommendations productId={productDetails._id} />
-            )}
+            {!!productDetails._id && <Recommendations productId={productDetails._id} />}
           </div>
         </div>
         <div>

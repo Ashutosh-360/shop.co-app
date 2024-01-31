@@ -1,0 +1,11 @@
+$widthForFilter: 350px;
+
+.filterContainer {
+    width: #{$widthForFilter};
+}
+
+.productsContainer {
+    width:calc(100% - #{$widthForFilter} - 20px);
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+
+}

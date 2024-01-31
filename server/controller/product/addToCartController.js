@@ -50,7 +50,10 @@ const addToCartController = async (req, res) => {
           p.product_id.toString() === productObj.product_id.toString() && p.size === productObj.size
       );
 
-      if (existingProductIndex !== -1) {
+      //to delete product from cart send quantity to zero 0
+      if (existingProductIndex !== -1 && quantity == 0) {
+        existingCart.products.splice(existingProductIndex, 1);
+      } else if (existingProductIndex !== -1) {
         // If the product with the same id and size is found, update its quantity
         existingCart.products[existingProductIndex].quantity = quantity;
       } else {

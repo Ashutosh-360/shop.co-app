@@ -7,7 +7,7 @@ import getUser from "../../utility/getUser.js";
 import successHandler from "../../utility/successHandler.js";
 import { isEmpty } from "../../utility/Validation.js";
 
-const getProductController = async (req, res) => {
+const getProductDetailsController = async (req, res) => {
   try {
     const id = req?.query?.product_id;
     if (isEmpty(id)) {
@@ -48,4 +48,4 @@ const getProductController = async (req, res) => {
   }
 };
 
-export default getProductController;
+export default getProductDetailsController;
