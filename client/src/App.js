@@ -5,6 +5,7 @@ import Homepage from "./Pages/Homepage/Homepage";
 import LandingPage from "./Pages/LandingPage/LandingPage";
 import Add from "./Pages/Add/Add";
 import Cart from "./Pages/Cart/Cart";
+import SearchProduct from "./Pages/SearchProduct/SearchProduct";
 function App() {
   return (
     <BrowserRouter>
@@ -14,6 +15,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/add" element={<Add />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/search" element={<SearchProduct />} />
       </Routes>
     </BrowserRouter>
   );

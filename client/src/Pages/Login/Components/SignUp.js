@@ -105,7 +105,7 @@ function SignUp({ setIsSignUp }) {
               className={`w-full border text-base outline-none rounded-lg p-3 ${
                 isErrorState && userCredentials.confirm_password.length < 8 && style.errorState
               }`}
-              type={showConfirmPassword ? "password" : "text"}
+              type={!showConfirmPassword ? "password" : "text"}
               placeholder="Enter your password"
               name="confirm_password"
             />
@@ -115,7 +115,7 @@ function SignUp({ setIsSignUp }) {
                 setShowConfirmPassword(!showConfirmPassword);
               }}
               class={`fa-regular ${
-                !showPassword ? "fa-eye" : "fa-eye-slash"
+                showPassword ? "fa-eye" : "fa-eye-slash"
               } absolute cursor-pointer top-1/2 right-3 -translate-y-1/2 text-primary`}
             ></i>
           </div>
