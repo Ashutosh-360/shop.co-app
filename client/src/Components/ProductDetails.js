@@ -23,6 +23,7 @@ export default function ProductDetails() {
   const [size, setSize] = useState([]);
   const [isSelectedSize, setIsSelectedSize] = useState();
   const [formattedDate, setFormattedDate] = useState("");
+  const [count, setCount] = useState(0);
 
   const [detailsAndReviewsTabs, setDetailsAndReviewsTabs] = useState([
     "Product Details",
@@ -70,12 +71,10 @@ export default function ProductDetails() {
   const selectedSize = (ele) => {
     setIsSelectedSize(ele.size);
   };
- 
+  console.log(isSelectedSize, "newSize");
   const toggleDetailsAndReviewsTabs = (element) => {
     setDefaultSelectedTab(element);
   };
-
-  
 
   return (
     <>
@@ -143,9 +142,11 @@ export default function ProductDetails() {
                   return (
                     <span
                       onClick={() => selectedSize(ele)}
-                      className={`${ele.quantity > 0 ? "" : "disableSize"} ${
-                        isSelectedSize == ele.size ? "bg-gray-400" : ""
-                      } selectedSize px-5 cursor-pointer  py-2 w-fit rounded-3xl text-s`}
+                      className={`${
+                        ele.quantity > 0 ? "bg-gray-500" : "disableSize"
+                      } ${
+                        isSelectedSize == ele.size ? "selectedSize" : "newSize"
+                      }  px-5 cursor-pointer  py-2 w-fit rounded-3xl text-s`}
                     >
                       {ele.size}
                     </span>
@@ -158,13 +159,26 @@ export default function ProductDetails() {
               <div className="quantityCounter bg-gray-200 rounded-3xl px-10 py-2 w-fit">
                 <Counter
                   plus={plus}
+                  count={count}
+                  setCount={setCount}
                   substract={substract}
                   quantity={size}
                   isSelectedSize={isSelectedSize}
                 />
               </div>
               <div className="addToCartBtn">
-              <AddToCart/>
+                {console.log(
+                  productDetails,
+                  "kkkkkkkkkkkkkkkkkkkkkkkkkkkkk",
+                  count
+                )}
+                {!!productDetails._id &&  (
+                  <AddToCart
+                    productId={productDetails}
+                    selectedSize={isSelectedSize}
+                    quantity={count}
+                  />
+                )}
               </div>
             </div>
             <div className="wishListBtns flex gap-2">
@@ -216,9 +230,7 @@ export default function ProductDetails() {
             )}
 
             {defaultselectedTab == "Reviews" && !!productDetails._id && (
-              <Reviews
-                productId={productDetails}
-              />
+              <Reviews productId={productDetails} />
             )}
           </div>
         </div>

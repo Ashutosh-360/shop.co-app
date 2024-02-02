@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const Counter = ({ plus, substract, quantity, isSelectedSize }) => {
-  const [count, setCount] = useState(0);
+const Counter = ({ plus, substract, quantity, isSelectedSize,count,setCount }) => {
 
   useEffect(() => {
     setCount(0);
