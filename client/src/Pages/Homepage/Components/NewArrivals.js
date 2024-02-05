@@ -14,7 +14,7 @@ function NewArrivals() {
 
   return (
     <div className="max-w-screen-xl m-auto flex flex-col gap-6 items-center">
-      <div className="text-4xl font-bold">New Arrivals</div>
+      <div className="text-5xl font-extrabold">NEW ARRIVALS</div>
       <div className="w-full flex justify-between gap-6">
         {newArrivals?.map((item) => {
           return (

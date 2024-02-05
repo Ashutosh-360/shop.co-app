@@ -12,7 +12,7 @@ function ProductCard({ data }) {
   return (
     <div className="flex flex-col gap-2">
       <a
-        href={`/product_details?id=${data._id}`}
+        href={`/product_details?id=${data?._id}`}
         className="flex justify-center items-center w-64 h-auto"
       >
         <img className="rounded-xl" src={data?.front_image} alt="" />

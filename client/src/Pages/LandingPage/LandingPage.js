@@ -13,8 +13,8 @@ import gucci from "../../assets/gucci.png"
 import versace from "../../assets/versace.png"
 import zara from "../../assets/zara.png"
 import BrowseByCategory from "../../Components/BrowseByCategory/BrowseByCategory";
-import Reviews from "../../Components/Reviews"
-
+import Reviews from "../../Components/Reviews/Reviews";
+import TopSelling from "../Homepage/Components/TopSelling";
 function LandingPage() {
   const [brandNames,setBrandNames] = useState([versace,zara,gucci,prada,calvinklein])
 
@@ -22,7 +22,7 @@ function LandingPage() {
   return (
     <>
       <Header />
-      <div className="bannerContainer max-w-screen-xl m-auto">
+      <div className="bannerContainer max-w-screen-xl m-auto flex flex-col gap-24">
         <div>
           <img src={banner} />
           <div className="brandNames flex bg-black h-20 justify-around items-center">
@@ -32,12 +32,19 @@ function LandingPage() {
             })}
           </div>
         </div>
-      </div>
+      <div>
       <NewArrivals />
+      </div>
+      <div>
+        <TopSelling/>
+      </div>
+      <div>
       <BrowseByCategory/>
-      <Reviews/>
+      </div>
+      <div>
       <Footer />
-     
+      </div>
+      </div>
     </>
   );
 }

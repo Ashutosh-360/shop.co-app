@@ -28,7 +28,7 @@ function Footer() {
             <div className=" flex flex-col gap-4 relative">
               <img className="text-white absolute top-3 left-3" src={msg} />
               <input
-                className="rounded-3xl outline-none px-6 py-3"
+                className="rounded-3xl outline-none px-10 py-3"
                 placeholder="Enter your email address"
                 type="email"
               />
