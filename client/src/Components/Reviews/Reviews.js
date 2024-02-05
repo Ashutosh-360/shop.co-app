@@ -3,72 +3,36 @@ import { GetData, PostData } from "../../Utility/API";
 import StarRating from "../StarRating";
 import verified from "../../assets/verified.png";
 import Popup from "../Popup/Popup";
-
+import DateConverter from "../DateFormat";
 export default function Reviews(product_id) {
   const [reviewsDetails, setReviewsDeatils] = useState();
-  const [formattedDate, setFormattedDate] = useState("");
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [rating, setRating] = useState(0);
   const [reviewText, setReviewText] = useState("");
 
   //   ---------code for timestamp on card-----------
 
-  var timestamp;
+  let reviewerName;
 
-  function getPostedTime() {
-    if (!reviewsDetails?.reviews) {
-      return;
-    }
-  
-    const timestamps = reviewsDetails.reviews.map((elem) => elem?.updatedAt);
-    const formattedDates = timestamps.map((timestamp) => {
-      const date = new Date(timestamp);
-  
-      const months = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-      ];
-  
-      const month = months[date.getUTCMonth()];
-      const day = date?.getUTCDate();
-      const year = date?.getUTCFullYear();
-  
-      return `${month} ${day}, ${year}`;
-    });
-  
-    setFormattedDate(formattedDates);
-  }
-  
+  reviewsDetails?.reviews?.map((elem) => {
+     return reviewerName = elem?.reviewerName;
+   });
 
-  //   ----------------ends here timestamp------------
+  //   ---------------existing reviews api call----------------
 
+  const getReviewsTemplate = (response) => {
+    setReviewsDeatils(response?.data?.results);
+  };
 
-//   ---------------reviews api call----------------
-  useEffect(() => {
+  useEffect(()=>{
     GetData(
       "get_reviews",
       {
-        product_id: product_id.productId._id,
+        product_id: product_id?.productId?._id,
       },
       getReviewsTemplate
     );
-  }, []);
-  const getReviewsTemplate = (response) => {
-    setReviewsDeatils(response.data.results);
-    getPostedTime()
-    console.log(product_id.productId.front_image, "</div>");
-  };
-
+  },[])
   //   -----------code for popup open close-----------------
   const openPopup = () => {
     setIsPopupOpen(true);
@@ -84,19 +48,27 @@ export default function Reviews(product_id) {
 
   const getReviewTextChange = (event) => {
     setReviewText(event.target.value);
-    console.log(event.target.value,"texttttttttttttttttttttttt")
   };
-  const handleSubmit = () => {
-    console.log('Rating:', rating);
-    console.log('Review Text:', reviewText);
-    PostData("add_review")
+  const handleSubmitReview = () => {
+    console.log("Rating:", rating);
+    console.log("Review Text:", reviewText);
+    PostData(
+      "add_review",
+      {
+        product_id: product_id?.productId?._id,
+        comment: reviewText,
+        reviewerName: reviewerName,
+        rating: rating,
+      },
+     
+    );
 
-    setIsPopupOpen(false)
+    setIsPopupOpen(false);
   };
-
 
   return (
     <>
+      {/* --------------code for existing Reveiws------------------ */}
       <div className="flex justify-between">
         <span>All Reviews</span>
         <button
@@ -111,25 +83,26 @@ export default function Reviews(product_id) {
           return (
             <div className="reviewCard border rounded-lg flex flex-col gap-2 p-4">
               <span className="reviewRating">
-                <StarRating rating={elem.rating} />
+                <StarRating rating={elem?.rating} />
               </span>
 
               <span className="font-semibold flex gap-2 items-center">
-                {elem.reviewerName}
+                {elem?.reviewerName}
                 <img src={verified} />
               </span>
-              <span className="">{elem.comment}</span>
-              <span>Posted on {formattedDate}</span>
+              <span className="">{elem?.comment}</span>
+              <span><DateConverter dateFormat={elem?.updatedAt}/></span>
             </div>
           );
         })}
       </div>
+      {/* -------------------code for Add Reviews---------------------------- */}
       <Popup isOpen={isPopupOpen} onClose={closePopup}>
         <div className="flex w-full gap-4">
-          <img className="w-1/3" src={product_id.productId.front_image} />
+          <img className="w-1/3" src={product_id?.productId?.front_image} />
           <div className="flex flex-col gap-6">
             <div className="flex items-center gap-4">
-              <span>{product_id.productId.name}</span>
+              <span>{product_id?.productId?.name}</span>
             </div>
             <div>
               <h2>How would you rate this product : {rating} stars</h2>
@@ -158,7 +131,10 @@ export default function Reviews(product_id) {
               You can write about the fit,material quality,colour,comfort etc.
               Refrain from mentioning delivery or packaging related feedback.
             </span>
-            <button className=" px-4 py-2 bg-black text-white rounded-full" onClick={handleSubmit}>
+            <button
+              className=" px-4 py-2 bg-black text-white rounded-full"
+              onClick={handleSubmitReview}
+            >
               Submit Review
             </button>
           </div>

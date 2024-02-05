@@ -12,12 +12,12 @@
     cursor: none;
 }
 .selectedSize{
-    background-color: rgb(232, 230, 230);
-    color: grey;
-}
-.newSize{
     background-color: black;
     color: white;
+}
+.newSize{
+    background-color: rgb(232, 230, 230) ;
+    color: black;
 }
 .detailsTabsSelected,.detailsTabsSelected:hover,.detailsTabsName{
     color: teal;

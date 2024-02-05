@@ -2,12 +2,17 @@ import React from "react";
 import tshirt from "../assets/tshirts.png";
 import starRating from "../assets/starRating.png";
 import halfStar from "../assets/halfstar.png";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 
 function ProductCard({ data }) {
+  console.log(data,"data")
   return (
-    <div className="flex flex-col gap-2 m-auto">
+    <div className="flex flex-col gap-2">
       <a
-        href={`/product_details?id=${data._id}`}
+        href={`/product_details?id=${data?._id}`}
         className="flex justify-center items-center w-64 h-auto"
       >
         <img className="rounded-xl" src={data?.front_image} alt="" />
