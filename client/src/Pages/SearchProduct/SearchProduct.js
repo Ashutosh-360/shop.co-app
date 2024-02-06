@@ -26,7 +26,6 @@ function SearchProduct() {
   };
   return (
     <>
-      <Header />
       <div className="flex gap-3 py-8 px-1 max-w-screen-xl m-auto">
         <div className={`h-fit border rounded-lg ${style.filterContainer}`}>
           <div className="flex items-center justify-between p-4">
@@ -67,7 +66,9 @@ function SearchProduct() {
               {filtersData?.size?.map((item) => {
                 return (
                   <div
-                    className={`rounded-full p-1 cursor-pointer px-5 transition-all border ${selectedSize==item && `bg-primary text-white`}`}
+                    className={`rounded-full p-1 cursor-pointer px-5 transition-all border ${
+                      selectedSize == item && `bg-primary text-white`
+                    }`}
                     onClick={() => selectedSizeHandler(item)}
                   >
                     {item}

@@ -16,17 +16,10 @@ import BrowseByCategory from "../../Components/BrowseByCategory/BrowseByCategory
 import Reviews from "../../Components/Reviews/Reviews";
 import TopSelling from "../Homepage/Components/TopSelling";
 function LandingPage() {
-  const [brandNames, setBrandNames] = useState([
-    versace,
-    zara,
-    gucci,
-    prada,
-    calvinklein,
-  ]);
+  const [brandNames, setBrandNames] = useState([versace, zara, gucci, prada, calvinklein]);
 
   return (
     <>
-      <Header />
       <div className="bannerContainer max-w-screen-xl m-auto flex flex-col gap-24">
         <div>
           <div
@@ -60,9 +53,6 @@ function LandingPage() {
           </div>
           <div className="brandNames flex bg-black h-20 justify-around items-center">
             {brandNames?.map((elem) => {
-              {
-                console.log(elem, "sssssssssssss");
-              }
               return <img src={elem} className="h-6" />;
             })}
           </div>
@@ -70,14 +60,11 @@ function LandingPage() {
         <div>
           <NewArrivals />
         </div>
-        <div>
-          <TopSelling />
-        </div>
+        <TopSelling />
         <div>
           <BrowseByCategory />
         </div>
       </div>
-      <Footer />
     </>
   );
 }

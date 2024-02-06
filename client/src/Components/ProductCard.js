@@ -6,13 +6,12 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-
 function ProductCard({ data }) {
-  console.log(data,"data")
   return (
     <div className="flex flex-col gap-2">
       <a
-        href={`/product_details?id=${data?._id}`}
+        target="_blank"
+        href={`/product?id=${data?._id}`}
         className="flex justify-center items-center w-64 h-auto"
       >
         <img className="rounded-xl" src={data?.front_image} alt="" />
@@ -39,9 +38,7 @@ function ProductCard({ data }) {
           <div>
             {data?.currency} {data.price}
           </div>
-          <div className="px-1 text-sm text-red rounded-full">
-                20%
-          </div>
+          <div className="px-1 text-sm text-red rounded-full">20%</div>
         </div>
       </div>
     </div>

@@ -50,8 +50,6 @@ export default function Reviews(product_id) {
     setReviewText(event.target.value);
   };
   const handleSubmitReview = () => {
-    console.log("Rating:", rating);
-    console.log("Review Text:", reviewText);
     PostData(
       "add_review",
       {
