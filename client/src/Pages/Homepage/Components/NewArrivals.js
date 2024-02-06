@@ -21,10 +21,9 @@ function NewArrivals() {
       <div className="w-full flex justify-between gap-6">
         {newArrivals?.map((item) => {
           return (
-         
             <div>
               <ProductCard data={item} />
-              </div>
+            </div>
           );
         })}
       </div>

@@ -11,6 +11,7 @@ import Footer from "./Footer";
 import Reviews from "./Reviews/Reviews";
 import style from "./ProductDetails.css";
 import AddToCart from "./AddToCart/AddToCart";
+import { useSearchParams } from "react-router-dom";
 export default function ProductDetails() {
   const [bigImgToShow, setBigImgToShow] = useState();
   const [defaultselectedTab, setDefaultSelectedTab] = useState("Product Details");
@@ -23,6 +24,8 @@ export default function ProductDetails() {
   const [isSelectedSize, setIsSelectedSize] = useState();
   const [formattedDate, setFormattedDate] = useState("");
   const [count, setCount] = useState(0);
+  const [query, setQuery] = useSearchParams();
+  const id = query.get("id");
 
   const [detailsAndReviewsTabs, setDetailsAndReviewsTabs] = useState([
     "Product Details",
@@ -41,7 +44,7 @@ export default function ProductDetails() {
     setBigImgToShow(ele);
   };
   useEffect(() => {
-    GetData("get_product_details", { product_id: "65944e9710c2a53fa96ee526" }, handleOtherStates);
+    GetData("get_product_details", { product_id: id }, handleOtherStates);
   }, []);
 
   const handleOtherStates = (res) => {
@@ -131,9 +134,7 @@ export default function ProductDetails() {
                   return (
                     <span
                       onClick={() => selectedSize(ele)}
-                      className={`${
-                        ele.quantity > 0 ? "bg-gray-500" : "disableSize"
-                      } ${
+                      className={`${ele.quantity > 0 ? "bg-gray-500" : "disableSize"} ${
                         isSelectedSize == ele.size ? "selectedSize" : "newSize"
                       }  px-5 cursor-pointer  py-2 w-fit rounded-3xl text-s`}
                     >
@@ -156,12 +157,8 @@ export default function ProductDetails() {
                 />
               </div>
               <div className="addToCartBtn">
-                {console.log(
-                  productDetails,
-                  "kkkkkkkkkkkkkkkkkkkkkkkkkkkkk",
-                  count
-                )}
-                {!!productDetails._id &&  (
+                {console.log(productDetails, "kkkkkkkkkkkkkkkkkkkkkkkkkkkkk", count)}
+                {!!productDetails._id && (
                   <AddToCart
                     productId={productDetails}
                     selectedSize={isSelectedSize}
@@ -226,9 +223,7 @@ export default function ProductDetails() {
             {!!productDetails._id && <Recommendations productId={productDetails._id} />}
           </div>
         </div>
-        <div>
-          <Footer />
-        </div>
+     
       </div>
     </>
   );
