@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import ProductCard from "../../../Components/ProductCard";
 import { GetData } from "../../../Utility/API";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 function NewArrivals() {
   const [newArrivals, setNewArrivals] = useState([]);
@@ -18,9 +21,10 @@ function NewArrivals() {
       <div className="w-full flex justify-between gap-6">
         {newArrivals?.map((item) => {
           return (
-            <>
+         
+            <div>
               <ProductCard data={item} />
-            </>
+              </div>
           );
         })}
       </div>

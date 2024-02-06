@@ -41,10 +41,9 @@ function LandingPage() {
       <div>
       <BrowseByCategory/>
       </div>
-      <div>
+    
+      </div>
       <Footer />
-      </div>
-      </div>
     </>
   );
 }
