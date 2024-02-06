@@ -20,23 +20,20 @@ function TopSelling() {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 2,
-    slidesToScroll: 1,
+    slidesToShow: 4,
+    slidesToScroll: 2,
     arrows: true,
     dots: false,
-    draggable: true,
-    autoPlaySpeed: 1000,
-    useTransform: true,
-    touchThreshold: 5,
-    adaptiveHeight: true,
+    autoPlay:true,
   };
 
   return (
-    <div className="max-w-screen-xl m-auto flex flex-col gap-6 items-center">
+    <div className="max-w-screen-xl w-full m-auto flex flex-col gap-6 items-center">
       <div className="text-5xl font-extrabold">TOP SELLING</div>
-      <div>
+
+      <div className=" w-full">
         <Slider {...settings}>
-          {newArrivals.map((item) => (
+          {newArrivals?.map((item) => (
             <ProductCard data={item} />
           ))}
         </Slider>
