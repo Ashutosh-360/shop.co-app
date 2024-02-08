@@ -10,7 +10,7 @@ function ProductCard({ data }) {
   return (
     <div className="flex flex-col gap-2">
       <a
-        target="_blank"
+        target=""
         href={`/product?id=${data?._id}`}
         className="flex justify-center items-center w-64 h-auto"
       >
@@ -20,8 +20,8 @@ function ProductCard({ data }) {
         <div className="text-black font-semibold text-base">{data?.name}</div>
         <div className="flex gap-4 text-sm items-center">
           <div className="flex gap-1">
-            {[...Array(parseInt(data?.rating))].map((ele) => {
-              return <img className="h-4" src={starRating} alt="" />;
+            {[...Array(parseInt(data?.rating))].map((ele,idx) => {
+              return <img key={idx} className="h-4" src={starRating} alt="" />;
             })}
             {data?.rating > parseInt(data?.rating) ? (
               <img className="h-4" src={halfStar} alt="" />
