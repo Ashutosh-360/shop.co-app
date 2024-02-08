@@ -6,13 +6,15 @@ import { isEmpty } from "../../utility/Validation.js";
 
 const newArrivalsController = async (req, res) => {
   try {
-    const thirtyDaysAgo = new Date();
-    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-    const result = await Product.find({ createdAt: { $gte: thirtyDaysAgo } });
+    const threeMonthsAgo = new Date();
+    threeMonthsAgo.setDate(threeMonthsAgo.getDate() - 90);
+    const result = await Product.find({ createdAt: { $gte: threeMonthsAgo } });
 
     successHandler(res, "Product fetched successfully", result);
+    return;
   } catch (error) {
-    res.status(500).json({ error: "Internal Server Error" });
+    errorHandler(res, "Something went wrong");
+    return;
   }
 };
 

@@ -6,6 +6,7 @@ import LandingPage from "../Pages/LandingPage/LandingPage";
 import Login from "../Pages/Login/Login";
 import SearchProduct from "../Pages/SearchProduct/SearchProduct";
 import PrivateRoute from "./PrivateRoute";
+import AddProduct from "../Pages/AddProduct/AddProduct";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,11 @@ const router = createBrowserRouter([
         path: "search",
         element: <SearchProduct />,
       },
+      {
+        path: "add",
+        element: <AddProduct />,
+      },
+      
     ],
   },
   {
