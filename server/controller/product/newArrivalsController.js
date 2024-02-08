@@ -8,7 +8,10 @@ const newArrivalsController = async (req, res) => {
   try {
     const threeMonthsAgo = new Date();
     threeMonthsAgo.setDate(threeMonthsAgo.getDate() - 90);
-    const result = await Product.find({ createdAt: { $gte: threeMonthsAgo } });
+    const result = await Product.aggregate([
+      { $match: { createdAt: { $gte: threeMonthsAgo } } },
+      { $sample: { size: 10 } }, // Adjust the size based on your requirements
+    ]);
 
     successHandler(res, "Product fetched successfully", result);
     return;
