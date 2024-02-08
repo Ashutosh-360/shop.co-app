@@ -16,7 +16,13 @@ import BrowseByCategory from "../../Components/BrowseByCategory/BrowseByCategory
 import Reviews from "../../Components/Reviews/Reviews";
 import TopSelling from "../Homepage/Components/TopSelling";
 function LandingPage() {
-  const [brandNames, setBrandNames] = useState([versace, zara, gucci, prada, calvinklein]);
+  const [brandNames, setBrandNames] = useState([
+    versace,
+    zara,
+    gucci,
+    prada,
+    calvinklein,
+  ]);
 
   return (
     <>
@@ -44,11 +50,18 @@ function LandingPage() {
               </button>
             </div>
             <div className="w-1/2 flex pl-20 items-center pt-11">
-             
-              <div className="border-r-2 p-4"><span className="text-5xl font-medium">200+</span><br/> <span className="text-xs">International Brands</span></div>
-              <div className="border-r-2 p-4"><span className="text-5xl font-medium">2000+</span><br/> <span className="text-xs">High-Quality Products</span></div>
-              <div className="p-4"><span className="text-5xl font-medium">30,000+</span><br/> <span className="text-xs">Happy Customers</span></div>
-
+              <div className="border-r-2 p-4">
+                <span className="text-5xl font-medium">200+</span>
+                <br /> <span className="text-xs">International Brands</span>
+              </div>
+              <div className="border-r-2 p-4">
+                <span className="text-5xl font-medium">2000+</span>
+                <br /> <span className="text-xs">High-Quality Products</span>
+              </div>
+              <div className="p-4">
+                <span className="text-5xl font-medium">30,000+</span>
+                <br /> <span className="text-xs">Happy Customers</span>
+              </div>
             </div>
           </div>
           <div className="brandNames flex bg-black h-20 justify-around items-center">
@@ -57,9 +70,9 @@ function LandingPage() {
             })}
           </div>
         </div>
-        <div>
-          <NewArrivals />
-        </div>
+
+        <NewArrivals />
+
         <TopSelling />
         <div>
           <BrowseByCategory />
