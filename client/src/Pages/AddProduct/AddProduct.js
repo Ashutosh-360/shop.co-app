@@ -100,31 +100,31 @@ function AddProduct() {
   ]);
 
   let data = {
-    name: "Moda Rapido",
+    name: "Mast & Harbour",
     gender: "Men",
     currency: "₹",
     currency_code: "INR",
-    price: 2499,
+    price: 2399,
     discounted_price: 999,
-    rating: 4.9,
-    product_description: "Men Pure Cotton Spread Collar Elasticated Hem Casual Shirtt",
+    rating: 3.7,
+    product_description: "Men Standard Cotton Shacket",
     front_image:
-      "https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/21249956/2023/4/3/23ef434b-ff3d-4daa-a712-91f3af504dbe1680506279577-Moda-Rapido-Men-Shirts-4271680506278960-1.jpg",
+      "https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/24578698/2023/9/19/e9552fcb-8fde-472c-8f65-871d79cc428f1695108703470-Mast--Harbour-Men-Shirts-6801695108703029-1.jpg",
     category: "Shirt",
     images: [
-      "https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/21249956/2023/4/3/7fa2d983-80d1-4fdb-ab86-0d1c14381f611680506279566-Moda-Rapido-Men-Shirts-4271680506278960-2.jpg",
-      "https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/21249956/2023/4/3/5dd79960-f482-4694-8c53-6e4bbf55e9d81680506279529-Moda-Rapido-Men-Shirts-4271680506278960-5.jpg",
-      "https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/21249956/2023/4/3/9704765e-e807-4b88-80dc-f3e89a1f06471680506279501-Moda-Rapido-Men-Shirts-4271680506278960-6.jpg",
+      "https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/24578698/2023/9/19/f90a1d3d-682b-4da9-911f-6b56dd643bf41695108703454-Mast--Harbour-Men-Shirts-6801695108703029-2.jpg",
+      "https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/24578698/2023/9/19/9592c465-2576-4dc1-a5e6-a80e06b1f20a1695108703415-Mast--Harbour-Men-Shirts-6801695108703029-4.jpg",
+      "https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/24578698/2023/9/19/1ee3c841-422b-4636-a656-b2bce51c475e1695108703376-Mast--Harbour-Men-Shirts-6801695108703029-6.jpg",
     ],
     product_details: {
       details:
-        "Green solid opaque casual shirt, has a spread collar, button placket, 2 flap pocket, long regular sleeves with elasticated cuff, straight elasticated hem",
+        "Green solid opaque Casual shirt ,has a spread collar, button placket, 2 flap pocket, long regular sleeves, curved hem",
       material: "100% Cotton",
-      brand: "Moda Rapido",
+      brand: "Mast & Harbour",
       care_instructions:
         "Machine wash cold, gentle cycle. Do not bleach. Tumble dry low. Iron on low heat.",
     },
-    variant: { color: "Green", hex: "#1f4647" },
+    variant: { color: "Green", hex: "#3C463B" },
   };
 
   const [payload, setPayload] = useState({});
@@ -135,8 +135,7 @@ function AddProduct() {
   const updateHandler = () => {};
   return (
     <>
-      <Header />
-      <div className="flex flex-col gap-2 w-full m-auto max-w-screen-xl">
+      <div className="flex flex-col gap-2 w-full m-auto max-w-screen-xl py-16">
         <div className="font-semibold text-xl">Add Product</div>
         <div className="grid grid-cols-2 gap-4">
           {/* <FormParser data={productSchema} parserPayload={payload} setParserPayload={setPayload} /> */}
