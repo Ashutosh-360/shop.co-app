@@ -157,7 +157,6 @@ export default function ProductDetails() {
                 />
               </div>
               <div className="addToCartBtn">
-                {console.log(productDetails, "kkkkkkkkkkkkkkkkkkkkkkkkkkkkk", count)}
                 {!!productDetails._id && (
                   <AddToCart
                     productId={productDetails}
