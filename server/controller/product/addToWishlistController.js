@@ -5,7 +5,7 @@ import getUser from "../../utility/getUser.js";
 import successHandler from "../../utility/successHandler.js";
 import { isEmpty } from "../../utility/Validation.js";
 
-const addToWishlistController = async (req, res, quantity) => {
+const addToWishlistController = async (req, res) => {
   try {
     const { product_id, wishlist_status } = req?.body;
 

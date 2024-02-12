@@ -16,6 +16,12 @@ const userSchema = new mongoose.Schema(
     authentication_token: {
       type: String,
     },
+    mobile: {
+      type: Number,
+    },
+    dob: {
+      type: Number,
+    },
   },
   { timestamps: true }
 );
