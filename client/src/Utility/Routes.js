@@ -7,6 +7,8 @@ import Login from "../Pages/Login/Login";
 import SearchProduct from "../Pages/SearchProduct/SearchProduct";
 import PrivateRoute from "./PrivateRoute";
 import AddProduct from "../Pages/AddProduct/AddProduct";
+import MyProfile from "../Components/MyProfile/MyProfile";
+import EditProfile from "../Components/MyProfile/EditProfile";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +31,14 @@ const router = createBrowserRouter([
       {
         path: "add",
         element: <AddProduct />,
+      },
+      {
+        path: "profile",
+        element: <MyProfile />,
+      },
+      {
+        path: "edit_profile",
+        element: <EditProfile />,
       },
       
     ],
