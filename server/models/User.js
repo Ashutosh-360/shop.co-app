@@ -20,7 +20,13 @@ const userSchema = new mongoose.Schema(
       type: Number,
     },
     dob: {
-      type: Number,
+      type: Date,
+    },
+    profile_image: {
+      type: String,
+    },
+    gender: {
+      type: String,
     },
   },
   { timestamps: true }
