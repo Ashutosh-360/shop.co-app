@@ -1,6 +1,7 @@
 import React from 'react'
 
 export default function EditProfile() {
+  
   return (
     <div className='max-w-screen-xl m-auto flex flex-col gap-4 pt-4'>
         <div className='font-bold text-3xl'>Settings</div>

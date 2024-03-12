@@ -41,6 +41,10 @@ function Cart() {
     );
   };
 
+  const checkoutToPay = () => {
+    
+  };
+
   return (
     <>
       <Header />
@@ -91,11 +95,16 @@ function Cart() {
                   />
                 </div>
                 <div>
-                  <button className="bg-primary p-3 px-6 text-white rounded-full">Apply</button>
+                  <button className="bg-primary p-3 px-6 text-white rounded-full">
+                    Apply
+                  </button>
                 </div>
               </div>
               <div>
-                <button className="flex gap-2 p-4 px-12 w-full bg-primary text-white rounded-full justify-center">
+                <button
+                  onClick={checkoutToPay}
+                  className="flex gap-2 p-4 px-12 w-full bg-primary text-white rounded-full justify-center"
+                >
                   Go to Checkout
                 </button>
               </div>

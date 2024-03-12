@@ -1,10 +1,7 @@
-import React, { useState } from "react";
-import Header from "../../Components/Header";
+import React, { useEffect, useState } from "react";
 import NewArrivals from "../Homepage/Components/NewArrivals";
-import Footer from "../../Components/Footer";
 import banner from "../../assets/landingBanner.png";
-import blackStrip from "../../assets/blacckStrip.png";
-import Slider from "react-slick";
+
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import calvinklein from "../../assets/calvinKlein.png";
@@ -13,8 +10,9 @@ import gucci from "../../assets/gucci.png";
 import versace from "../../assets/versace.png";
 import zara from "../../assets/zara.png";
 import BrowseByCategory from "../../Components/BrowseByCategory/BrowseByCategory";
-import Reviews from "../../Components/Reviews/Reviews";
 import TopSelling from "../Homepage/Components/TopSelling";
+import { connect } from "react-redux";
+import { GetData } from "../../Utility/API";
 function LandingPage() {
   const [brandNames, setBrandNames] = useState([
     versace,
@@ -23,6 +21,11 @@ function LandingPage() {
     prada,
     calvinklein,
   ]);
+  useEffect(() => {
+    GetData("get_profile", {}, (response) => {
+      console.log(response,"hey");
+    });
+  },);
 
   return (
     <>
@@ -81,5 +84,8 @@ function LandingPage() {
     </>
   );
 }
+let mapStateToProps = (state) => ({
+  token: state.authToken,
+});
 
-export default LandingPage;
+export default connect(mapStateToProps)(LandingPage);
