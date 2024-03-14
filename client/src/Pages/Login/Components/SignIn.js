@@ -3,8 +3,12 @@ import { Navigate, useNavigate } from "react-router";
 import { GetData } from "../../../Utility/API";
 import { isEmail } from "../../../Utility/Validation";
 import style from "../Login.module.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { userDetailsContainer } from "../../../Store/Slices/UserSlices";
+import { Token,authTokenContainer } from "../../../Store/Slices/AuthTokenSlices";
 
 function SignIn({ setIsSignUp }) {
+  const dispatch = useDispatch();
   const [userCredentials, setUserCredentials] = useState({
     email: "",
     password: "",
@@ -14,7 +18,10 @@ function SignIn({ setIsSignUp }) {
   const navigate = useNavigate();
   const signInHandler = () => {
     setIsErrorState(true);
-    if (!isEmail(userCredentials?.email) || userCredentials?.password?.length < 8) {
+    if (
+      !isEmail(userCredentials?.email) ||
+      userCredentials?.password?.length < 8
+    ) {
       return;
     }
     GetData("sign_in", userCredentials, updateSignInHandler);
@@ -22,7 +29,9 @@ function SignIn({ setIsSignUp }) {
 
   const updateSignInHandler = (res) => {
     if (res?.data?.success) {
-      navigate("/");
+      dispatch(userDetailsContainer(res?.data?.results));
+      dispatch(authTokenContainer(res?.data?.results?.authentication_token))
+      navigate("/");  
     }
   };
   const inputChangeHandler = (e) => {
@@ -35,7 +44,9 @@ function SignIn({ setIsSignUp }) {
     <div className="flex flex-col justify-center min-h-screen gap-8 w-full p-12">
       <div className="flex gap-1 flex-col">
         <div className="text-3xl font-semibold">Welcome back</div>
-        <div className="text-faint_text text-sm">Welcome back! Please enter your details.</div>
+        <div className="text-faint_text text-sm">
+          Welcome back! Please enter your details.
+        </div>
       </div>
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-2">
@@ -48,7 +59,9 @@ function SignIn({ setIsSignUp }) {
             onChange={inputChangeHandler}
             value={userCredentials.email}
             className={`border text-base outline-none rounded-lg p-3 ${
-              isErrorState && !isEmail(userCredentials.email) && style.errorState
+              isErrorState &&
+              !isEmail(userCredentials.email) &&
+              style.errorState
             }`}
             type="text"
             placeholder="Enter your email"
@@ -66,7 +79,9 @@ function SignIn({ setIsSignUp }) {
               onChange={inputChangeHandler}
               value={userCredentials.password}
               className={`w-full border text-base outline-none rounded-lg p-3 ${
-                isErrorState && userCredentials.password.length < 8 && style.errorState
+                isErrorState &&
+                userCredentials.password.length < 8 &&
+                style.errorState
               }`}
               type={!showPassword ? "password" : "text"}
               placeholder="Enter your password"
@@ -77,7 +92,7 @@ function SignIn({ setIsSignUp }) {
               onClick={() => {
                 setShowPassword(!showPassword);
               }}
-              class={`fa-regular ${
+              className={`fa-regular ${
                 showPassword ? "fa-eye" : "fa-eye-slash"
               } absolute cursor-pointer top-1/2 right-3 -translate-y-1/2 text-primary`}
             ></i>
@@ -97,7 +112,10 @@ function SignIn({ setIsSignUp }) {
       </div>
       <div className="text-faint_text text-sm">
         Don’t have an account?{" "}
-        <span className="text-primary cursor-pointer underline" onClick={showSignUp}>
+        <span
+          className="text-primary cursor-pointer underline"
+          onClick={showSignUp}
+        >
           Sign up for free!
         </span>
       </div>
