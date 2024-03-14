@@ -10,14 +10,21 @@ import { isEmpty } from "../../utility/Validation.js";
 const getWishlistController = async (req, res) => {
   try {
     const user = await getUser(req);
-    console.log(user);
     const user_id = user._id;
     const existingWishlist = await Wishlist.findOne({ user_id: user_id });
 
-    successHandler(res, "Products fetched successfully", existingWishlist);
+    if (!existingWishlist) {
+      return errorHandler(res, "Wishlist not found");
+    }
+
+    const productIds = existingWishlist.products;
+
+    // Query the Product model to find all products that match the productIds
+    const products = await Product.find({ _id: { $in: productIds } });
+    successHandler(res, "Wishlist fetched successfully", products);
     return;
   } catch (error) {
-    successHandler(res, "Something went wrong");
+    errorHandler(res, "Something went wrong");
   }
 };
 
