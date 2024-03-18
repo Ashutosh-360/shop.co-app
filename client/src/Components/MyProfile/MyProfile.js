@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import cat from "../../assets/catProfile.jpeg";
 import { store } from "../../Store/store";
-
+import { Navigate, useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 export default function MyProfile() {
   const [profileData, setProfileData] = useState();
   useEffect(() => {
@@ -9,10 +9,11 @@ export default function MyProfile() {
     console.log(profileData, "profileData");
   });
 
-  const logOutFunc = () =>{
-    localStorage.removeItem("persist:root");
-    window.location.reload();
-  }
+  const logOutFunc = () => {
+    localStorage.clear();
+    window.location.href = "/login";
+  };
+
   return (
     <>
       <div className="max-w-screen-xl m-auto flex flex-col gap-10 pb-4">
@@ -28,9 +29,12 @@ export default function MyProfile() {
             <div className="flex gap-2">
               <button className="font-semibold text-lg py-3 px-4 bg-gray-200 rounded-md">
                 {" "}
-                Edit Profile
+                <Link to={"/edit_profile"}>Edit Profile</Link>
               </button>
-              <button className="font-semibold text-lg text-gray-200 py-3 px-4 bg-black rounded-md" onClick={logOutFunc}>
+              <button
+                className="font-semibold text-lg text-gray-200 py-3 px-4 bg-black rounded-md"
+                onClick={logOutFunc}
+              >
                 Logout
               </button>
             </div>

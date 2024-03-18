@@ -14,6 +14,7 @@ function NewArrivals() {
 
   const updateNewArrivalsHandler = (res) => {
     setNewArrivals(res.data.results);
+    console.log(res.data.results,"newArrivals")
   };
 
   return (

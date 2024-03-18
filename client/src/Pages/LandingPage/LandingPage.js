@@ -77,7 +77,7 @@ function LandingPage() {
         <NewArrivals />
 
         <TopSelling />
-        <div>
+        <div className="pb-6">
           <BrowseByCategory />
         </div>
       </div>

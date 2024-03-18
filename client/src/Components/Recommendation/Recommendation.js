@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { GetData } from "../../Utility/API";
-import ProductCard from "../ProductCard";
+// import ProductCard from "../ProductCard";
+import Loader from "../Loader";
+import SliderComponent from "../Slider/SliderComponent";
 
 export default function Recommendations({ productId }) {
   console.log(productId, "productId");
   const [recommendedDetails, setRecommendedDetails] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     console.log(productId, "productId");
     GetData(
@@ -17,15 +21,20 @@ export default function Recommendations({ productId }) {
   }, []);
 
   const RecommendedProduct = (response) => {
-    setRecommendedDetails([...response.data.results]);
-    console.log(response.data, "first");
+    setIsLoading(false);
+    setRecommendedDetails(response.data.results);
+    console.log(response.data.results, "first");
   };
 
-  return recommendedDetails?.map((item) => {
-    return (
-      <>
-        <ProductCard data={item} />
-      </>
-    );
-  });
+  return (
+    <>
+      {isLoading ? <Loader /> : ""}
+
+      {!isLoading && (
+        <div className="w-full">
+          <SliderComponent productData={recommendedDetails} />
+        </div>
+      )}
+    </>
+  );
 }
