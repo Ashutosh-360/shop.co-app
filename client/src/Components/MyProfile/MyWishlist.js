@@ -4,6 +4,7 @@ import wishlist from "../../assets/wishlist.png";
 import ProductCard from "../ProductCard";
 import { GetData } from "../../Utility/API";
 import Loader from "../Loader";
+import style from "../../Components/MyProfile/MyWishlist.module.scss"
 
 export default function MyWishlist() {
   const [wishlistData, setWishlistData] = useState("");
@@ -28,11 +29,11 @@ export default function MyWishlist() {
              <img className="w-2 h-fit" src={arrow} /> Wishlist
           </div>
           <div className="font-bold text-3xl">Your Wishlist</div>
-          <div className="flex gap-3 py-8 px-1 max-w-screen-xl m-auto">
+          <div className={`flex py-8 px-1 max-w-screen-xl m-auto h-fit grid gap-8 justify-center ${style.wishlistCardsContainer}`}>
             {!!wishlistData ? (
               wishlistData?.map((item) => {
                 return (
-                  <div className="h-fit grid  gap-4 justify-center">
+                  <div className={``}>
                     <ProductCard data={item} />
                   </div>
                 );
