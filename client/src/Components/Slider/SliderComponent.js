@@ -14,12 +14,16 @@ function SliderComponent({ productData }) {
     autoPlay: true,
     prevArrow: (
       <div style={{background:"red"}} className="rounded-lg w-12 h-12 border bg-white text-primary flex justify-center items-center">
-        <i className="fa-solid fa-angle-left"></i>
+        <div  className="slick-arrow">
+          <img src={"https://cdn2.workadvantage.in/images/cdn_upload/cdn/1742/c93e491f3e.svg"} alt=""/>
+          </div>
       </div>
     ),
     nextArrow:(
       <div className="rounded-lg w-12 h-12 border bg-white text-primary flex justify-center items-center">
-        <i className="fa-solid fa-angle-right"></i>
+        <div style={{transform:"translateY(-50%) rotate(180deg)"}} className="slick-arrow">
+          <img className="" src="https://cdn2.workadvantage.in/images/cdn_upload/cdn/1742/c93e491f3e.svg" alt=""/>
+          </div>
       </div>
     ),
   };

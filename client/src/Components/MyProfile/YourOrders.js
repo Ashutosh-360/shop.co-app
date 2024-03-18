@@ -5,7 +5,7 @@ export default function YourOrders() {
   return (
     <div className="max-w-screen-xl m-auto pt-6 flex flex-col gap-4">
       <div className="text-lg flex gap-2 items-center">
-        Home <img className="w-2 h-fit" src={arrow} /> Account
+        <a href="/">Home</a> <img className="w-2 h-fit" src={arrow} /> Account
       </div>
       <div className="font-bold text-3xl">Your Orders</div>
       <div className="flex justify-between">
