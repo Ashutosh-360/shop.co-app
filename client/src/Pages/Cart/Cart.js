@@ -47,7 +47,6 @@ function Cart() {
 
   return (
     <>
-      <Header />
       {isLoading ? <Loader /> : ""}
       {!isLoading && (
         <div className="w-full max-w-screen-xl p-2 py-10 m-auto gap-4 flex flex-col mb-12">
@@ -112,7 +111,6 @@ function Cart() {
           </div>
         </div>
       )}
-      <Footer />
     </>
   );
 }

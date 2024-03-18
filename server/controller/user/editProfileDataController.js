@@ -8,10 +8,13 @@ const editProfileDataController = async (req, res) => {
     const user = await getUser(req);
     const userDetailsToBeUpdate = req.body;
 
-    const updatedUser = await User.findByIdAndUpdate(user._id, userDetailsToBeUpdate, {
-      new: true,
-    });
-    
+    const updatedUser = await User.findByIdAndUpdate(
+      user._id,
+      userDetailsToBeUpdate,
+      {
+        new: true,
+      }
+    );
 
     successHandler(res, "User fetched successfuly", updatedUser);
     return;
