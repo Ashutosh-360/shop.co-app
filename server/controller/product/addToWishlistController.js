@@ -10,6 +10,7 @@ const addToWishlistController = async (req, res) => {
     const { product_id, wishlist_status } = req?.body;
 
     const user = await getUser(req);
+    console.log(user);
     const user_id = user._id;
 
     if (!user_id) {

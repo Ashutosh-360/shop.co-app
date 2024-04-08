@@ -3,7 +3,7 @@ import { PostData } from "../../Utility/API";
 
 function UpdateInventory() {
   const inventoryData = {
-    product_id: "65944e9710c2a53fa96ee526", // Replace with the actual product ID
+    product_id: "65a3f37b3766e6633e1adb51", // Replace with the actual product ID
     available_quantity: [
       {
         size: "S",
@@ -29,7 +29,10 @@ function UpdateInventory() {
 
   const updateInventoryHandler = (res) => {};
   return (
-    <button onClick={inventoryHandler} className="bg-black text-white text-lg rounded p-3">
+    <button
+      onClick={inventoryHandler}
+      className="bg-black text-white text-lg rounded p-3"
+    >
       Add Inventory
     </button>
   );

@@ -11,6 +11,7 @@ import MyProfile from "../Components/MyProfile/MyProfile";
 import EditProfile from "../Components/MyProfile/EditProfile";
 import YourOrders from "../Components/MyProfile/YourOrders";
 import MyWishlist from "../Components/MyProfile/MyWishlist";
+import Add from "../Pages/Add/Add";
 
 const router = createBrowserRouter([
   {
@@ -32,7 +33,7 @@ const router = createBrowserRouter([
       },
       {
         path: "add",
-        element: <AddProduct />,
+        element: <Add />,
       },
     ],
   },
