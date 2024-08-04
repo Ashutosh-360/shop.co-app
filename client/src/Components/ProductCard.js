@@ -8,11 +8,11 @@ import "slick-carousel/slick/slick-theme.css";
 
 function ProductCard({ data }) {
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 justify-center lg:justify-start">
       <a
         target=""
         href={`/product?id=${data?._id}`}
-        className="flex justify-center items-center w-64 h-auto"
+        className="flex  justify-center items-center w-full lg:w-64 h-auto"
       >
         <img className="rounded-xl" src={data?.front_image} alt="" />
       </a>

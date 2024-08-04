@@ -38,10 +38,16 @@ function SearchProduct() {
   };
   return (
     <>
-      {isLoading ? <Loader /> : ""}
+      {isLoading ? (
+        <div className="min-h-[80vh]">
+          <Loader />{" "}
+        </div>
+      ) : (
+        ""
+      )}
       {!isLoading && (
-        <div className="flex gap-3 py-8 px-1 max-w-screen-xl m-auto">
-          <div className={`h-fit border rounded-lg ${style.filterContainer}`}>
+        <div className="flex gap-3 py-8 px-1 max-w-screen-xl m-auto  min-h-[100vh]">
+          {/* <div className={`h-fit border rounded-lg ${style.filterContainer}`}>
             <div className="flex items-center justify-between p-4">
               <div className="font-semibold">Filters</div>
               <div>
@@ -115,7 +121,7 @@ function SearchProduct() {
                 Apply Filters
               </button>
             </div>
-          </div>
+          </div> */}
 
           <div
             className={`h-fit grid  gap-3 justify-center ${style.productsContainer}`}

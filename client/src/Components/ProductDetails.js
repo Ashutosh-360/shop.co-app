@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import arrow from "../assets/arrow.png";
-import Header from "./Header";
 import StarRating from "./StarRating";
 import { GetData, PostData } from "../Utility/API";
 import plus from "../assets/plus.png";
@@ -94,8 +93,8 @@ export default function ProductDetails() {
           <div className="productDetailsWrapper flex gap-4 w-full max-w-screen-xl m-auto ">
             <div className="productImgLeftContainer w-1/2">
               <div className="navigationBar  py-6 flex gap-2 items-center">
-               <a href="/">Home</a>  <img className="w-2 h-fit" src={arrow} /> Product{" "}
-             
+                <a href="/">Home</a> <img className="w-2 h-fit" src={arrow} />{" "}
+                Product{" "}
               </div>
 
               <div className="flex gap-4">
@@ -104,7 +103,7 @@ export default function ProductDetails() {
                     return (
                       <img
                         onClick={() => changeImg(ele, index)}
-                        className={`productLeftImgs rounded-2xl `}
+                        className={`productLeftImgs rounded-2xl cursor-pointer`}
                         src={ele}
                       />
                     );
@@ -249,16 +248,15 @@ export default function ProductDetails() {
           <hr />
         </div>
       )}
-   
-        <div className="flex flex-col gap-16 max-w-screen-xl m-auto">
-          <div className="flex flex-col gap-10 justify-center items-center">
-            <div className="font-extrabold text-5xl ">YOU MIGHT ALSO LIKE</div>
-              {productDetails?._id && (
-                <Recommendations productId={productDetails?._id} />
-              )}
-          </div>
+
+      <div className="flex flex-col gap-16 max-w-screen-xl m-auto">
+        <div className="flex flex-col gap-10 justify-center items-center">
+          <div className="font-extrabold text-5xl ">YOU MIGHT ALSO LIKE</div>
+          {productDetails?._id && (
+            <Recommendations productId={productDetails?._id} />
+          )}
         </div>
-     
+      </div>
     </>
   );
 }

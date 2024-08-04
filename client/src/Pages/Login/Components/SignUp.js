@@ -44,7 +44,9 @@ function SignUp({ setIsSignUp }) {
     <div className="flex flex-col justify-center min-h-screen gap-8 w-full p-12">
       <div className="flex gap-1 flex-col">
         <div className="text-3xl font-semibold">New here Sign up now.</div>
-        <div className="text-faint_text text-sm">Please enter your details.</div>
+        <div className="text-faint_text text-sm">
+          Please enter your details.
+        </div>
       </div>
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-2">
@@ -57,7 +59,9 @@ function SignUp({ setIsSignUp }) {
             onChange={inputChangeHandler}
             value={userCredentials.email}
             className={`border text-base outline-none rounded-lg p-3 ${
-              isErrorState && !isEmail(userCredentials.email) && style.errorState
+              isErrorState &&
+              !isEmail(userCredentials.email) &&
+              style.errorState
             }`}
             type="text"
             placeholder="Enter your email"
@@ -75,7 +79,9 @@ function SignUp({ setIsSignUp }) {
               onChange={inputChangeHandler}
               value={userCredentials.password}
               className={`w-full border text-base outline-none rounded-lg p-3 ${
-                isErrorState && userCredentials.password.length < 8 && style.errorState
+                isErrorState &&
+                userCredentials.password.length < 8 &&
+                style.errorState
               }`}
               type={!showPassword ? "password" : "text"}
               placeholder="Enter your password"
@@ -103,7 +109,9 @@ function SignUp({ setIsSignUp }) {
               onChange={inputChangeHandler}
               value={userCredentials.confirm_password}
               className={`w-full border text-base outline-none rounded-lg p-3 ${
-                isErrorState && userCredentials.confirm_password.length < 8 && style.errorState
+                isErrorState &&
+                userCredentials.confirm_password.length < 8 &&
+                style.errorState
               }`}
               type={!showConfirmPassword ? "password" : "text"}
               placeholder="Enter your password"
@@ -128,13 +136,16 @@ function SignUp({ setIsSignUp }) {
         >
           Sign Up
         </button>
-        <button className="bg-white border text-primary text-lg rounded-lg p-2 px-3">
+        {/* <button className="bg-white border text-primary text-lg rounded-lg p-2 px-3">
           Sign Up With Google
-        </button>
+        </button> */}
       </div>
       <div className="text-faint_text text-sm">
         Already have an account?{" "}
-        <span className="text-primary cursor-pointer underline" onClick={showSignIn}>
+        <span
+          className="text-primary cursor-pointer underline"
+          onClick={showSignIn}
+        >
           Sign in
         </span>
       </div>

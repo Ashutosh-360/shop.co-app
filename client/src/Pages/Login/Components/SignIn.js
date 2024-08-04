@@ -106,9 +106,9 @@ function SignIn({ setIsSignUp }) {
         >
           Sign In
         </button>
-        <button className="bg-white border text-primary text-lg rounded-lg p-2 px-3">
+        {/* <button className="bg-white border text-primary text-lg rounded-lg p-2 px-3">
           Sign In With Google
-        </button>
+        </button> */}
       </div>
       <div className="text-faint_text text-sm">
         Don’t have an account?{" "}
