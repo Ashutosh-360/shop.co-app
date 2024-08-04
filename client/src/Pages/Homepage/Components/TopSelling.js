@@ -17,17 +17,6 @@ function TopSelling() {
     setNewArrivals(res.data.results);
   };
 
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 2,
-    arrows: true,
-    dots: false,
-    autoPlay: true,
-  };
-
   return (
     <div className="max-w-screen-xl w-full m-auto flex flex-col gap-6 items-center">
       <div className="text-5xl font-extrabold">TOP SELLING</div>

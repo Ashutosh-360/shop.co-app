@@ -21,7 +21,15 @@ const getWishlistController = async (req, res) => {
 
     // Query the Product model to find all products that match the productIds
     const products = await Product.find({ _id: { $in: productIds } });
-    successHandler(res, "Wishlist fetched successfully", products);
+
+    const inventory = await Inventory.findOne({ product_id: { $in: productIds } });
+
+    // Merge inventory data with products
+    const productsWithInventory = products.map(product => ({
+      ...product.toObject(),
+      inventory: inventory || null
+    }));
+    successHandler(res, "Wishlist fetched successfully", productsWithInventory);
     return;
   } catch (error) {
     errorHandler(res, "Something went wrong");

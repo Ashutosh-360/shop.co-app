@@ -13,6 +13,7 @@ import BrowseByCategory from "../../Components/BrowseByCategory/BrowseByCategory
 import TopSelling from "../Homepage/Components/TopSelling";
 import { connect } from "react-redux";
 import { GetData } from "../../Utility/API";
+import { Link } from "react-router-dom";
 function LandingPage() {
   const [brandNames, setBrandNames] = useState([
     versace,
@@ -22,10 +23,8 @@ function LandingPage() {
     calvinklein,
   ]);
   useEffect(() => {
-    GetData("get_profile", {}, (response) => {
-      console.log(response,"hey");
-    });
-  },);
+    GetData("get_profile", {}, (response) => {});
+  });
 
   return (
     <>
@@ -48,9 +47,9 @@ function LandingPage() {
                 garments, designed to bring out your individuality and cater to
                 your sense of style.
               </span>
-              <button className="w-52 bg-black px-12 py-4 text-white ml- rounded-full">
+              <Link className="w-52 text-center bg-black px-12 py-4 text-white  rounded-full">
                 Shop Now
-              </button>
+              </Link>
             </div>
             <div className="w-1/2 flex pl-20 items-center pt-11">
               <div className="border-r-2 p-4">
@@ -67,7 +66,7 @@ function LandingPage() {
               </div>
             </div>
           </div>
-          <div className="brandNames flex bg-black h-20 justify-around items-center">
+          <div className="brandNames max-w-[100vw] overflow-auto flex bg-black h-20 justify-around items-center">
             {brandNames?.map((elem) => {
               return <img src={elem} className="h-6" />;
             })}

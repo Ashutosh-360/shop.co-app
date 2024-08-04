@@ -20,7 +20,7 @@ function Footer() {
               "linear-gradient(to bottom , white 0%, white 50%, #F0F0F0 50%, #F0F0F0 100%)",
           }}
         >
-          <div className="latestUpdates max-w-screen-xl m-auto  flex bg-black p-16 justify-between rounded-3xl">
+          <div className="latestUpdates max-w-screen-xl m-auto  flex bg-black p-16 justify-between rounded-xl lg:flex-row flex-col gap-4">
             <div className="text-white font-extrabold text-5xl">
               STAY UPTO DATE ABOUT <br />
               OUR LATEST OFFERS
@@ -38,8 +38,8 @@ function Footer() {
         </div>
 
         <div className="  bg-grey ">
-          <div className="footerContent flex justify-between max-w-screen-xl m-auto  py-6">
-            <div className="footerFirstColumn flex flex-col gap-6">
+          <div className="footerContent flex-col px-2 lg:px-0 lg:flex-row flex justify-between max-w-screen-xl m-auto gap-4  py-6">
+            <div className="footerFirstColumn flex flex-col gap-4">
               <span className="text-3xl font-black">SHOP.CO</span>
               <span>
                 We have clothes that suits your style and <br />
@@ -52,28 +52,28 @@ function Footer() {
                 <img className="w-8 h-8 rounded-full p-2 bg-white border" src={git} />
               </div>
             </div>
-            <div className="footerSecondColumn flex flex-col gap-2">
+            <div className="footerSecondColumn flex flex-col gap-1">
               <span className="text-xl font-medium">COMPANY</span>
               <span>About</span>
               <span>Features</span>
               <span>Works</span>
               <span>Career</span>
             </div>
-            <div className="footerThirdColumn flex flex-col gap-2">
+            <div className="footerThirdColumn flex flex-col gap-1">
               <span className="text-xl font-medium">HELP</span>
               <span>Customer Support</span>
               <span>Delivery Details</span>
               <span>Terms & Conditions</span>
               <span>Privacy Policy</span>
             </div>
-            <div className="footerFourthColumn flex flex-col gap-2">
+            <div className="footerFourthColumn flex flex-col gap-1">
               <span className="text-xl font-medium">FAQ</span>
               <span>Account</span>
               <span>Manage Deliveries</span>
               <span>Orders</span>
               <span>Payments</span>
             </div>
-            <div className="footerFifthColumn flex flex-col gap-2">
+            <div className="footerFifthColumn flex flex-col gap-1 ">
               <span className="text-xl font-medium">RESOURCES</span>
               <span>Free eBooks</span>
               <span>Development Tutorial</span>
@@ -82,7 +82,7 @@ function Footer() {
             </div>
           </div>
           <hr />
-          <div className="flex justify-between  max-w-screen-xl m-auto py-3 items-center">
+          <div className="flex justify-between lg:flex-row  flex-col-reverse max-w-screen-xl m-auto py-3 items-center">
             <div>Shop.co © 2000-2024, All Rights Reserved</div>
             <div className="flex">
               <img src={visa} />

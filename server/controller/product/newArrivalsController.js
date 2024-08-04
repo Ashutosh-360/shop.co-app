@@ -7,7 +7,7 @@ import { isEmpty } from "../../utility/Validation.js";
 const newArrivalsController = async (req, res) => {
   try {
     const threeMonthsAgo = new Date();
-    threeMonthsAgo.setDate(threeMonthsAgo.getDate() - 90);
+    threeMonthsAgo.setDate(threeMonthsAgo.getDate() - 900);
     const result = await Product.aggregate([
       { $match: { createdAt: { $gte: threeMonthsAgo } } },
       { $sample: { size: 10 } }, // Adjust the size based on your requirements

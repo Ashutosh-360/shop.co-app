@@ -5,6 +5,7 @@ import successHandler from "../../utility/successHandler.js";
 const getProfileDataController = async (req, res) => {
   try {
     const user = await getUser(req);
+    console.log(user);
 
     successHandler(res, "User fetched successfuly", user);
     return;
