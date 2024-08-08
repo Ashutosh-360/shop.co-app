@@ -22,7 +22,6 @@ export function GetData(apiRoute, payload, callback) {
 }
 export function PostData(apiRoute, payload, callback) {
   const auth = store?.getState()?.auth.authToken;
-  console.log(auth, "auth");
 
   try {
     axios
