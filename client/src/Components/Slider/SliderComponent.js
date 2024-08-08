@@ -4,14 +4,13 @@ import ProductCard from "../ProductCard";
 
 function SliderComponent({ productData }) {
   const settings = {
-    dots: true,
-    infinite: true,
+    dots: false,
+    infinite: false,
     speed: 500,
     slidesToShow: window.innerWidth > 1000 ? 4 : 1,
     slidesToScroll: window.innerWidth > 1000 ? 2 : 1,
     arrows: true,
     dots: false,
-    autoPlay: true,
 
     prevArrow: (
       <div
