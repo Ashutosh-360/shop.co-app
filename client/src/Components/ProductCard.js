@@ -12,7 +12,7 @@ function ProductCard({ data }) {
       <a
         target=""
         href={`/product?id=${data?._id}`}
-        className="flex  justify-center items-center w-full lg:w-64 h-auto"
+        className="flex justify-center items-center w-full lg:w-64 h-auto"
       >
         <img className="rounded-xl" src={data?.front_image} alt="" />
       </a>
@@ -20,7 +20,7 @@ function ProductCard({ data }) {
         <div className="text-black font-semibold text-base">{data?.name}</div>
         <div className="flex gap-4 text-sm items-center">
           <div className="flex gap-1">
-            {[...Array(parseInt(data?.rating))].map((ele,idx) => {
+            {[...Array(parseInt(data?.rating))].map((ele, idx) => {
               return <img key={idx} className="h-4" src={starRating} alt="" />;
             })}
             {data?.rating > parseInt(data?.rating) ? (

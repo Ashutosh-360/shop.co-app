@@ -17,7 +17,7 @@ function NewArrivals() {
   };
 
   return (
-    <div className="max-w-screen-xl m-auto flex flex-col gap-6 items-center">
+    <div className="max-w-screen-xl w-full m-auto flex flex-col gap-6 items-center">
       <div className="text-5xl font-extrabold">NEW ARRIVALS</div>
       <div className="w-full">
         <SliderComponent productData={newArrivals} />
