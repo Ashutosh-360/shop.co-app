@@ -11,4 +11,4 @@ jobs:
     steps:
       - name: Send HTTP request to keep API warm
         run: |
-          curl -s https://your-api-url.com/health-check
+          curl -s https://shopping-website-12o1.onrender.com/new_arrivals
