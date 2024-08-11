@@ -28,7 +28,10 @@ function Cart() {
   }, [subtotal, discount]);
   const getCartDataHandler = (res) => {
     setIsLoading(false);
-    setCartData([...res.data.results]);
+    if (!res.data.success) {
+      return;
+    }
+    setCartData([...res?.data?.results]);
     setPriceQuantityData([
       ...res.data.results.map((item) => {
         return { price: item?.discounted_price, quantity: item?.quantity };
@@ -41,9 +44,7 @@ function Cart() {
     );
   };
 
-  const checkoutToPay = () => {
-    
-  };
+  const checkoutToPay = () => {};
 
   return (
     <>

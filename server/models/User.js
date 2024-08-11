@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema(
     },
     name: {
       type: String,
-        trim: true,
+      trim: true,
     },
     authentication_token: {
       type: String,

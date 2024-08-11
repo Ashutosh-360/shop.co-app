@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { store } from "../../Store/store";
-import { Navigate, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
+import { GetData } from "../../Utility/API";
 export default function MyProfile() {
-  const [profileData, setProfileData] = useState();
+  const [profileData, setProfileData] = useState({});
   useEffect(() => {
+    GetData("get_profile", {}, (response) => {
+      setProfileData(response.data.results);
+    });
     setProfileData(store.getState()?.user?.userDetails);
-    console.log(profileData, "profileData");
-  });
+  }, []);
 
   const logOutFunc = () => {
     localStorage.clear();
@@ -19,7 +21,13 @@ export default function MyProfile() {
       <div className="max-w-screen-xl m-auto flex flex-col gap-10 pb-4">
         <div className="profileImgNameContainer flex gap-4 items-center justify-between pt-8">
           <div className="items-center flex gap-4">
-            <img src={profileData?.profile_image} className="w-32" />
+            {profileData.profile_image ? (
+              <img src={profileData?.profile_image} className="w-32" />
+            ) : (
+              <div className="w-12 h-12 flex justify-center items-center rounded-full border text-lg font-semibold">
+                {profileData?.email?.split("")[0]?.toUpperCase()}
+              </div>
+            )}
             <div className="flex flex-col">
               <div className="font-bold text-xl">{profileData?.name}</div>
               <div className="text-gray-500">{profileData?.email}</div>
@@ -49,7 +57,9 @@ export default function MyProfile() {
               </div>
               <div className="flex flex-col">
                 <div className="font-semibold">Name</div>
-                <div className="text-gray-500">{profileData?.name}</div>
+                <div className="text-gray-500">
+                  {profileData?.name || "---"}
+                </div>
               </div>
             </div>
             <div className="flex gap-2">
@@ -94,7 +104,9 @@ export default function MyProfile() {
               </div>
               <div className="flex flex-col">
                 <div className="font-semibold">Shipping Address</div>
-                <div className="text-gray-500">640, Shree Shyam Pg</div>
+                <div className="text-gray-500">
+                  {profileData?.address || "---"}
+                </div>
               </div>
             </div>
           </div>

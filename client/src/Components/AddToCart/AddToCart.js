@@ -19,7 +19,7 @@ function AddToCart(productId) {
   return (
     <>
       <button
-        className="bg-gray-900 px-24 py-2 rounded-3xl text-white"
+        className="bg-gray-900 min-w-[150px] w-1/2 text-center py-2 rounded-3xl text-white"
         onClick={addToCartHandler}
       >
         Add To Cart

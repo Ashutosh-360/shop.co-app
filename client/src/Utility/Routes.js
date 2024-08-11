@@ -7,11 +7,11 @@ import Login from "../Pages/Login/Login";
 import SearchProduct from "../Pages/SearchProduct/SearchProduct";
 import PrivateRoute from "./PrivateRoute";
 import AddProduct from "../Pages/AddProduct/AddProduct";
-import MyProfile from "../Components/MyProfile/MyProfile";
 import EditProfile from "../Components/MyProfile/EditProfile";
 import YourOrders from "../Components/MyProfile/YourOrders";
 import MyWishlist from "../Components/MyProfile/MyWishlist";
 import Add from "../Pages/Add/Add";
+import MyProfile from "../Pages/MyProfile/MyProfile";
 
 const router = createBrowserRouter([
   {

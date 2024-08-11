@@ -7,7 +7,7 @@ import gym from "../../assets/gym.png";
 export default function BrowseByCategory() {
   return (
     <>
-      <div className="max-w-screen-xl m-auto bg-gray-200 flex flex-col justify-center rounded-3xl gap-6 p-8">
+      <div className="bg-gray-200 flex flex-col justify-center rounded-3xl gap-6 p-8">
         <span className="text-4xl font-bold text-center">
           BROWSE BY DRESS STYLE
         </span>
