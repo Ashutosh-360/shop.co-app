@@ -20,8 +20,8 @@ function Footer() {
               "linear-gradient(to bottom , white 0%, white 50%, #F0F0F0 50%, #F0F0F0 100%)",
           }}
         >
-          <div className="latestUpdates max-w-screen-xl m-auto  flex bg-black p-16 justify-between rounded-xl lg:flex-row flex-col gap-4">
-            <div className="text-white font-extrabold text-5xl">
+          <div className="latestUpdates max-w-screen-xl m-auto  flex bg-black p-6 lg:p-16 justify-between lg:rounded-xl lg:flex-row flex-col gap-4">
+            <div className="text-white font-extrabold text-3xl lg:text-5xl">
               STAY UPTO DATE ABOUT <br />
               OUR LATEST OFFERS
             </div>

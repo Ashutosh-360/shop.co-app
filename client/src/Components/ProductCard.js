@@ -1,20 +1,18 @@
 import React from "react";
-import tshirt from "../assets/tshirts.png";
 import starRating from "../assets/starRating.png";
 import halfStar from "../assets/halfstar.png";
-import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 function ProductCard({ data }) {
   return (
-    <div className="flex flex-col gap-2 justify-center lg:justify-start">
+    <div className="flex flex-col gap-2 justify-center">
       <a
         target=""
         href={`/product?id=${data?._id}`}
         className="flex justify-center items-center w-full lg:w-64 h-auto"
       >
-        <img className="rounded-xl" src={data?.front_image} alt="" />
+        <img className="rounded-xl " src={data?.front_image} alt="" />
       </a>
       <div className="flex flex-col gap-0.5">
         <div className="text-black font-semibold text-base">{data?.name}</div>
@@ -35,10 +33,10 @@ function ProductCard({ data }) {
           <div>
             {data?.currency} {data.discounted_price}
           </div>
-          <div>
+          <div className="line-through opacity-50">
             {data?.currency} {data.price}
           </div>
-          <div className="px-1 text-sm text-red rounded-full">20%</div>
+          <div className="px-1 text-sm text-red  rounded-full">20%</div>
         </div>
       </div>
     </div>

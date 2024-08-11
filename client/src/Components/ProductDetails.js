@@ -89,14 +89,13 @@ export default function ProductDetails() {
     <>
       {isLoading ? <Loader /> : ""}
       {!isLoading && (
-        <div className="flex flex-col gap-12">
-          <div className="productDetailsWrapper flex gap-4 w-full max-w-screen-xl m-auto ">
-            <div className="productImgLeftContainer w-1/2">
-              <div className="navigationBar  py-6 flex gap-2 items-center">
-                <a href="/">Home</a> <img className="w-2 h-fit" src={arrow} />{" "}
-                Product{" "}
-              </div>
-
+        <div className="flex flex-col gap-6 px-4 py-6 lg:px-0 max-w-screen-xl m-auto">
+          <div className="flex gap-2 items-center ">
+            <a href="/">Home</a> <img className="w-2 h-fit" src={arrow} />{" "}
+            Product{" "}
+          </div>
+          <div className="flex gap-4 w-full  m-auto lg:flex-row flex-col">
+            <div className="productImgLeftContainer w-full lg:w-1/2">
               <div className="flex gap-4">
                 <div className="smImgsContainer flex flex-col gap-2 w-44">
                   {imgToShow.slice(0, 3).map((ele, index) => {
@@ -114,8 +113,8 @@ export default function ProductDetails() {
                 </div>
               </div>
             </div>
-            <div className="detailsRIghtContainer w-1/2 ml-4 flex flex-col gap-6">
-              <div className="productNameContainer text-4xl font-extrabold  pt-20 ">
+            <div className="detailsRIghtContainer w-full lg:w-1/2 lg:ml-4 flex flex-col gap-4">
+              <div className="text-4xl font-extrabold">
                 {productDetails?.name?.toUpperCase()}
               </div>
               <div className="product-card flex gap-4">
@@ -178,22 +177,20 @@ export default function ProductDetails() {
                     isSelectedSize={isSelectedSize}
                   />
                 </div>
-                <div className="addToCartBtn">
-                  {productDetails?._id && (
-                    <AddToCart
-                      productId={productDetails}
-                      selectedSize={isSelectedSize}
-                      quantity={count}
-                    />
-                  )}
-                </div>
+                {productDetails?._id && (
+                  <AddToCart
+                    productId={productDetails}
+                    selectedSize={isSelectedSize}
+                    quantity={count}
+                  />
+                )}
               </div>
               <div className="wishListBtns flex gap-2">
                 <button className="bg-gray-900 px-12 py-2 rounded-3xl text-white">
                   <Link to={"/wishlist"}>My Wishlist</Link>
                 </button>
                 <button
-                  className="bg-gray-200 px-20 py-2 rounded-3xl"
+                  className="bg-gray-200 min-w-[150px] w-1/2 py-2 rounded-3xl"
                   onClick={updateWishlist}
                 >
                   Add To Wishlist
@@ -246,17 +243,14 @@ export default function ProductDetails() {
             </div>
           </div>
           <hr />
+          <div className="w-full flex flex-col gap-6">
+            <div className="font-extrabold text-3xl lg:text-5xl ">YOU MIGHT ALSO LIKE</div>
+            {productDetails?._id && (
+              <Recommendations productId={productDetails?._id} />
+            )}
+          </div>
         </div>
       )}
-
-      <div className="flex flex-col gap-16 max-w-screen-xl m-auto">
-        <div className="flex flex-col gap-10 justify-center items-center">
-          <div className="font-extrabold text-5xl ">YOU MIGHT ALSO LIKE</div>
-          {productDetails?._id && (
-            <Recommendations productId={productDetails?._id} />
-          )}
-        </div>
-      </div>
     </>
   );
 }

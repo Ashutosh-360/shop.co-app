@@ -28,7 +28,7 @@ function LandingPage() {
 
   return (
     <>
-      <div className="max-w-screen-xl m-auto flex flex-col">
+      <div className="max-w-screen-xl m-auto flex flex-col pb-8">
         <div
           style={{
             backgroundImage: `url(${banner})`,
@@ -44,7 +44,7 @@ function LandingPage() {
               designed to bring out your individuality and cater to your sense
               of style.
             </span>
-            <Link className="w-52 text-center bg-black px-12 py-4 text-white  rounded-full">
+            <Link to={"search_product"} className="w-52 text-center bg-black px-12 py-4 text-white  rounded-full">
               Shop Now
             </Link>
           </div>

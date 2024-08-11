@@ -12,3 +12,8 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
+
+.slick-slide>div{
+  display: flex;
+  justify-content: center;
+}
