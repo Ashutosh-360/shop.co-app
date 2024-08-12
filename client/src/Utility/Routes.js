@@ -6,12 +6,11 @@ import LandingPage from "../Pages/LandingPage/LandingPage";
 import Login from "../Pages/Login/Login";
 import SearchProduct from "../Pages/SearchProduct/SearchProduct";
 import PrivateRoute from "./PrivateRoute";
-import AddProduct from "../Pages/AddProduct/AddProduct";
-import EditProfile from "../Components/MyProfile/EditProfile";
 import YourOrders from "../Components/MyProfile/YourOrders";
 import MyWishlist from "../Components/MyProfile/MyWishlist";
 import Add from "../Pages/Add/Add";
 import MyProfile from "../Pages/MyProfile/MyProfile";
+import EditProfile from "../Pages/EditProfile/EditProfile";
 
 const router = createBrowserRouter([
   {
@@ -53,7 +52,6 @@ const router = createBrowserRouter([
         path: "edit_profile",
         element: <EditProfile />,
       },
-
       {
         path: "orders",
         element: <YourOrders />,
