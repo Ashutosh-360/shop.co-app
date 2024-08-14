@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Input from "../../Components/Input/Input";
 import { GetData, PostData } from "../../Utility/API";
 
@@ -56,6 +57,14 @@ export default function EditProfile() {
               value={newDetails?.dob}
               defaultValue={profileDetails?.dob}
             />
+            <Input
+              heading="Gender"
+              keyName="gender"
+              placeholder="Enter your gender"
+              value={newDetails?.gender}
+              defaultValue={profileDetails?.gender}
+              onChange={onChangeHandler}
+            />
           </div>
           <div className="flex flex-col gap-2 py-2">
             <div className="font-semibold text-xl">Location</div>
@@ -92,7 +101,9 @@ export default function EditProfile() {
           </div>
         </div>
         <div className="flex justify-end gap-2 pb-6">
-          <button className="py-2 px-4 bg-gray-200 rounded-md">Cancel</button>
+          <Link to={"/profile"} className="py-2 px-4 bg-gray-200 rounded-md">
+            Cancel
+          </Link>
           <button
             className="py-2 px-4 bg-black text-white rounded-md"
             onClick={updateProfileDetailsHandler}

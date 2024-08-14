@@ -7,7 +7,7 @@ const editProfileDataController = async (req, res) => {
   try {
     const user = await getUser(req);
     const userDetailsToBeUpdate = {};
-    const { mobile, dob } = req.body;
+    const { mobile, dob, gender } = req.body;
 
     if (!!mobile) {
       userDetailsToBeUpdate.mobile = mobile;
@@ -15,11 +15,12 @@ const editProfileDataController = async (req, res) => {
     if (!!dob) {
       userDetailsToBeUpdate.dob = dob;
     }
-    console.log("userDetailsToBeUpdate",userDetailsToBeUpdate);
+    if (!!gender) {
+      userDetailsToBeUpdate.gender = gender;
+    }
     const updatedUser = await User.findByIdAndUpdate(user._id, userDetailsToBeUpdate, {
       new: true,
     });
-    console.log("ss");
 
     successHandler(res, "User fetched successfuly", updatedUser);
     return;
