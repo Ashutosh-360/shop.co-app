@@ -66,39 +66,6 @@ export default function EditProfile() {
               onChange={onChangeHandler}
             />
           </div>
-          <div className="flex flex-col gap-2 py-2">
-            <div className="font-semibold text-xl">Location</div>
-            <Input
-              heading="Pincode"
-              keyName="pincode"
-              placeholder="Enter your pincode"
-              onChange={onChangeHandler}
-            />
-            <Input
-              heading="Address"
-              keyName="addressline"
-              placeholder="Enter your Address"
-              onChange={onChangeHandler}
-            />
-            <Input
-              heading="Country"
-              keyName="country"
-              placeholder="Enter your Country"
-              onChange={onChangeHandler}
-            />
-            <Input
-              heading="State"
-              keyName="state"
-              placeholder="Enter your state"
-              onChange={onChangeHandler}
-            />
-            <Input
-              heading="City"
-              keyName="city"
-              placeholder="Enter your city"
-              onChange={onChangeHandler}
-            />
-          </div>
         </div>
         <div className="flex justify-end gap-2 pb-6">
           <Link to={"/profile"} className="py-2 px-4 bg-gray-200 rounded-md">
