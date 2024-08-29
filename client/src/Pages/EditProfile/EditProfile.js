@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Input from "../../Components/Input/Input";
 import { GetData, PostData } from "../../Utility/API";
 
 export default function EditProfile() {
   const [profileDetails, setProfileDetails] = useState({});
+  const [newDetails, setNewDetails] = useState({});
+
   useEffect(() => {
     GetData("get_profile", {}, getProfileDetails);
   }, []);
@@ -13,7 +16,13 @@ export default function EditProfile() {
   };
 
   const updateProfileDetailsHandler = () => {
-    PostData("edit_profile", profileDetails);
+    PostData("edit_profile", newDetails, afterUpdateProfileDetails);
+  };
+  const onChangeHandler = (e) => {
+    setNewDetails({ ...newDetails, [e.target.name]: e.target.value });
+  };
+  const afterUpdateProfileDetails = (response) => {
+    console.log(response);
   };
   return (
     <div className="max-w-screen-xl m-auto flex flex-col gap-4 pt-4">
@@ -27,49 +36,41 @@ export default function EditProfile() {
               keyName="email"
               placeholder="Enter your Email"
               defaultValue={profileDetails.email}
+              onChange={onChangeHandler}
+              disabled={true}
             />
+
             <Input
               heading="Phone Number"
-              keyName="number"
+              keyName="mobile"
               placeholder="Enter your Phone"
+              onChange={onChangeHandler}
+              value={newDetails?.mobile}
+              defaultValue={profileDetails?.mobile}
             />
             <Input
               heading="Date of Birth"
               keyName="dob"
               placeholder="Enter your DOB"
-            />
-          </div>
-          <div className="flex flex-col gap-2 py-2">
-            <div className="font-semibold text-xl">Location</div>
-            <Input
-              heading="Pincode"
-              keyName="pincode"
-              placeholder="Enter your pincode"
+              inputType="date"
+              onChange={onChangeHandler}
+              value={newDetails?.dob}
+              defaultValue={profileDetails?.dob}
             />
             <Input
-              heading="Address"
-              keyName="addressline"
-              placeholder="Enter your Address"
-            />
-            <Input
-              heading="Country"
-              keyName="country"
-              placeholder="Enter your Country"
-            />
-            <Input
-              heading="State"
-              keyName="state"
-              placeholder="Enter your state"
-            />
-            <Input
-              heading="City"
-              keyName="city"
-              placeholder="Enter your city"
+              heading="Gender"
+              keyName="gender"
+              placeholder="Enter your gender"
+              value={newDetails?.gender}
+              defaultValue={profileDetails?.gender}
+              onChange={onChangeHandler}
             />
           </div>
         </div>
         <div className="flex justify-end gap-2 pb-6">
-          <button className="py-2 px-4 bg-gray-200 rounded-md">Cancel</button>
+          <Link to={"/profile"} className="py-2 px-4 bg-gray-200 rounded-md">
+            Cancel
+          </Link>
           <button
             className="py-2 px-4 bg-black text-white rounded-md"
             onClick={updateProfileDetailsHandler}

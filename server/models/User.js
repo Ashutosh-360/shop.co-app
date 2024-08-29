@@ -26,7 +26,6 @@ const userSchema = new mongoose.Schema(
     },
     dob: {
       type: Date,
-      set: (dob) => moment(dob, "YYYY-MM-DD").toDate(),
     },
     profile_image: {
       type: String,

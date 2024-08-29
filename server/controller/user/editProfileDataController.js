@@ -6,15 +6,21 @@ import successHandler from "../../utility/successHandler.js";
 const editProfileDataController = async (req, res) => {
   try {
     const user = await getUser(req);
-    const userDetailsToBeUpdate = req.body;
+    const userDetailsToBeUpdate = {};
+    const { mobile, dob, gender } = req.body;
 
-    const updatedUser = await User.findByIdAndUpdate(
-      user._id,
-      userDetailsToBeUpdate,
-      {
-        new: true,
-      }
-    );
+    if (!!mobile) {
+      userDetailsToBeUpdate.mobile = mobile;
+    }
+    if (!!dob) {
+      userDetailsToBeUpdate.dob = dob;
+    }
+    if (!!gender) {
+      userDetailsToBeUpdate.gender = gender;
+    }
+    const updatedUser = await User.findByIdAndUpdate(user._id, userDetailsToBeUpdate, {
+      new: true,
+    });
 
     successHandler(res, "User fetched successfuly", updatedUser);
     return;

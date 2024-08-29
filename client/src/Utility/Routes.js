@@ -11,6 +11,8 @@ import MyWishlist from "../Components/MyProfile/MyWishlist";
 import Add from "../Pages/Add/Add";
 import MyProfile from "../Pages/MyProfile/MyProfile";
 import EditProfile from "../Pages/EditProfile/EditProfile";
+import AddAddress from "../Pages/AddAddress/AddAddress";
+import MyAddress from "../Pages/MyAddress/MyAddress";
 
 const router = createBrowserRouter([
   {
@@ -59,6 +61,14 @@ const router = createBrowserRouter([
       {
         path: "wishlist",
         element: <MyWishlist />,
+      },
+      {
+        path: "view_address",
+        element: <MyAddress />,
+      },
+      {
+        path: "add_address",
+        element: <AddAddress />,
       },
     ],
   },
