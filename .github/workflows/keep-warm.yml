@@ -9,6 +9,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Check URL
+        run: echo "Checking URL https://shopping-website-12o1.onrender.com/new_arrivals"
+
       - name: Send HTTP request to keep API warm
         run: |
-          curl -s --verbose https://shopping-website-12o1.onrender.com/new_arrivals
+          curl -s --verbose --location https://shopping-website-12o1.onrender.com/new_arrivals || echo "Request failed"
