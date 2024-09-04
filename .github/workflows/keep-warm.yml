@@ -2,7 +2,7 @@ name: Keep API Warm
 
 on:
   schedule:
-    - cron: '*/30 * * * *'  # Every 30 minutes
+    - cron: '*/20 * * * *'  # Every 20 minutes
 
 jobs:
   keep-warm:
