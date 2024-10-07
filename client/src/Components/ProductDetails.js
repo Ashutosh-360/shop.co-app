@@ -14,15 +14,10 @@ export default function ProductDetails() {
   const [bigImgToShow, setBigImgToShow] = useState();
   const [defaultselectedTab, setDefaultSelectedTab] =
     useState("Product Details");
-  const [isSelected, setIsSelected] = useState(1);
   const [productDetails, setProductDetails] = useState({});
-  const [imgToShow, setImgToShow] = useState([]);
-  const [rating, setRating] = useState(0);
-  const [color, setColor] = useState();
-  const [size, setSize] = useState([]);
-  const [isSelectedSize, setIsSelectedSize] = useState();
+  const [selectedSize, setSelectedSize] = useState();
   const [count, setCount] = useState(0);
-  const [query, setQuery] = useSearchParams();
+  const [query] = useSearchParams();
   const [isLoading, setIsLoading] = useState(true);
 
   const id = query.get("id");
@@ -32,43 +27,26 @@ export default function ProductDetails() {
     "Reviews",
     "FAQ's",
   ]);
-  const handleRatingChange = (newRating) => {
-    setRating(newRating);
-  };
 
-  const [originalPrice, setOriginalPrice] = useState();
-  const [discountedPrice, setDiscountedPrice] = useState();
-  const [discountPercentage, setDiscountPercentage] = useState(0);
   const changeImg = (ele, index) => {
-    setIsSelected(index + 1);
     setBigImgToShow(ele);
   };
   useEffect(() => {
-    GetData("get_product_details", { product_id: id }, handleOtherStates);
+    GetData(
+      "get_product_details",
+      { product_id: id },
+      updateProductDetailsHandler
+    );
   }, []);
 
-  const handleOtherStates = (res) => {
+  const updateProductDetailsHandler = (res) => {
     setIsLoading(false);
     setProductDetails(res.data.results);
-    setImgToShow([...res.data.results.images]);
     setBigImgToShow(res.data.results.front_image);
-    setOriginalPrice(res.data.results.price);
-    setDiscountedPrice(res.data.results.discounted_price);
-    setColor(res.data.results.variant.color);
-    setSize([...res.data.results.available_quantity]);
-  };
-  useEffect(() => {
-    calculateDiscountPercentage();
-  }, [originalPrice, discountedPrice]);
-
-  const calculateDiscountPercentage = () => {
-    const percentage =
-      ((originalPrice - discountedPrice) / originalPrice) * 100;
-    setDiscountPercentage(percentage);
   };
 
-  const selectedSize = (ele) => {
-    setIsSelectedSize(ele.size);
+  const selectedSizeHandler = (ele) => {
+    setSelectedSize(ele.size);
   };
 
   const toggleDetailsAndReviewsTabs = (element) => {
@@ -98,7 +76,7 @@ export default function ProductDetails() {
             <div className="productImgLeftContainer w-full lg:w-1/2">
               <div className="flex gap-4">
                 <div className="smImgsContainer flex flex-col gap-2 w-44">
-                  {imgToShow.slice(0, 3).map((ele, index) => {
+                  {productDetails.images.slice(0, 3).map((ele, index) => {
                     return (
                       <img
                         onClick={() => changeImg(ele, index)}
@@ -109,7 +87,7 @@ export default function ProductDetails() {
                   })}
                 </div>
                 <div className="productRightImgs">
-                  <img className=" rounded-xl" src={bigImgToShow} />
+                  <img className=" rounded-xl" src={bigImgToShow} alt="" />
                 </div>
               </div>
             </div>
@@ -117,47 +95,41 @@ export default function ProductDetails() {
               <div className="text-4xl font-extrabold">
                 {productDetails?.name?.toUpperCase()}
               </div>
-              <div className="product-card flex gap-4">
+              <div className="product-card flex gap-4 items-center">
                 <StarRating rating={productDetails?.rating} />
-                <span>{productDetails?.rating}/5</span>
+                <div className="font-semibold text-base">
+                  {productDetails?.rating}/5
+                </div>
               </div>
               <div className="priceAndDiscount ">
-                <span className="text-2xl font-bold flex  gap-4 ">
-                  ${productDetails?.price}
+                <div className="text-2xl font-bold flex items-center  gap-4 ">
+                  ${productDetails?.discounted_price}
                   <span className="text-gray-400 line-through">
-                    ${productDetails?.discounted_price}
+                    ${productDetails?.price}
                   </span>
-                  <span className=" discountPercentage bg-red-200  text-red-500 font-normal text-base">
-                    {discountPercentage?.toFixed(0)}%
-                  </span>
-                </span>
+                  <div className=" discountPercentage bg-red-200 text-red-500 font-normal text-sm  text-gray-800 bg-rose-500 p-2 py-1 rounded-full">
+                    {100 -
+                      (
+                        (productDetails?.discounted_price /
+                          productDetails?.price) *
+                        100
+                      )?.toFixed(0)}
+                    %
+                  </div>
+                </div>
               </div>
               <div className=" text-gray-400">
                 {productDetails?.product_description}
               </div>
-              <hr></hr>
-              <div className="colorContainer flex flex-col gap-4">
-                <div className=" text-gray-500">Select Colors</div>
-                <div
-                  className="w-6 rounded-full h-6"
-                  style={{ backgroundColor: color }}
-                ></div>
-              </div>
-              <hr></hr>
+
               <div className="sizeContainer flex flex-col gap-4">
                 <div className="text-gray-500">Choose Size</div>
                 <div className="flex gap-4">
-                  {size?.map((ele) => {
+                  {productDetails?.available_quantity?.map((ele) => {
                     return (
                       <span
-                        onClick={() => selectedSize(ele)}
-                        className={`${
-                          ele.quantity > 0 ? "bg-gray-500" : "disableSize"
-                        } ${
-                          isSelectedSize == ele?.size
-                            ? "selectedSize"
-                            : "newSize"
-                        }  px-5 cursor-pointer  py-2 w-fit rounded-3xl text-s`}
+                        onClick={() => selectedSizeHandler(ele)}
+                        className={`bg-gray-300 px-5 cursor-pointer  py-2 w-fit rounded-3xl text-sm`}
                       >
                         {ele?.size}
                       </span>
@@ -168,19 +140,19 @@ export default function ProductDetails() {
               <hr />
               <div className="quantityCounterAddToCartBtn flex gap-2 items-center">
                 <div className="quantityCounter bg-gray-200 rounded-3xl px-10 py-2 w-fit">
-                  <Counter
+                  {/* <Counter
                     plus={plus}
                     count={count}
                     setCount={setCount}
                     substract={substract}
                     quantity={size}
-                    isSelectedSize={isSelectedSize}
-                  />
+                    selectedSize={selectedSize}
+                  /> */}
                 </div>
                 {productDetails?._id && (
                   <AddToCart
                     productId={productDetails}
-                    selectedSize={isSelectedSize}
+                    selectedSize={selectedSize}
                     quantity={count}
                   />
                 )}
@@ -244,7 +216,9 @@ export default function ProductDetails() {
           </div>
           <hr />
           <div className="w-full flex flex-col gap-6">
-            <div className="font-extrabold text-3xl lg:text-5xl ">YOU MIGHT ALSO LIKE</div>
+            <div className="font-extrabold text-3xl lg:text-5xl ">
+              YOU MIGHT ALSO LIKE
+            </div>
             {productDetails?._id && (
               <Recommendations productId={productDetails?._id} />
             )}

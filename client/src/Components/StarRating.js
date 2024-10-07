@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const StarRating = ({ rating }) => {
   const maxStars = rating;
@@ -11,14 +11,16 @@ const StarRating = ({ rating }) => {
     return (
       <span
         key={index}
-        className={`star ${starValue <= roundedRating ? 'filled' : ''} text-yellow-400 text-lg`}
+        className={`star ${
+          starValue <= roundedRating ? "filled" : ""
+        } text-yellow-400 text-xl`}
       >
-        &#9733; 
+        <i class="fa-solid fa-star"></i>
       </span>
     );
   });
 
-  return <div className="star-rating">{stars}</div>;
+  return <div className="star-rating flex gap-1">{stars}</div>;
 };
 
 export default StarRating;
