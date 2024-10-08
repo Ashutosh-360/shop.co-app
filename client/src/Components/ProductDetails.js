@@ -2,21 +2,16 @@ import React, { useEffect, useState } from "react";
 import arrow from "../assets/arrow.png";
 import StarRating from "./StarRating";
 import { GetData, PostData } from "../Utility/API";
-import plus from "../assets/plus.png";
-import substract from "../assets/substract.png";
-import Counter from "./Counter/Counter";
 import Recommendations from "./Recommendation/Recommendation";
 import Reviews from "./Reviews/Reviews";
-import AddToCart from "./AddToCart/AddToCart";
 import { Link, useSearchParams } from "react-router-dom";
 import Loader from "./Loader";
 export default function ProductDetails() {
   const [bigImgToShow, setBigImgToShow] = useState();
-  const [defaultselectedTab, setDefaultSelectedTab] =
-    useState("Product Details");
+  const [defaultselectedTab, setDefaultSelectedTab] = useState("Product Details");
   const [productDetails, setProductDetails] = useState({});
   const [selectedSize, setSelectedSize] = useState();
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
   const [query] = useSearchParams();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -32,11 +27,7 @@ export default function ProductDetails() {
     setBigImgToShow(ele);
   };
   useEffect(() => {
-    GetData(
-      "get_product_details",
-      { product_id: id },
-      updateProductDetailsHandler
-    );
+    GetData("get_product_details", { product_id: id }, updateProductDetailsHandler);
   }, []);
 
   const updateProductDetailsHandler = (res) => {
@@ -46,6 +37,7 @@ export default function ProductDetails() {
   };
 
   const selectedSizeHandler = (ele) => {
+    console.log(ele);
     setSelectedSize(ele.size);
   };
 
@@ -54,23 +46,40 @@ export default function ProductDetails() {
   };
 
   const updateWishlist = () => {
+    PostData("update_wishlist", { product_id: id, wishlist_status: true }, (res) => {
+      console.log(res);
+    });
+  };
+
+  const decrementHandler = () => {
+    if (count > 1) {
+      setCount(count - 1);
+    }
+  };
+  const incrementHandler = () => {
+    setCount(count + 1);
+  };
+
+  const addToCartHandler = () => {
     PostData(
-      "update_wishlist",
-      { product_id: id, wishlist_status: true },
+      "add_to_cart",
+      {
+        product_id: productDetails._id,
+        size: selectedSize,
+        quantity: count,
+      },
       (res) => {
         console.log(res);
       }
     );
   };
-
   return (
     <>
       {isLoading ? <Loader /> : ""}
       {!isLoading && (
         <div className="flex flex-col gap-6 px-4 py-6 lg:px-0 max-w-screen-xl m-auto">
           <div className="flex gap-2 items-center ">
-            <a href="/">Home</a> <img className="w-2 h-fit" src={arrow} />{" "}
-            Product{" "}
+            <a href="/">Home</a> <img className="w-2 h-fit" src={arrow} /> Product{" "}
           </div>
           <div className="flex gap-4 w-full  m-auto lg:flex-row flex-col">
             <div className="productImgLeftContainer w-full lg:w-1/2">
@@ -92,35 +101,25 @@ export default function ProductDetails() {
               </div>
             </div>
             <div className="detailsRIghtContainer w-full lg:w-1/2 lg:ml-4 flex flex-col gap-4">
-              <div className="text-4xl font-extrabold">
-                {productDetails?.name?.toUpperCase()}
-              </div>
+              <div className="text-4xl font-extrabold">{productDetails?.name?.toUpperCase()}</div>
               <div className="product-card flex gap-4 items-center">
                 <StarRating rating={productDetails?.rating} />
-                <div className="font-semibold text-base">
-                  {productDetails?.rating}/5
-                </div>
+                <div className="font-semibold text-base">{productDetails?.rating}/5</div>
               </div>
               <div className="priceAndDiscount ">
                 <div className="text-2xl font-bold flex items-center  gap-4 ">
                   ${productDetails?.discounted_price}
-                  <span className="text-gray-400 line-through">
-                    ${productDetails?.price}
-                  </span>
+                  <span className="text-gray-400 line-through">${productDetails?.price}</span>
                   <div className=" discountPercentage bg-red-200 text-red-500 font-normal text-sm  text-gray-800 bg-rose-500 p-2 py-1 rounded-full">
                     {100 -
-                      (
-                        (productDetails?.discounted_price /
-                          productDetails?.price) *
-                        100
-                      )?.toFixed(0)}
+                      ((productDetails?.discounted_price / productDetails?.price) * 100)?.toFixed(
+                        0
+                      )}
                     %
                   </div>
                 </div>
               </div>
-              <div className=" text-gray-400">
-                {productDetails?.product_description}
-              </div>
+              <div className=" text-gray-400">{productDetails?.product_description}</div>
 
               <div className="sizeContainer flex flex-col gap-4">
                 <div className="text-gray-500">Choose Size</div>
@@ -129,7 +128,9 @@ export default function ProductDetails() {
                     return (
                       <span
                         onClick={() => selectedSizeHandler(ele)}
-                        className={`bg-gray-300 px-5 cursor-pointer  py-2 w-fit rounded-3xl text-sm`}
+                        className={`bg-gray-300 px-5 cursor-pointer py-2 w-fit rounded-3xl text-sm ${
+                          ele.size === selectedSize && "text-white bg-gray-600 font-semibold"
+                        }`}
                       >
                         {ele?.size}
                       </span>
@@ -139,23 +140,23 @@ export default function ProductDetails() {
               </div>
               <hr />
               <div className="quantityCounterAddToCartBtn flex gap-2 items-center">
-                <div className="quantityCounter bg-gray-200 rounded-3xl px-10 py-2 w-fit">
-                  {/* <Counter
-                    plus={plus}
-                    count={count}
-                    setCount={setCount}
-                    substract={substract}
-                    quantity={size}
-                    selectedSize={selectedSize}
-                  /> */}
+                <div className="quantityCounter bg-gray-200 rounded-3xl px-2 py-2 w-fit">
+                  <div className="flex gap-6 items-center">
+                    <button className="text-lg px-4" onClick={decrementHandler}>
+                      <i class="fa-solid fa-minus"></i>
+                    </button>
+                    <div className="text-lg min-w-[25px] text-center">{count}</div>
+                    <button className="text-lg px-4" onClick={incrementHandler}>
+                      <i class="fa-solid fa-plus"></i>
+                    </button>
+                  </div>
                 </div>
-                {productDetails?._id && (
-                  <AddToCart
-                    productId={productDetails}
-                    selectedSize={selectedSize}
-                    quantity={count}
-                  />
-                )}
+                <button
+                  className="bg-gray-900 min-w-[150px] w-1/2 text-center py-2 rounded-3xl text-white"
+                  onClick={addToCartHandler}
+                >
+                  Add To Cart
+                </button>
               </div>
               <div className="wishListBtns flex gap-2">
                 <button className="bg-gray-900 px-12 py-2 rounded-3xl text-white">
@@ -179,8 +180,7 @@ export default function ProductDetails() {
                     onClick={() => toggleDetailsAndReviewsTabs(ele)}
                     style={{
                       cursor: "pointer",
-                      fontWeight:
-                        defaultselectedTab === ele ? "bold" : "normal",
+                      fontWeight: defaultselectedTab === ele ? "bold" : "normal",
                       marginRight: "10px",
                     }}
                   >
@@ -216,12 +216,8 @@ export default function ProductDetails() {
           </div>
           <hr />
           <div className="w-full flex flex-col gap-6">
-            <div className="font-extrabold text-3xl lg:text-5xl ">
-              YOU MIGHT ALSO LIKE
-            </div>
-            {productDetails?._id && (
-              <Recommendations productId={productDetails?._id} />
-            )}
+            <div className="font-extrabold text-3xl lg:text-5xl ">YOU MIGHT ALSO LIKE</div>
+            {productDetails?._id && <Recommendations productId={productDetails?._id} />}
           </div>
         </div>
       )}
