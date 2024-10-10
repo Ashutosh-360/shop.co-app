@@ -4,27 +4,32 @@ import StarRating from "../StarRating";
 import verified from "../../assets/verified.png";
 import Popup from "../Popup/Popup";
 import DateConverter from "../DateFormat";
+import useLoader from "../../Utility/CustomHooks/useLoader";
 export default function Reviews(product_id) {
   const [reviewsDetails, setReviewsDeatils] = useState();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [rating, setRating] = useState(0);
   const [reviewText, setReviewText] = useState("");
+  const { showLoader } = useLoader();
 
   //   ---------code for timestamp on card-----------
 
   let reviewerName;
 
   reviewsDetails?.reviews?.map((elem) => {
-     return reviewerName = elem?.reviewerName;
-   });
+    return (reviewerName = elem?.reviewerName);
+  });
 
   //   ---------------existing reviews api call----------------
 
   const getReviewsTemplate = (response) => {
+    showLoader(false);
+
     setReviewsDeatils(response?.data?.results);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
+    showLoader(true);
     GetData(
       "get_reviews",
       {
@@ -32,7 +37,7 @@ export default function Reviews(product_id) {
       },
       getReviewsTemplate
     );
-  },[])
+  }, []);
   //   -----------code for popup open close-----------------
   const openPopup = () => {
     setIsPopupOpen(true);
@@ -50,6 +55,7 @@ export default function Reviews(product_id) {
     setReviewText(event.target.value);
   };
   const handleSubmitReview = () => {
+    showLoader(true);
     PostData(
       "add_review",
       {
@@ -58,19 +64,26 @@ export default function Reviews(product_id) {
         reviewerName: reviewerName,
         rating: rating,
       },
-     
+      updateReviewHandler
     );
+  };
 
+  const updateReviewHandler = (response) => {
+    showLoader(false);
     setIsPopupOpen(false);
+    if(response.data.success)
+    {
+      
+    }
   };
 
   return (
     <>
       {/* --------------code for existing Reveiws------------------ */}
-      <div className="flex justify-between">
-        <span>All Reviews</span>
+      <div className="flex justify-between items-center py-2">
+        <div className="font-semibold text-xl">All Reviews</div>
         <button
-          className="px-5 py-3 bg-black text-white rounded-full"
+          className="px-5 py-3  bg-black text-white rounded-full"
           onClick={openPopup}
         >
           Write a Review
@@ -79,7 +92,7 @@ export default function Reviews(product_id) {
       <div className="reviewsWrapper grid grid-cols-2 gap-6">
         {reviewsDetails?.map((elem) => {
           return (
-            <div className="reviewCard border rounded-lg flex flex-col gap-2 p-4">
+            <div className="reviewCard border rounded-xl flex flex-col gap-2 p-6">
               <span className="reviewRating">
                 <StarRating rating={elem?.rating} />
               </span>
@@ -88,15 +101,17 @@ export default function Reviews(product_id) {
                 {elem?.reviewerName}
                 <img src={verified} />
               </span>
-              <span className="">{elem?.comment}</span>
-              <span><DateConverter dateFormat={elem?.updatedAt}/></span>
+              <span className="text-faint_text">{elem?.comment}</span>
+              <div className="font-semibold text-faint_text">
+                <DateConverter dateFormat={elem?.updatedAt} />
+              </div>
             </div>
           );
         })}
       </div>
       {/* -------------------code for Add Reviews---------------------------- */}
       <Popup isOpen={isPopupOpen} onClose={closePopup}>
-        <div className="flex w-full gap-4">
+        <div className="flex w-full gap-4 z-30">
           <img className="w-1/3" src={product_id?.productId?.front_image} />
           <div className="flex flex-col gap-6">
             <div className="flex items-center gap-4">
