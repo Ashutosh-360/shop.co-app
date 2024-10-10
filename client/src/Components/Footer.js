@@ -21,9 +21,9 @@ function Footer() {
           }}
         >
           <div className="latestUpdates max-w-screen-xl m-auto  flex bg-black p-6 lg:p-16 justify-between lg:rounded-xl lg:flex-row flex-col gap-4">
-            <div className="text-white font-extrabold text-3xl lg:text-5xl">
-              STAY UPTO DATE ABOUT <br />
-              OUR LATEST OFFERS
+            <div className="text-white font-extrabold text-3xl lg:text-5xl flex flex-col gap-2">
+              <div>STAY UPTO DATE ABOUT</div>
+              <div>OUR LATEST OFFERS</div>
             </div>
             <div className=" flex flex-col gap-4 relative">
               <img className="text-white absolute top-3 left-3" src={msg} />
@@ -32,7 +32,9 @@ function Footer() {
                 placeholder="Enter your email address"
                 type="email"
               />
-              <button className="rounded-3xl px-6 py-3 bg-white">Subscribe to Newsletter</button>
+              <button className="rounded-3xl px-6 py-3 bg-white">
+                Subscribe to Newsletter
+              </button>
             </div>
           </div>
         </div>
@@ -48,8 +50,14 @@ function Footer() {
               <div className="socialMediaIcons flex gap-4">
                 <img className="w-7 h-7" src={twitter} />
                 <img className="w-7 h-7 rounded-full bg-black p-2" src={fb} />
-                <img className="w-8 h-8 rounded-full p-2 bg-white border" src={insta} />
-                <img className="w-8 h-8 rounded-full p-2 bg-white border" src={git} />
+                <img
+                  className="w-8 h-8 rounded-full p-2 bg-white border"
+                  src={insta}
+                />
+                <img
+                  className="w-8 h-8 rounded-full p-2 bg-white border"
+                  src={git}
+                />
               </div>
             </div>
             <div className="footerSecondColumn flex flex-col gap-1">
