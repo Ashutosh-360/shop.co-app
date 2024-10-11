@@ -7,20 +7,24 @@ const reviewSchema = new mongoose.Schema(
       ref: "Product",
       required: true,
     },
-    reviewerName: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    rating: {
-      type: Number,
-      required: true,
-    },
-    comment: {
-      type: String,
-      required: true,
-      trim: true,
-    },
+    reviews: [
+      {
+        reviewerName: {
+          type: String,
+          required: true,
+          trim: true,
+        },
+        rating: {
+          type: Number,
+          required: true,
+        },
+        comment: {
+          type: String,
+          required: true,
+          trim: true,
+        },
+      },
+    ],
   },
   { timestamps: true }
 );

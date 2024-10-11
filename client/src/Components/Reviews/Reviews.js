@@ -5,13 +5,17 @@ import verified from "../../assets/verified.png";
 import Popup from "../Popup/Popup";
 import DateConverter from "../DateFormat";
 import useLoader from "../../Utility/CustomHooks/useLoader";
-export default function Reviews(product_id) {
+import { useSelector } from "react-redux";
+import { Navigate, useNavigate } from "react-router";
+export default function Reviews({ productDetails }) {
   const [reviewsDetails, setReviewsDeatils] = useState();
+  const authToken = useSelector((state) => state.auth.authToken);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [rating, setRating] = useState(0);
   const [reviewText, setReviewText] = useState("");
   const { showLoader } = useLoader();
 
+  const navigate = useNavigate();
   //   ---------code for timestamp on card-----------
 
   let reviewerName;
@@ -33,13 +37,17 @@ export default function Reviews(product_id) {
     GetData(
       "get_reviews",
       {
-        product_id: product_id?.productId?._id,
+        product_id: productDetails?._id,
       },
       getReviewsTemplate
     );
   }, []);
   //   -----------code for popup open close-----------------
   const openPopup = () => {
+    if (!authToken) {
+      navigate("/login");
+      return;
+    }
     setIsPopupOpen(true);
   };
 
@@ -59,7 +67,7 @@ export default function Reviews(product_id) {
     PostData(
       "add_review",
       {
-        product_id: product_id?.productId?._id,
+        product_id: productDetails?._id,
         comment: reviewText,
         reviewerName: reviewerName,
         rating: rating,
@@ -71,9 +79,7 @@ export default function Reviews(product_id) {
   const updateReviewHandler = (response) => {
     showLoader(false);
     setIsPopupOpen(false);
-    if(response.data.success)
-    {
-      
+    if (response.data.success) {
     }
   };
 
@@ -82,10 +88,8 @@ export default function Reviews(product_id) {
       {/* --------------code for existing Reveiws------------------ */}
       <div className="flex justify-between items-center py-2">
         <div className="font-semibold text-xl">All Reviews</div>
-        <button
-          className="px-5 py-3  bg-black text-white rounded-full"
-          onClick={openPopup}
-        >
+
+        <button className="px-5 py-3  bg-black text-white rounded-full" onClick={openPopup}>
           Write a Review
         </button>
       </div>
@@ -112,10 +116,10 @@ export default function Reviews(product_id) {
       {/* -------------------code for Add Reviews---------------------------- */}
       <Popup isOpen={isPopupOpen} onClose={closePopup}>
         <div className="flex w-full gap-4 z-30">
-          <img className="w-1/3" src={product_id?.productId?.front_image} />
+          <img className="w-1/3" src={productDetails?.front_image} />
           <div className="flex flex-col gap-6">
             <div className="flex items-center gap-4">
-              <span>{product_id?.productId?.name}</span>
+              <div>{productDetails?.name}</div>
             </div>
             <div>
               <h2>How would you rate this product : {rating} stars</h2>
@@ -135,14 +139,14 @@ export default function Reviews(product_id) {
             </div>
             <span className="font-semibold">Write Review</span>
             <textarea
-              className="border p-4 rounded-md"
+              className="border p-4 rounded-md outline-none"
               placeholder="Start writing here..."
               onChange={getReviewTextChange}
               value={reviewText}
             ></textarea>
             <span>
-              You can write about the fit,material quality,colour,comfort etc.
-              Refrain from mentioning delivery or packaging related feedback.
+              You can write about the fit,material quality,colour,comfort etc. Refrain from
+              mentioning delivery or packaging related feedback.
             </span>
             <button
               className=" px-4 py-2 bg-black text-white rounded-full"
