@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { PostData } from "../../../Utility/API";
+import useLoader from "../../../Utility/CustomHooks/useLoader";
 
 function CartProduct({ item, callCartApiHandler, setIsLoading }) {
+  const { showLoader } = useLoader();
+
   const incrementdecrementHandler = (action, item) => {
     if (action == "substract" && item.quantity < 1) {
       return;
     }
-    setIsLoading(true);
+    showLoader(true);
     let payload = {
       product_id: item.product_id,
       size: item.size,
@@ -21,7 +24,7 @@ function CartProduct({ item, callCartApiHandler, setIsLoading }) {
   };
 
   const deleteFromCartHandler = (item) => {
-    setIsLoading(true);
+    showLoader(true);
 
     let payload = {
       product_id: item.product_id,
@@ -44,7 +47,8 @@ function CartProduct({ item, callCartApiHandler, setIsLoading }) {
               Size: <span className="text-faint_text">{item?.size}</span>
             </div>
             <div className="text-sm">
-              Color: <span className="text-faint_text">{item?.variant?.color} </span>
+              Color:{" "}
+              <span className="text-faint_text">{item?.variant?.color} </span>
             </div>
           </div>
           <div className="font-semibold">
@@ -53,7 +57,10 @@ function CartProduct({ item, callCartApiHandler, setIsLoading }) {
         </div>
         <div className="flex flex-col justify-between gap-2 items-end">
           <div className="text-red">
-            <i class="fa-regular fa-trash-can cursor-pointer" onClick={() => deleteFromCartHandler(item)}></i>
+            <i
+              class="fa-regular fa-trash-can cursor-pointer"
+              onClick={() => deleteFromCartHandler(item)}
+            ></i>
           </div>
           <div className="bg-grey p-2 px-3 rounded-full flex gap-3 items-center">
             <div

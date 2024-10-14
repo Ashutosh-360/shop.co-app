@@ -16,19 +16,11 @@ export default function Reviews({ productDetails }) {
   const { showLoader } = useLoader();
 
   const navigate = useNavigate();
-  //   ---------code for timestamp on card-----------
-
-  let reviewerName;
-
-  reviewsDetails?.reviews?.map((elem) => {
-    return (reviewerName = elem?.reviewerName);
-  });
 
   //   ---------------existing reviews api call----------------
 
   const getReviewsTemplate = (response) => {
     showLoader(false);
-
     setReviewsDetails(response?.data?.results);
   };
 
@@ -72,7 +64,6 @@ export default function Reviews({ productDetails }) {
       {
         product_id: productDetails?._id,
         comment: reviewText,
-        reviewerName: reviewerName,
         rating: rating,
       },
       updateReviewHandler
@@ -86,19 +77,24 @@ export default function Reviews({ productDetails }) {
       callGetReviewsApiHandler();
     }
   };
-
+console.log(reviewsDetails)
   return (
     <>
       {/* --------------code for existing Reveiws------------------ */}
       <div className="flex justify-between items-center py-2">
-        <div className="font-semibold text-xl">All Reviews {`(${reviewsDetails?.count})`}</div>
+        <div className="font-semibold text-xl">
+          All Reviews {`(${reviewsDetails?.count})`}
+        </div>
 
-        <button className="px-5 py-3  bg-black text-white rounded-full" onClick={openPopup}>
+        <button
+          className="px-5 py-3  bg-black text-white rounded-full"
+          onClick={openPopup}
+        >
           Write a Review
         </button>
       </div>
       <div className="reviewsWrapper grid grid-cols-2 gap-6">
-        {reviewsDetails?.reviews?.map((elem) => {
+        {reviewsDetails?.reviews?.length>0 && reviewsDetails?.reviews?.map((elem) => {
           return (
             <div className="reviewCard border rounded-xl flex flex-col gap-2 p-6">
               <span className="reviewRating">
@@ -149,8 +145,8 @@ export default function Reviews({ productDetails }) {
               value={reviewText}
             ></textarea>
             <span>
-              You can write about the fit,material quality,colour,comfort etc. Refrain from
-              mentioning delivery or packaging related feedback.
+              You can write about the fit,material quality,colour,comfort etc.
+              Refrain from mentioning delivery or packaging related feedback.
             </span>
             <button
               className=" px-4 py-2 bg-black text-white rounded-full"

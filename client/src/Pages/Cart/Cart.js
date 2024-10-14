@@ -4,6 +4,9 @@ import { GetData } from "../../Utility/API";
 import CartProduct from "./Components/CartProduct";
 import Footer from "../../Components/Footer";
 import Loader from "../../Components/Loader";
+import { useSelector } from "react-redux";
+import { Utility } from "../../Store/Slices/UtilitySlice";
+import useLoader from "../../Utility/CustomHooks/useLoader";
 
 function Cart() {
   const [cartData, setCartData] = useState([]);
@@ -12,14 +15,13 @@ function Cart() {
   const [total, setTotal] = useState(subtotal);
   const [discount, setDiscount] = useState(0);
   const [deliveryFee, setDeliveryFee] = useState(89);
-  const [isLoading, setIsLoading] = useState(false);
-
+  const { showLoader } = useLoader();
   useEffect(() => {
     callCartApiHandler();
   }, []);
 
   const callCartApiHandler = () => {
-    setIsLoading(true);
+    showLoader(true);
     GetData("get_cart", {}, getCartDataHandler);
   };
 
@@ -27,7 +29,7 @@ function Cart() {
     setTotal(subtotal - discount + deliveryFee);
   }, [subtotal, discount]);
   const getCartDataHandler = (res) => {
-    setIsLoading(false);
+    showLoader(false);
     if (!res.data.success) {
       return;
     }
@@ -48,70 +50,66 @@ function Cart() {
 
   return (
     <>
-      {isLoading ? <Loader /> : ""}
-      {!isLoading && (
-        <div className="w-full max-w-screen-xl p-2 py-10 m-auto gap-4 flex flex-col mb-12">
-          <div className="uppercase text-4xl font-bold">Your cart</div>
-          <div className="w-full flex gap-4">
-            <div className="w-7/12 p-4 border rounded-lg flex flex-col gap-4 h-fit">
-              {cartData?.map((item) => {
-                return (
-                  <CartProduct
-                    item={item}
-                    key={item?._id}
-                    callCartApiHandler={callCartApiHandler}
-                    setIsLoading={setIsLoading}
-                  />
-                );
-              })}
-            </div>
-            <div className="w-5/12 p-4 border rounded-lg flex flex-col gap-6 ">
-              <div className="text-xl">Order Summary</div>
-              <div className="w-full flex flex-col gap-3">
-                <div className="w-full flex justify-between items-center text-lg">
-                  <div className="text-faint_text">Subtotal</div>
-                  <div className="font-semibold">{subtotal}</div>
-                </div>
-                <div className="w-full flex justify-between items-center text-lg">
-                  <div className="text-faint_text">Discount</div>
-                  <div className="font-semibold text-red">{discount}</div>
-                </div>
-                <div className="w-full flex justify-between items-center text-lg">
-                  <div className="text-faint_text">Delivery Fee</div>
-                  <div className="font-semibold">{deliveryFee}</div>
-                </div>
-                <div className="border"></div>
-                <div className="w-full flex justify-between items-center">
-                  <div className="text-faint_text text-lg">Total</div>
-                  <div className="font-semibold text-xl">{total}</div>
-                </div>
+      <div className="w-full max-w-screen-xl p-2 py-10 m-auto gap-4 flex flex-col mb-12">
+        <div className="uppercase text-4xl font-bold">Your cart</div>
+        <div className="w-full flex gap-4">
+          <div className="w-7/12 p-4 border rounded-lg flex flex-col gap-4 h-fit">
+            {cartData?.map((item) => {
+              return (
+                <CartProduct
+                  item={item}
+                  key={item?._id}
+                  callCartApiHandler={callCartApiHandler}
+                />
+              );
+            })}
+          </div>
+          <div className="w-5/12 p-4 border rounded-lg flex flex-col gap-6 ">
+            <div className="text-xl">Order Summary</div>
+            <div className="w-full flex flex-col gap-3">
+              <div className="w-full flex justify-between items-center text-lg">
+                <div className="text-faint_text">Subtotal</div>
+                <div className="font-semibold">{subtotal}</div>
               </div>
-              <div className="flex items-center gap-4 w-full justify-between">
-                <div>
-                  <input
-                    className="p-3 rounded-full bg-grey outline-none"
-                    type="text"
-                    placeholder="Add promo code"
-                  />
-                </div>
-                <div>
-                  <button className="bg-primary p-3 px-6 text-white rounded-full">
-                    Apply
-                  </button>
-                </div>
+              <div className="w-full flex justify-between items-center text-lg">
+                <div className="text-faint_text">Discount</div>
+                <div className="font-semibold text-red">{discount}</div>
+              </div>
+              <div className="w-full flex justify-between items-center text-lg">
+                <div className="text-faint_text">Delivery Fee</div>
+                <div className="font-semibold">{deliveryFee}</div>
+              </div>
+              <div className="border"></div>
+              <div className="w-full flex justify-between items-center">
+                <div className="text-faint_text text-lg">Total</div>
+                <div className="font-semibold text-xl">{total}</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-4 w-full justify-between">
+              <div>
+                <input
+                  className="p-3 rounded-full bg-grey outline-none"
+                  type="text"
+                  placeholder="Add promo code"
+                />
               </div>
               <div>
-                <button
-                  onClick={checkoutToPay}
-                  className="flex gap-2 p-4 px-12 w-full bg-primary text-white rounded-full justify-center"
-                >
-                  Go to Checkout
+                <button className="bg-primary p-3 px-6 text-white rounded-full">
+                  Apply
                 </button>
               </div>
             </div>
+            <div>
+              <button
+                onClick={checkoutToPay}
+                className="flex gap-2 p-4 px-12 w-full bg-primary text-white rounded-full justify-center"
+              >
+                Go to Checkout
+              </button>
+            </div>
           </div>
         </div>
-      )}
+      </div>
     </>
   );
 }
