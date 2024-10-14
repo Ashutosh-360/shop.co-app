@@ -1,12 +1,7 @@
 import mongoose from "mongoose";
 
-const reviewSchema = new mongoose.Schema(
+const reviewItemSchema = new mongoose.Schema(
   {
-    product_id: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Product",
-      required: true,
-    },
     reviewerName: {
       type: String,
       required: true,
@@ -21,6 +16,17 @@ const reviewSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+  },
+  { timestamps: true } // Enable timestamps for each review
+);
+const reviewSchema = new mongoose.Schema(
+  {
+    product_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Product",
+      required: true,
+    },
+    reviews: [reviewItemSchema],
   },
   { timestamps: true }
 );

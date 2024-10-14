@@ -5,41 +5,44 @@ import verified from "../../assets/verified.png";
 import Popup from "../Popup/Popup";
 import DateConverter from "../DateFormat";
 import useLoader from "../../Utility/CustomHooks/useLoader";
-export default function Reviews(product_id) {
-  const [reviewsDetails, setReviewsDeatils] = useState();
+import { useSelector } from "react-redux";
+import { Navigate, useNavigate } from "react-router";
+export default function Reviews({ productDetails }) {
+  const [reviewsDetails, setReviewsDetails] = useState({});
+  const authToken = useSelector((state) => state.auth.authToken);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [rating, setRating] = useState(0);
   const [reviewText, setReviewText] = useState("");
   const { showLoader } = useLoader();
 
-  //   ---------code for timestamp on card-----------
-
-  let reviewerName;
-
-  reviewsDetails?.reviews?.map((elem) => {
-    return (reviewerName = elem?.reviewerName);
-  });
+  const navigate = useNavigate();
 
   //   ---------------existing reviews api call----------------
 
   const getReviewsTemplate = (response) => {
     showLoader(false);
-
-    setReviewsDeatils(response?.data?.results);
+    setReviewsDetails(response?.data?.results);
   };
 
-  useEffect(() => {
+  const callGetReviewsApiHandler = () => {
     showLoader(true);
     GetData(
       "get_reviews",
       {
-        product_id: product_id?.productId?._id,
+        product_id: productDetails?._id,
       },
       getReviewsTemplate
     );
+  };
+  useEffect(() => {
+    callGetReviewsApiHandler();
   }, []);
   //   -----------code for popup open close-----------------
   const openPopup = () => {
+    if (!authToken) {
+      navigate("/login");
+      return;
+    }
     setIsPopupOpen(true);
   };
 
@@ -59,9 +62,8 @@ export default function Reviews(product_id) {
     PostData(
       "add_review",
       {
-        product_id: product_id?.productId?._id,
+        product_id: productDetails?._id,
         comment: reviewText,
-        reviewerName: reviewerName,
         rating: rating,
       },
       updateReviewHandler
@@ -71,17 +73,19 @@ export default function Reviews(product_id) {
   const updateReviewHandler = (response) => {
     showLoader(false);
     setIsPopupOpen(false);
-    if(response.data.success)
-    {
-      
+    if (response.data.success) {
+      callGetReviewsApiHandler();
     }
   };
-
+console.log(reviewsDetails)
   return (
     <>
       {/* --------------code for existing Reveiws------------------ */}
       <div className="flex justify-between items-center py-2">
-        <div className="font-semibold text-xl">All Reviews</div>
+        <div className="font-semibold text-xl">
+          All Reviews {`(${reviewsDetails?.count})`}
+        </div>
+
         <button
           className="px-5 py-3  bg-black text-white rounded-full"
           onClick={openPopup}
@@ -90,7 +94,7 @@ export default function Reviews(product_id) {
         </button>
       </div>
       <div className="reviewsWrapper grid grid-cols-2 gap-6">
-        {reviewsDetails?.map((elem) => {
+        {reviewsDetails?.reviews?.length>0 && reviewsDetails?.reviews?.map((elem) => {
           return (
             <div className="reviewCard border rounded-xl flex flex-col gap-2 p-6">
               <span className="reviewRating">
@@ -111,11 +115,11 @@ export default function Reviews(product_id) {
       </div>
       {/* -------------------code for Add Reviews---------------------------- */}
       <Popup isOpen={isPopupOpen} onClose={closePopup}>
-        <div className="flex w-full gap-4 z-30">
-          <img className="w-1/3" src={product_id?.productId?.front_image} />
+        <div className="flex w-full gap-4 z-10">
+          <img className="w-1/3" src={productDetails?.front_image} />
           <div className="flex flex-col gap-6">
             <div className="flex items-center gap-4">
-              <span>{product_id?.productId?.name}</span>
+              <div>{productDetails?.name}</div>
             </div>
             <div>
               <h2>How would you rate this product : {rating} stars</h2>
@@ -135,7 +139,7 @@ export default function Reviews(product_id) {
             </div>
             <span className="font-semibold">Write Review</span>
             <textarea
-              className="border p-4 rounded-md"
+              className="border p-4 rounded-md outline-none"
               placeholder="Start writing here..."
               onChange={getReviewTextChange}
               value={reviewText}

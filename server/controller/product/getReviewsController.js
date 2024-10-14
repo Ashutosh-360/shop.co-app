@@ -26,13 +26,18 @@ const getReviewsController = async (req, res) => {
       return;
     }
 
-    const reviews = await Review.find({ product_id })
+    const reviews = await Review.findOne({ product_id })
+      .select("reviews")
       .sort(sortQuery)
       .skip((page - 1) * limit)
-      .limit(limit);
+      .limit(limit)
+      .lean();
     const reviewsCount = await Review.countDocuments({ product_id });
 
-    successHandler(res, "Reviews fetched successfully", reviews, { count: reviewsCount });
+    return successHandler(res, "Reviews fetched successfully", {
+      ...reviews,
+      count: reviewsCount,
+    });
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
   }
