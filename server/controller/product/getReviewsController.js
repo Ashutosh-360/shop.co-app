@@ -26,11 +26,14 @@ const getReviewsController = async (req, res) => {
       return;
     }
 
-    const reviews = await Review.find({ product_id })
+    const reviews = await Review.findOne({ product_id })
+      .select("reviews")
       .sort(sortQuery)
       .skip((page - 1) * limit)
       .limit(limit);
     const reviewsCount = await Review.countDocuments({ product_id });
+
+    // console.log(reviews, "reviews");
 
     successHandler(res, "Reviews fetched successfully", reviews, { count: reviewsCount });
   } catch (error) {

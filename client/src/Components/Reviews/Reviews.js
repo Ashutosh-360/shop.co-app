@@ -8,7 +8,7 @@ import useLoader from "../../Utility/CustomHooks/useLoader";
 import { useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router";
 export default function Reviews({ productDetails }) {
-  const [reviewsDetails, setReviewsDeatils] = useState();
+  const [reviewsDetails, setReviewsDetails] = useState({});
   const authToken = useSelector((state) => state.auth.authToken);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [rating, setRating] = useState(0);
@@ -29,10 +29,10 @@ export default function Reviews({ productDetails }) {
   const getReviewsTemplate = (response) => {
     showLoader(false);
 
-    setReviewsDeatils(response?.data?.results);
+    setReviewsDetails(response?.data?.results);
   };
 
-  useEffect(() => {
+  const callGetReviewsApiHandler = () => {
     showLoader(true);
     GetData(
       "get_reviews",
@@ -41,6 +41,9 @@ export default function Reviews({ productDetails }) {
       },
       getReviewsTemplate
     );
+  };
+  useEffect(() => {
+    callGetReviewsApiHandler();
   }, []);
   //   -----------code for popup open close-----------------
   const openPopup = () => {
@@ -80,6 +83,7 @@ export default function Reviews({ productDetails }) {
     showLoader(false);
     setIsPopupOpen(false);
     if (response.data.success) {
+      callGetReviewsApiHandler();
     }
   };
 
@@ -87,14 +91,14 @@ export default function Reviews({ productDetails }) {
     <>
       {/* --------------code for existing Reveiws------------------ */}
       <div className="flex justify-between items-center py-2">
-        <div className="font-semibold text-xl">All Reviews</div>
+        <div className="font-semibold text-xl">All Reviews {`(${reviewsDetails?.count})`}</div>
 
         <button className="px-5 py-3  bg-black text-white rounded-full" onClick={openPopup}>
           Write a Review
         </button>
       </div>
       <div className="reviewsWrapper grid grid-cols-2 gap-6">
-        {reviewsDetails?.map((elem) => {
+        {reviewsDetails?.reviews?.map((elem) => {
           return (
             <div className="reviewCard border rounded-xl flex flex-col gap-2 p-6">
               <span className="reviewRating">
@@ -115,7 +119,7 @@ export default function Reviews({ productDetails }) {
       </div>
       {/* -------------------code for Add Reviews---------------------------- */}
       <Popup isOpen={isPopupOpen} onClose={closePopup}>
-        <div className="flex w-full gap-4 z-30">
+        <div className="flex w-full gap-4 z-10">
           <img className="w-1/3" src={productDetails?.front_image} />
           <div className="flex flex-col gap-6">
             <div className="flex items-center gap-4">

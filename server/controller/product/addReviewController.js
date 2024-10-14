@@ -22,15 +22,15 @@ const addReviewController = async (req, res) => {
       product_id,
       reviews: [req.body],
     });
-
+console.log(result,"result")
     if (result) {
       await result.save();
       return successHandler(res, "Review submitted successfully", result);
     } else {
-      errorHandler(res, "Review not submitted");
+      return errorHandler(res, "Review not submitted");
     }
   } catch (error) {
-    errorHandler(res, "Something went wrong");
+    return errorHandler(res, "Something went wrong");
   }
 };
 
