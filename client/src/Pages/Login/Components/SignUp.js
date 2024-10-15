@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { PostData } from "../../../Utility/API";
+import useLoader from "../../../Utility/CustomHooks/useLoader";
 import { isEmail } from "../../../Utility/Validation";
 import style from "../Login.module.scss";
 
 function SignUp({ setIsSignUp }) {
+  const { showLoader } = useLoader();
+
   const [userCredentials, setUserCredentials] = useState({
+    name: "",
     email: "",
     password: "",
     confirm_password: "",
@@ -25,10 +29,12 @@ function SignUp({ setIsSignUp }) {
       return;
     }
 
+    showLoader(true);
     PostData("register", userCredentials, updateSignUpHandler);
   };
 
   const updateSignUpHandler = (res) => {
+    showLoader(false);
     if (res.data.success) {
       setIsSignUp(false);
     }
@@ -47,6 +53,23 @@ function SignUp({ setIsSignUp }) {
         <div className="text-faint_text text-sm">Please enter your details.</div>
       </div>
       <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
+          <label className="font-semibold text-base text">
+            Name <span className="text-red">*</span>
+          </label>
+
+          <input
+            autoComplete="off"
+            onChange={inputChangeHandler}
+            value={userCredentials.name}
+            className={`border text-base outline-none rounded-lg p-3 ${
+              isErrorState && !isEmail(userCredentials.name) && style.errorState
+            }`}
+            type="text"
+            placeholder="Enter your name"
+            name="name"
+          />
+        </div>
         <div className="flex flex-col gap-2">
           <label className="font-semibold text-base text">
             Email <span className="text-red">*</span>
