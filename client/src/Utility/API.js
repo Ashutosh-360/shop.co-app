@@ -1,7 +1,7 @@
 import axios from "axios";
 import { store } from "../Store/store";
-let baseUrl = "http://localhost:8000/";
-// let baseUrl = "https://shopping-website-12o1.onrender.com/";
+// let baseUrl = "http://localhost:8000/";
+let baseUrl = "https://shopping-website-12o1.onrender.com/";
 
 export function GetData(apiRoute, payload, callback) {
   const auth = store.getState()?.auth?.authToken;

@@ -3,6 +3,7 @@ import casuals from "../../assets/casuals.png";
 import formals from "../../assets/formal.png";
 import party from "../../assets/party.png";
 import gym from "../../assets/gym.png";
+import { Link } from "react-router-dom";
 
 export default function BrowseByCategory() {
   return (
@@ -12,12 +13,22 @@ export default function BrowseByCategory() {
           BROWSE BY DRESS STYLE
         </span>
         <div className="flex justify-center gap-2 flex-wrap">
-          <img src={casuals} />
-          <img src={formals} />
+          <Link to={"/search_product"}>
+            <img src={casuals} />
+          </Link>
+          <Link to={"/search_product"}>
+            <img src={formals} />
+          </Link>
         </div>
         <div className="flex justify-center gap-2 flex-wrap">
-          <img src={party} />
-          <img src={gym} />
+          <Link to={"/search_product"}>
+
+            <img src={party} />
+          </Link>
+          <Link to={"/search_product"}>
+
+            <img src={gym} />
+          </Link>
         </div>
       </div>
     </>
