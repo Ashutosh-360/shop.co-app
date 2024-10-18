@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import NewArrivals from "../Homepage/Components/NewArrivals";
 import banner from "../../assets/landingBanner.png";
-
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import calvinklein from "../../assets/calvinKlein.png";

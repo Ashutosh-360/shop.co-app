@@ -10,6 +10,7 @@ const addReviewController = async (req, res) => {
     let { product_id } = req.body;
 
     let existingReviews = await Review.findOne({ product_id });
+    console.log(user, "user");
     req.body.reviewerName = user?.name || "Unknown";
 
     if (existingReviews) {
@@ -22,7 +23,6 @@ const addReviewController = async (req, res) => {
       product_id,
       reviews: [req.body],
     });
-console.log(result,"result")
     if (result) {
       await result.save();
       return successHandler(res, "Review submitted successfully", result);
