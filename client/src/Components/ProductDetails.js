@@ -11,6 +11,7 @@ import Popup from "./Popup/Popup";
 import loginCart from "../assets/shopping_cart_website.png";
 import { useSelector } from "react-redux";
 import useNeedToLogin from "../Utility/CustomHooks/useNeedToLogin";
+import FAQs from "./FAQs/FAQs";
 export default function ProductDetails() {
   const [bigImgToShow, setBigImgToShow] = useState();
   const [defaultselectedTab, setDefaultSelectedTab] =
@@ -28,7 +29,7 @@ export default function ProductDetails() {
   const [detailsAndReviewsTabs, setDetailsAndReviewsTabs] = useState([
     "Product Details",
     "Reviews",
-    "FAQ's",
+    "FAQs",
   ]);
 
   const changeImg = (ele, index) => {
@@ -174,10 +175,8 @@ export default function ProductDetails() {
                   return (
                     <span
                       onClick={() => selectedSizeHandler(ele)}
-                      className={`bg-gray-300 px-5 cursor-pointer py-2 w-fit rounded-3xl text-sm ${
-                        ele.size === selectedSize &&
-                        "text-white bg-gray-600 font-semibold"
-                      }`}
+                      className={`bg-gray-300 px-5 cursor-pointer py-2 w-fit rounded-3xl text-sm ${ele.size === selectedSize && "text-white bg-gray-600 font-semibold"
+                        }`}
                     >
                       {ele?.size}
                     </span>
@@ -219,9 +218,8 @@ export default function ProductDetails() {
                 <Link to={"/wishlist"}>My Wishlist</Link>
               </button>
               <button
-                className={`bg-gray-200 min-w-[150px] w-1/2 py-2 rounded-3xl ${
-                  productDetails.is_wishlist && "text-white bg-gray-900"
-                }`}
+                className={`bg-gray-200 min-w-[150px] w-1/2 py-2 rounded-3xl ${productDetails.is_wishlist && "text-white bg-gray-900"
+                  }`}
                 onClick={updateWishlist}
               >
                 {productDetails.is_wishlist
@@ -236,10 +234,8 @@ export default function ProductDetails() {
             {detailsAndReviewsTabs?.map((ele, index) => {
               return (
                 <div
-                  className={`cursor-pointer py-3 px-6 text-center w-full border-b-2 text-base ${
-                    defaultselectedTab == ele &&
-                    "border-b-[3px] border-black text-black"
-                  }`}
+                  className={`cursor-pointer py-3 px-6 text-center w-full border-b-2 text-base ${defaultselectedTab == ele && "border-b-[3px] border-black text-black"
+                    }`}
                   key={index}
                   onClick={() => toggleDetailsAndReviewsTabs(ele)}
                 >
@@ -270,6 +266,9 @@ export default function ProductDetails() {
 
             {defaultselectedTab == "Reviews" && productDetails?._id && (
               <Reviews productDetails={productDetails} />
+            )}
+            {defaultselectedTab == "FAQs" && productDetails?._id && (
+              <FAQs />
             )}
           </div>
         </div>
