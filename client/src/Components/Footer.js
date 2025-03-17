@@ -91,7 +91,7 @@ function Footer() {
           </div>
           <hr />
           <div className="flex justify-between lg:flex-row  flex-col-reverse max-w-screen-xl m-auto py-3 items-center">
-            <div>Shop.co © 2000-2024, All Rights Reserved</div>
+            <div>Shop.co © 2000-2025, All Rights Reserved</div>
             <div className="flex">
               <img src={visa} />
               <img src={mastercard} />

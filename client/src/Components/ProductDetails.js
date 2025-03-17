@@ -7,9 +7,14 @@ import Reviews from "./Reviews/Reviews";
 import { Link, useSearchParams } from "react-router-dom";
 import Loader from "./Loader";
 import useLoader from "../Utility/CustomHooks/useLoader";
+import Popup from "./Popup/Popup";
+import loginCart from "../assets/shopping_cart_website.png";
+import { useSelector } from "react-redux";
+import useNeedToLogin from "../Utility/CustomHooks/useNeedToLogin";
 export default function ProductDetails() {
   const [bigImgToShow, setBigImgToShow] = useState();
-  const [defaultselectedTab, setDefaultSelectedTab] = useState("Product Details");
+  const [defaultselectedTab, setDefaultSelectedTab] =
+    useState("Product Details");
   const [productDetails, setProductDetails] = useState({});
   const [selectedSize, setSelectedSize] = useState();
   const [count, setCount] = useState(1);
@@ -17,7 +22,9 @@ export default function ProductDetails() {
   const [isAdded, setIsAdded] = useState(false);
   const { showLoader } = useLoader();
   const id = query.get("id");
+  const { showNeedToOpenPopup, isNeedToLoginPopupOpen } = useNeedToLogin();
 
+  const authToken = useSelector((state) => state.auth.authToken);
   const [detailsAndReviewsTabs, setDetailsAndReviewsTabs] = useState([
     "Product Details",
     "Reviews",
@@ -29,7 +36,11 @@ export default function ProductDetails() {
   };
   useEffect(() => {
     showLoader(true);
-    GetData("get_product_details", { product_id: id }, updateProductDetailsHandler);
+    GetData(
+      "get_product_details",
+      { product_id: id },
+      updateProductDetailsHandler
+    );
   }, []);
 
   const updateProductDetailsHandler = (res) => {
@@ -47,6 +58,10 @@ export default function ProductDetails() {
   };
 
   const updateWishlist = () => {
+    if (!authToken) {
+      showNeedToOpenPopup(true);
+      return;
+    }
     showLoader(true);
     PostData(
       "update_wishlist",
@@ -73,6 +88,10 @@ export default function ProductDetails() {
   };
 
   const addToCartHandler = () => {
+    if (!authToken) {
+      showNeedToOpenPopup(true);
+      return;
+    }
     if (!selectedSize) {
       alert("Please select size first");
       return;
@@ -118,23 +137,35 @@ export default function ProductDetails() {
             </div>
           </div>
           <div className="detailsRIghtContainer w-full lg:w-1/2 lg:ml-4 flex flex-col gap-4">
-            <div className="text-4xl font-extrabold">{productDetails?.name?.toUpperCase()}</div>
+            <div className="text-4xl font-extrabold">
+              {productDetails?.name?.toUpperCase()}
+            </div>
             <div className="product-card flex gap-4 items-center">
               <StarRating rating={productDetails?.rating} />
-              <div className="font-semibold text-base">{productDetails?.rating}/5</div>
+              <div className="font-semibold text-base">
+                {productDetails?.rating}/5
+              </div>
             </div>
             <div className="priceAndDiscount ">
               <div className="text-2xl font-bold flex items-center  gap-4 ">
                 ${productDetails?.discounted_price}
-                <span className="text-gray-400 line-through">${productDetails?.price}</span>
+                <span className="text-gray-400 line-through">
+                  ${productDetails?.price}
+                </span>
                 <div className=" discountPercentage bg-red-200 text-red-500 font-normal text-sm  text-gray-800 bg-rose-500 p-2 py-1 rounded-full">
                   {100 -
-                    ((productDetails?.discounted_price / productDetails?.price) * 100)?.toFixed(0)}
+                    (
+                      (productDetails?.discounted_price /
+                        productDetails?.price) *
+                      100
+                    )?.toFixed(0)}
                   %
                 </div>
               </div>
             </div>
-            <div className=" text-gray-400">{productDetails?.product_description}</div>
+            <div className=" text-gray-400">
+              {productDetails?.product_description}
+            </div>
 
             <div className="sizeContainer flex flex-col gap-4">
               <div className="text-gray-500">Choose Size</div>
@@ -144,7 +175,8 @@ export default function ProductDetails() {
                     <span
                       onClick={() => selectedSizeHandler(ele)}
                       className={`bg-gray-300 px-5 cursor-pointer py-2 w-fit rounded-3xl text-sm ${
-                        ele.size === selectedSize && "text-white bg-gray-600 font-semibold"
+                        ele.size === selectedSize &&
+                        "text-white bg-gray-600 font-semibold"
                       }`}
                     >
                       {ele?.size}
@@ -160,7 +192,9 @@ export default function ProductDetails() {
                   <button className="text-lg px-4" onClick={decrementHandler}>
                     <i class="fa-solid fa-minus"></i>
                   </button>
-                  <div className="text-lg min-w-[25px] text-center">{count}</div>
+                  <div className="text-lg min-w-[25px] text-center">
+                    {count}
+                  </div>
                   <button className="text-lg px-4" onClick={incrementHandler}>
                     <i class="fa-solid fa-plus"></i>
                   </button>
@@ -190,7 +224,9 @@ export default function ProductDetails() {
                 }`}
                 onClick={updateWishlist}
               >
-                {productDetails.is_wishlist ? "Added to Wishlist" : "Add To Wishlist"}
+                {productDetails.is_wishlist
+                  ? "Added to Wishlist"
+                  : "Add To Wishlist"}
               </button>
             </div>
           </div>
@@ -201,7 +237,8 @@ export default function ProductDetails() {
               return (
                 <div
                   className={`cursor-pointer py-3 px-6 text-center w-full border-b-2 text-base ${
-                    defaultselectedTab == ele && "border-b-[3px] border-black text-black"
+                    defaultselectedTab == ele &&
+                    "border-b-[3px] border-black text-black"
                   }`}
                   key={index}
                   onClick={() => toggleDetailsAndReviewsTabs(ele)}
@@ -220,7 +257,9 @@ export default function ProductDetails() {
                 </div>
                 <div className="flex flex-col gap-2">
                   <span className="font-semibold">Care Instructions: </span>
-                  <span className="w-96">{productDetails?.product_details?.care_instructions}</span>
+                  <span className="w-96">
+                    {productDetails?.product_details?.care_instructions}
+                  </span>
                 </div>
                 <div className="flex flex-col gap-2">
                   <span className="font-semibold">Material: </span>
@@ -235,10 +274,26 @@ export default function ProductDetails() {
           </div>
         </div>
         <div className="w-full flex flex-col gap-8">
-          <div className="font-extrabold text-3xl lg:text-4xl text-center">YOU MIGHT ALSO LIKE</div>
-          {productDetails?._id && <Recommendations productId={productDetails?._id} />}
+          <div className="font-extrabold text-3xl lg:text-4xl text-center">
+            YOU MIGHT ALSO LIKE
+          </div>
+          {productDetails?._id && (
+            <Recommendations productId={productDetails?._id} />
+          )}
         </div>
       </div>
+      <Popup isOpen={isNeedToLoginPopupOpen}>
+        <div className="flex flex-col gap-2 min-w-[300px] justify-center items-center">
+          <img src={loginCart} alt=""></img>
+          <div className="text-lg font-semibold">You need to login first</div>
+          <Link
+            to={"/login"}
+            className="text-white bg-primary rounded-lg px-6 py-2"
+          >
+            Go to Login
+          </Link>
+        </div>
+      </Popup>
     </>
   );
 }
