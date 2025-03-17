@@ -3,7 +3,7 @@ import { PostData } from "../../Utility/API";
 
 function UpdateInventory() {
   const inventoryData = {
-    product_id: "65a3f37b3766e6633e1adb51", // Replace with the actual product ID
+    product_id: "65955a17a5b582e677890d2e", // Replace with the actual product ID
     available_quantity: [
       {
         size: "S",
