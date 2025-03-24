@@ -10,25 +10,21 @@ export default function MyWishlist() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    GetData("get_wishlist", {}, handleWishListData)
-  },[]);
+    GetData("get_wishlist", {}, handleWishListData);
+  }, []);
 
-  const handleWishListData = (response)=>{
-    console.log(response.data.results, "wishlist");
-      setWishlistData(response.data.results);
-      setIsLoading(false);
-  }
+  const handleWishListData = (response) => {
+    setWishlistData(response.data.results);
+    setIsLoading(false);
+  };
 
   return (
     <>
       {isLoading ? <Loader /> : ""}
       {!isLoading && (
         <div className="max-w-screen-xl m-auto pt-6 flex flex-col gap-4">
-          <div className="flex items-center gap-2 text-lg"><a href="/profile">Profile</a>
-             <img className="w-2 h-fit" src={arrow} /> Wishlist
-          </div>
           <div className="font-bold text-3xl">Your Wishlist</div>
-          <div className="flex gap-3 py-8 px-1 max-w-screen-xl m-auto">
+          <div className="flex gap-3 py-8 px-1">
             {!!wishlistData ? (
               wishlistData?.map((item) => {
                 return (

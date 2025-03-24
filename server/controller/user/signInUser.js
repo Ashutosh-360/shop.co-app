@@ -20,14 +20,14 @@ const signInUser = async (req, res) => {
     const user = await User.findOne({ email });
 
     if (isEmpty(user)) {
-      errorHandler(res, "User not found");
+      errorHandler(res, "Invalid Credentials");
       return;
     }
 
     let isPasswordValid = await bcrypt.compare(password, user?.password);
 
     if (!isPasswordValid) {
-      errorHandler(res, "Incorrect Password");
+      errorHandler(res, "Invalid Credentials");
       return;
     }
 
