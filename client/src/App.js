@@ -10,8 +10,8 @@ function App() {
   const { isLoading } = useLoader();
   return (
     <>
-      <RouterProvider router={router} />;{isLoading && <Loader />}
-      
+      <RouterProvider router={router} />
+      {isLoading && <Loader />}
     </>
   );
 }

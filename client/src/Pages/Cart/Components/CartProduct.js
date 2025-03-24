@@ -51,8 +51,13 @@ function CartProduct({ item, callCartApiHandler, setIsLoading }) {
               <span className="text-faint_text">{item?.variant?.color} </span>
             </div>
           </div>
-          <div className="font-semibold">
-            {item.currency} {item.discounted_price}
+          <div className="font-semibold flex gap-2">
+            <div>
+              {item.currency} {item.discounted_price}
+            </div>
+            <div className="text-pink-500 line-through">
+              {item.currency} {item?.price}
+            </div>
           </div>
         </div>
         <div className="flex flex-col justify-between gap-2 items-end">

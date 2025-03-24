@@ -46,7 +46,9 @@ function Cart() {
     );
   };
 
-  const checkoutToPay = () => {};
+  const checkoutToPay = () => {
+    
+  };
 
   return (
     <>
